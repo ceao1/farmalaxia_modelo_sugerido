@@ -1,0 +1,14 @@
+# datos: pesados y reproducibles
+datos/crudo/
+datos/derivado/
+*.bak
+*.tsv
+*.parquet
+
+.venv/
+__pycache__/
+
+.DS_Store
+
+# estado automático del plugin GSD, se reescribe solo
+.planning/

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recomendador de SKUs · Farmalaxia</title>
+<meta name="description" content="Análisis de doce meses de preventa y prueba de concepto de un recomendador de productos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f4f6f8; --surface:#fff; --surface-2:#eef1f5; --line:#d9dfe6; --line-soft:#e7ecf1;
+  --ink:#10161d; --ink-2:#4a5765; --ink-3:#78848f;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --ref:#b3bcc6;
+  --plain-bg:#f0f7f4; --plain-line:#c5e3d7; --s3-ink:#127a55;
+  --warn-bg:#fdf4ef; --warn-line:#f2d3bf;
+  --shadow:0 1px 2px rgba(16,22,29,.05), 0 8px 24px -12px rgba(16,22,29,.16);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#101418; --surface:#171c22; --surface-2:#1e242b; --line:#2b333c; --line-soft:#232a31;
+  --ink:#eef2f6; --ink-2:#a7b3bf; --ink-3:#7b8794;
+  --s1:#3987e5; --s2:#e0713f; --s3:#199e70; --s4:#c98500; --ref:#4a5661;
+  --plain-bg:#15211d; --plain-line:#27423a; --s3-ink:#4fc79b;
+  --warn-bg:#241a14; --warn-line:#4a3527;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --bg:#101418; --surface:#171c22; --surface-2:#1e242b; --line:#2b333c; --line-soft:#232a31;
+  --ink:#eef2f6; --ink-2:#a7b3bf; --ink-3:#7b8794;
+  --s1:#3987e5; --s2:#e0713f; --s3:#199e70; --s4:#c98500; --ref:#4a5661;
+  --plain-bg:#15211d; --plain-line:#27423a; --s3-ink:#4fc79b;
+  --warn-bg:#241a14; --warn-line:#4a3527;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:96px}
+body{background:var(--bg); color:var(--ink); margin:0;
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15.5px; line-height:1.65; -webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:Archivo,system-ui,sans-serif; text-wrap:balance; margin:0;}
+h1{font-size:clamp(2rem,5vw,3.1rem); font-weight:800; letter-spacing:-.028em; line-height:1.06;}
+h2{font-size:clamp(1.4rem,3.2vw,1.95rem); font-weight:700; letter-spacing:-.02em; line-height:1.18;}
+h3{font-size:1.12rem; font-weight:700; letter-spacing:-.01em;}
+h4{font-size:.95rem; font-weight:600;}
+p{margin:0}
+a{color:var(--s1)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;}
+
+/* ---------- barra superior ---------- */
+.top{position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+.top-in{max-width:1060px; margin:0 auto; padding:11px 20px; display:flex; align-items:center;
+  gap:16px; flex-wrap:wrap;}
+.marca{font-family:Archivo,sans-serif; font-weight:800; letter-spacing:-.02em; font-size:1rem;
+  margin-right:auto;}
+.marca span{color:var(--ink-3); font-weight:600;}
+.navsec{display:flex; gap:3px; flex-wrap:wrap; font-size:.78rem;}
+.navsec a{color:var(--ink-3); text-decoration:none; padding:4px 8px; border-radius:6px;}
+.navsec a:hover{background:var(--surface-2); color:var(--ink);}
+
+/* ---------- estructura ---------- */
+.wrap{max-width:1060px; margin:0 auto; padding-inline:20px; padding-block:0 80px;}
+header.hero{padding-block:56px 34px; border-bottom:2px solid var(--ink); margin-bottom:42px;}
+.hero .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:.7rem; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--s2); margin-bottom:14px;}
+.hero .lede{font-size:1.12rem; color:var(--ink-2); max-width:64ch; margin-top:18px;}
+.hero .meta{display:flex; flex-wrap:wrap; gap:8px 22px; font-size:.78rem; color:var(--ink-3);
+  font-family:"IBM Plex Mono",monospace; margin-top:22px;}
+section{margin-bottom:66px; scroll-margin-top:90px;}
+.snum{font-family:"IBM Plex Mono",monospace; font-size:.72rem; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:8px;}
+.lead{font-size:1.06rem; color:var(--ink-2); max-width:70ch; margin-top:12px;}
+.lead strong{color:var(--ink); font-weight:600;}
+p.t{color:var(--ink-2); max-width:70ch; margin-top:14px;}
+p.t strong{color:var(--ink); font-weight:600;}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  padding:22px 20px 12px; box-shadow:var(--shadow); margin-top:20px; overflow-x:auto;}
+.nota{font-size:.86rem; color:var(--ink-3); margin-top:13px; max-width:72ch;}
+.nota b{color:var(--ink-2); font-weight:600;}
+
+/* ---------- cifras ---------- */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  margin-top:24px;}
+.stat{background:var(--surface); padding:17px 18px; display:flex; flex-direction:column; gap:3px;}
+.stat .v{font-family:Archivo,sans-serif; font-size:1.72rem; font-weight:700; letter-spacing:-.03em;
+  line-height:1.08; font-variant-numeric:tabular-nums;}
+.stat .k{font-size:.75rem; color:var(--ink-3); line-height:1.35;}
+.stat.hi .v{color:var(--s2);}
+
+/* ---------- bloques de voz ---------- */
+.plain{background:var(--plain-bg); border:1px solid var(--plain-line); border-radius:11px;
+  padding:20px 22px; margin-top:20px; display:flex; flex-direction:column; gap:11px;}
+.plain .tag{display:inline-flex; align-items:center; gap:7px; font-family:"IBM Plex Mono",monospace;
+  font-size:.67rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--s3-ink); align-self:flex-start;}
+.plain .tag::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--s3);}
+.plain p{font-size:.98rem; color:var(--ink-2); max-width:72ch;}
+.plain p strong{color:var(--ink); font-weight:600;}
+.plain ul{margin:0; padding-left:19px; display:flex; flex-direction:column; gap:7px;}
+.plain li{font-size:.95rem; color:var(--ink-2);}
+.plain li b{color:var(--ink); font-weight:600;}
+.warn{background:var(--warn-bg); border-color:var(--warn-line);}
+.warn .tag{color:var(--s2);} .warn .tag::before{background:var(--s2);}
+
+/* ---------- tablas ---------- */
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:11px; background:var(--surface);
+  margin-top:20px;}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:.87rem;}
+th,td{padding:11px 15px; text-align:right; border-bottom:1px solid var(--line-soft);}
+th:first-child,td:first-child{text-align:left;}
+thead th{font-size:.7rem; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3);
+  font-weight:600; background:var(--surface-2); position:sticky; top:0;}
+tbody tr:last-child td{border-bottom:none;}
+td.n{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;}
+tr.dest td{background:color-mix(in srgb,var(--s1) 8%,transparent); font-weight:600;}
+tr.dim td{color:var(--ink-3);}
+
+/* ---------- svg ---------- */
+.g-chart{display:block; width:100%; height:auto; min-width:540px;}
+.g-grid{stroke:var(--line-soft); stroke-width:1;}
+.g-yt{fill:var(--ink-3); font-size:11.5px; text-anchor:end; font-family:"IBM Plex Mono",monospace;}
+.g-xt{fill:var(--ink-3); font-size:11.5px; text-anchor:middle; font-family:"IBM Plex Mono",monospace;}
+.g-xt.str{font-weight:600; fill:var(--ink-2);}
+.g-ax{fill:var(--ink-3); font-size:11.5px; text-anchor:middle;}
+.g-lab{fill:var(--ink-2); font-size:11px; font-weight:600; text-anchor:middle;
+  font-family:"IBM Plex Mono",monospace;}
+.g-lab.sm{font-size:9.5px;}
+.g-leg{fill:var(--ink-2); font-size:11.5px;}
+.g-bar{fill:var(--s1);} .g-bar.acc{fill:var(--s2);} .g-bar.c1{fill:var(--s1);}
+.g-bar.c2{fill:var(--s3);} .g-bar.c3{fill:var(--s2); opacity:.55;} .g-bar.c4{fill:var(--s4);}
+.g-bar.mut{fill:var(--s1); opacity:.4;}
+.g-seg.c1{fill:var(--s1);} .g-seg.c2{fill:var(--s3);} .g-seg.c3{fill:var(--s2);}
+.g-seg.c4{fill:var(--s4);} .g-seg.mut{fill:var(--ref);}
+.g-segl{fill:#fff; font-size:12.5px; font-weight:600; text-anchor:middle;
+  font-family:"IBM Plex Mono",monospace;}
+.g-line{fill:none; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round;}
+.g-line.c1{stroke:var(--s1);} .g-line.c2{stroke:var(--s3);} .g-line.c3{stroke:var(--s2);}
+.g-line.ref{stroke:var(--ref); stroke-dasharray:5 5; stroke-width:1.6;}
+.g-dot{stroke:var(--surface); stroke-width:2;}
+.g-dot.c1{fill:var(--s1);} .g-dot.c2{fill:var(--s3);} .g-dot.c3{fill:var(--s2);}
+
+/* ---------- callout a otro documento ---------- */
+.callout{display:flex; gap:20px; align-items:center; flex-wrap:wrap; margin-top:24px;
+  background:linear-gradient(135deg,var(--surface) 0%,var(--surface-2) 100%);
+  border:1px solid var(--line); border-left:4px solid var(--s1); border-radius:12px;
+  padding:22px 24px; box-shadow:var(--shadow);}
+.co-txt{flex:1 1 320px}
+.co-txt h3{margin-bottom:6px}
+.co-txt p{font-size:.93rem; color:var(--ink-2); max-width:62ch}
+.co-btn{flex:none; background:var(--s1); color:#fff; text-decoration:none; font-weight:600;
+  font-size:.9rem; padding:11px 20px; border-radius:9px; white-space:nowrap;}
+.co-btn:hover{filter:brightness(1.08)}
+.co-btn:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+
+/* ---------- fichas de variable ---------- */
+.vars{display:flex; flex-direction:column; gap:0; margin-top:22px;
+  border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface);}
+.var{display:grid; grid-template-columns:minmax(150px,190px) 1fr auto; gap:16px; align-items:baseline;
+  padding:15px 20px; border-bottom:1px solid var(--line-soft);}
+.var:last-child{border-bottom:0}
+.var .vn{font-family:"IBM Plex Mono",monospace; font-size:.83rem; font-weight:600; color:var(--ink);}
+.var .vd{font-size:.92rem; color:var(--ink-2);}
+.var .vp{font-family:"IBM Plex Mono",monospace; font-size:.85rem; font-weight:600;
+  color:var(--s1); text-align:right; white-space:nowrap;}
+.var.baja .vp{color:var(--ink-3)}
+.vfam{background:var(--surface-2); padding:9px 20px; font-family:"IBM Plex Mono",monospace;
+  font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-3); border-bottom:1px solid var(--line-soft);}
+@media (max-width:620px){ .var{grid-template-columns:1fr; gap:4px} .var .vp{text-align:left} }
+
+/* ---------- rejillas ---------- */
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:16px; margin-top:20px;}
+.tk{background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:19px;
+  display:flex; flex-direction:column; gap:8px;}
+.tk h3{color:var(--s1); font-size:1rem;}
+.tk p{font-size:.9rem; color:var(--ink-2);}
+.pasos{counter-reset:p; display:flex; flex-direction:column; gap:14px; margin-top:20px; padding:0; list-style:none;}
+.pasos li{counter-increment:p; position:relative; padding-left:44px; color:var(--ink-2);}
+.pasos li::before{content:counter(p); position:absolute; left:0; top:-1px; width:28px; height:28px;
+  border-radius:8px; background:var(--s1); color:#fff; font-family:Archivo,sans-serif;
+  font-weight:700; font-size:.85rem; display:grid; place-items:center;}
+.pasos li b{color:var(--ink);}
+
+footer{border-top:1px solid var(--line); padding-block:26px 40px; margin-top:20px;
+  font-size:.8rem; color:var(--ink-3); font-family:"IBM Plex Mono",monospace;
+  display:flex; flex-wrap:wrap; gap:6px 20px;}
+
+@media (max-width:620px){
+  .wrap{padding-block:0 50px} header.hero{padding-block:34px 26px; margin-bottom:30px}
+  section{margin-bottom:46px} .navsec{display:none}
+}
+@media print{ .top{position:static} .navsec{display:none} section{break-inside:avoid} }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+</style>
+</head>
+<body>
+<div class="top"><div class="top-in">
+  <div class="marca">Farmalaxia <span>· recomendador de SKUs</span></div>
+  <nav class="navsec">
+    <a href="#contexto">Contexto</a><a href="#datos">Datos</a><a href="#metodo">Método</a>
+    <a href="#variables">Variables</a><a href="#resultados">Resultados</a>
+    <a href="#hallazgos">Hallazgos</a><a href="#validar">Experimento</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+{{CUERPO}}
+<footer>
+  <span>Mes de prueba: julio 2026</span>
+  <span>24.578 clientes evaluados</span>
+  <span>Generado con src/13_sitio.py</span>
+</footer>
+</div>
+
+</body>
+</html>

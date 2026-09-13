@@ -1,0 +1,786 @@
+{
+  "mes_prueba": "2026-07",
+  "clientes_evaluados": 24578,
+  "candidatos_por_cliente": 403,
+  "compras_por_cliente_mes": 3.47,
+  "positivos_pct": 1.635,
+  "importancias": [
+    {
+      "variable": "peso_marca",
+      "ganancia": 171847.0,
+      "pct": 30.2
+    },
+    {
+      "variable": "afin_max",
+      "ganancia": 150282.7,
+      "pct": 26.4
+    },
+    {
+      "variable": "es_dormido",
+      "ganancia": 49691.7,
+      "pct": 8.7
+    },
+    {
+      "variable": "pop_global",
+      "ganancia": 42701.5,
+      "pct": 7.5
+    },
+    {
+      "variable": "precio",
+      "ganancia": 39867.8,
+      "pct": 7.0
+    },
+    {
+      "variable": "rango_ruta",
+      "ganancia": 28910.0,
+      "pct": 5.1
+    },
+    {
+      "variable": "meses_disponible",
+      "ganancia": 22448.3,
+      "pct": 3.9
+    },
+    {
+      "variable": "pct_core",
+      "ganancia": 21596.7,
+      "pct": 3.8
+    },
+    {
+      "variable": "afin_suma",
+      "ganancia": 10372.0,
+      "pct": 1.8
+    },
+    {
+      "variable": "pop_ruta",
+      "ganancia": 9608.9,
+      "pct": 1.7
+    },
+    {
+      "variable": "n_compras_cliente",
+      "ganancia": 7293.2,
+      "pct": 1.3
+    },
+    {
+      "variable": "marca_conocida",
+      "ganancia": 4422.1,
+      "pct": 0.8
+    },
+    {
+      "variable": "n_skus_cliente",
+      "ganancia": 3914.7,
+      "pct": 0.7
+    },
+    {
+      "variable": "ticket_medio",
+      "ganancia": 3781.2,
+      "pct": 0.7
+    },
+    {
+      "variable": "skus_de_la_marca",
+      "ganancia": 2573.2,
+      "pct": 0.5
+    }
+  ],
+  "politicas": {
+    "libre": {
+      "hit_rate_8": {
+        "B0": 37.22,
+        "B1": 48.67,
+        "P1": 50.93,
+        "P2": 52.0,
+        "P3": 58.79
+      },
+      "intervalo_95": {
+        "B0": [
+          36.64,
+          37.95
+        ],
+        "B1": [
+          48.09,
+          49.32
+        ],
+        "P1": [
+          50.34,
+          51.61
+        ],
+        "P2": [
+          51.43,
+          52.66
+        ],
+        "P3": [
+          58.33,
+          59.41
+        ]
+      },
+      "curvas": {
+        "B0": [
+          {
+            "N": 3,
+            "hit_rate": 16.99,
+            "recall": 3.38,
+            "precision": 6.35,
+            "map": 4.33
+          },
+          {
+            "N": 5,
+            "hit_rate": 28.5,
+            "recall": 6.19,
+            "precision": 7.19,
+            "map": 4.24
+          },
+          {
+            "N": 8,
+            "hit_rate": 37.22,
+            "recall": 9.65,
+            "precision": 7.0,
+            "map": 4.3
+          },
+          {
+            "N": 16,
+            "hit_rate": 54.19,
+            "recall": 17.55,
+            "precision": 7.07,
+            "map": 4.99
+          },
+          {
+            "N": 24,
+            "hit_rate": 61.45,
+            "recall": 23.6,
+            "precision": 6.61,
+            "map": 5.7
+          },
+          {
+            "N": 40,
+            "hit_rate": 68.99,
+            "recall": 31.64,
+            "precision": 5.46,
+            "map": 6.48
+          }
+        ],
+        "B1": [
+          {
+            "N": 3,
+            "hit_rate": 31.54,
+            "recall": 8.56,
+            "precision": 15.22,
+            "map": 13.53
+          },
+          {
+            "N": 5,
+            "hit_rate": 40.54,
+            "recall": 12.89,
+            "precision": 13.86,
+            "map": 12.04
+          },
+          {
+            "N": 8,
+            "hit_rate": 48.67,
+            "recall": 18.04,
+            "precision": 12.31,
+            "map": 11.58
+          },
+          {
+            "N": 16,
+            "hit_rate": 61.79,
+            "recall": 27.63,
+            "precision": 9.62,
+            "map": 12.28
+          },
+          {
+            "N": 24,
+            "hit_rate": 70.35,
+            "recall": 35.01,
+            "precision": 8.19,
+            "map": 13.09
+          },
+          {
+            "N": 40,
+            "hit_rate": 79.05,
+            "recall": 45.78,
+            "precision": 6.65,
+            "map": 14.11
+          }
+        ],
+        "P1": [
+          {
+            "N": 3,
+            "hit_rate": 33.21,
+            "recall": 9.19,
+            "precision": 15.94,
+            "map": 14.12
+          },
+          {
+            "N": 5,
+            "hit_rate": 42.8,
+            "recall": 13.7,
+            "precision": 14.45,
+            "map": 12.55
+          },
+          {
+            "N": 8,
+            "hit_rate": 50.93,
+            "recall": 18.69,
+            "precision": 12.64,
+            "map": 11.97
+          },
+          {
+            "N": 16,
+            "hit_rate": 63.16,
+            "recall": 28.05,
+            "precision": 9.78,
+            "map": 12.64
+          },
+          {
+            "N": 24,
+            "hit_rate": 70.55,
+            "recall": 35.03,
+            "precision": 8.25,
+            "map": 13.42
+          },
+          {
+            "N": 40,
+            "hit_rate": 79.07,
+            "recall": 46.41,
+            "precision": 6.73,
+            "map": 14.5
+          }
+        ],
+        "P2": [
+          {
+            "N": 3,
+            "hit_rate": 35.91,
+            "recall": 9.89,
+            "precision": 18.53,
+            "map": 16.92
+          },
+          {
+            "N": 5,
+            "hit_rate": 43.74,
+            "recall": 14.25,
+            "precision": 16.57,
+            "map": 14.89
+          },
+          {
+            "N": 8,
+            "hit_rate": 52.0,
+            "recall": 19.81,
+            "precision": 14.69,
+            "map": 14.05
+          },
+          {
+            "N": 16,
+            "hit_rate": 64.81,
+            "recall": 30.44,
+            "precision": 11.5,
+            "map": 14.61
+          },
+          {
+            "N": 24,
+            "hit_rate": 72.53,
+            "recall": 38.17,
+            "precision": 9.65,
+            "map": 15.48
+          },
+          {
+            "N": 40,
+            "hit_rate": 80.8,
+            "recall": 49.28,
+            "precision": 7.58,
+            "map": 16.6
+          }
+        ],
+        "P3": [
+          {
+            "N": 3,
+            "hit_rate": 40.68,
+            "recall": 11.36,
+            "precision": 19.77,
+            "map": 17.71
+          },
+          {
+            "N": 5,
+            "hit_rate": 50.25,
+            "recall": 16.41,
+            "precision": 17.67,
+            "map": 15.61
+          },
+          {
+            "N": 8,
+            "hit_rate": 58.79,
+            "recall": 22.38,
+            "precision": 15.47,
+            "map": 14.81
+          },
+          {
+            "N": 16,
+            "hit_rate": 71.49,
+            "recall": 34.66,
+            "precision": 12.28,
+            "map": 15.78
+          },
+          {
+            "N": 24,
+            "hit_rate": 77.88,
+            "recall": 43.29,
+            "precision": 10.42,
+            "map": 16.9
+          },
+          {
+            "N": 40,
+            "hit_rate": 84.44,
+            "recall": 54.78,
+            "precision": 8.15,
+            "map": 18.19
+          }
+        ]
+      },
+      "negocio": {
+        "B0": {
+          "aciertos_por_cliente": 0.56,
+          "sku_extra_por_compra": 0.161,
+          "importe_por_cliente": 26.4,
+          "aciertos_dormido": 8656,
+          "aciertos_nunca": 5101,
+          "pct_descubrimiento": 37.1
+        },
+        "B1": {
+          "aciertos_por_cliente": 0.985,
+          "sku_extra_por_compra": 0.284,
+          "importe_por_cliente": 41.2,
+          "aciertos_dormido": 12667,
+          "aciertos_nunca": 11547,
+          "pct_descubrimiento": 47.7
+        },
+        "P1": {
+          "aciertos_por_cliente": 1.011,
+          "sku_extra_por_compra": 0.292,
+          "importe_por_cliente": 46.7,
+          "aciertos_dormido": 13913,
+          "aciertos_nunca": 10945,
+          "pct_descubrimiento": 44.0
+        },
+        "P2": {
+          "aciertos_por_cliente": 1.175,
+          "sku_extra_por_compra": 0.339,
+          "importe_por_cliente": 29.7,
+          "aciertos_dormido": 16085,
+          "aciertos_nunca": 12806,
+          "pct_descubrimiento": 44.3
+        },
+        "P3": {
+          "aciertos_por_cliente": 1.238,
+          "sku_extra_por_compra": 0.357,
+          "importe_por_cliente": 57.2,
+          "aciertos_dormido": 23394,
+          "aciertos_nunca": 7024,
+          "pct_descubrimiento": 23.1
+        }
+      },
+      "desglose": {
+        "B0": {
+          "dormido": 8656,
+          "nunca": 5101
+        },
+        "B1": {
+          "dormido": 12667,
+          "nunca": 11547
+        },
+        "P1": {
+          "dormido": 13913,
+          "nunca": 10945
+        },
+        "P2": {
+          "dormido": 16085,
+          "nunca": 12806
+        },
+        "P3": {
+          "dormido": 23394,
+          "nunca": 7024
+        }
+      },
+      "veredicto": {
+        "mejor_propuesta": "P3",
+        "b1": 48.67,
+        "objetivo": 53.67,
+        "logrado": true,
+        "diferencia_pp": 10.12
+      },
+      "escenarios": [
+        {
+          "tasa_conversion": 0.1,
+          "mensual": 140586.0,
+          "anual": 1687034.0
+        },
+        {
+          "tasa_conversion": 0.2,
+          "mensual": 281172.0,
+          "anual": 3374068.0
+        },
+        {
+          "tasa_conversion": 0.3,
+          "mensual": 421758.0,
+          "anual": 5061102.0
+        }
+      ]
+    },
+    "mixta": {
+      "hit_rate_8": {
+        "B0": 47.34,
+        "B1": 53.84,
+        "P1": 53.46,
+        "P2": 52.75,
+        "P3": 57.6
+      },
+      "intervalo_95": {
+        "B0": [
+          46.74,
+          47.98
+        ],
+        "B1": [
+          53.26,
+          54.53
+        ],
+        "P1": [
+          52.97,
+          54.13
+        ],
+        "P2": [
+          52.23,
+          53.37
+        ],
+        "P3": [
+          57.08,
+          58.17
+        ]
+      },
+      "curvas": {
+        "B0": [
+          {
+            "N": 3,
+            "hit_rate": 16.99,
+            "recall": 3.38,
+            "precision": 6.35,
+            "map": 4.33
+          },
+          {
+            "N": 5,
+            "hit_rate": 34.99,
+            "recall": 8.43,
+            "precision": 9.12,
+            "map": 5.03
+          },
+          {
+            "N": 8,
+            "hit_rate": 47.34,
+            "recall": 14.08,
+            "precision": 9.74,
+            "map": 5.63
+          },
+          {
+            "N": 16,
+            "hit_rate": 60.16,
+            "recall": 20.33,
+            "precision": 7.72,
+            "map": 5.26
+          },
+          {
+            "N": 24,
+            "hit_rate": 64.77,
+            "recall": 25.57,
+            "precision": 6.94,
+            "map": 5.84
+          },
+          {
+            "N": 40,
+            "hit_rate": 70.47,
+            "recall": 32.72,
+            "precision": 5.55,
+            "map": 6.53
+          }
+        ],
+        "B1": [
+          {
+            "N": 3,
+            "hit_rate": 31.54,
+            "recall": 8.56,
+            "precision": 15.22,
+            "map": 13.53
+          },
+          {
+            "N": 5,
+            "hit_rate": 43.28,
+            "recall": 13.64,
+            "precision": 14.37,
+            "map": 12.17
+          },
+          {
+            "N": 8,
+            "hit_rate": 53.84,
+            "recall": 19.69,
+            "precision": 12.94,
+            "map": 11.75
+          },
+          {
+            "N": 16,
+            "hit_rate": 64.48,
+            "recall": 28.82,
+            "precision": 9.9,
+            "map": 12.38
+          },
+          {
+            "N": 24,
+            "hit_rate": 71.29,
+            "recall": 35.59,
+            "precision": 8.27,
+            "map": 13.12
+          },
+          {
+            "N": 40,
+            "hit_rate": 79.35,
+            "recall": 46.07,
+            "precision": 6.67,
+            "map": 14.12
+          }
+        ],
+        "P1": [
+          {
+            "N": 3,
+            "hit_rate": 33.21,
+            "recall": 9.19,
+            "precision": 15.94,
+            "map": 14.12
+          },
+          {
+            "N": 5,
+            "hit_rate": 43.79,
+            "recall": 13.97,
+            "precision": 14.63,
+            "map": 12.58
+          },
+          {
+            "N": 8,
+            "hit_rate": 53.46,
+            "recall": 19.55,
+            "precision": 12.87,
+            "map": 11.98
+          },
+          {
+            "N": 16,
+            "hit_rate": 64.22,
+            "recall": 28.59,
+            "precision": 9.89,
+            "map": 12.68
+          },
+          {
+            "N": 24,
+            "hit_rate": 71.0,
+            "recall": 35.33,
+            "precision": 8.28,
+            "map": 13.44
+          },
+          {
+            "N": 40,
+            "hit_rate": 79.19,
+            "recall": 46.51,
+            "precision": 6.74,
+            "map": 14.51
+          }
+        ],
+        "P2": [
+          {
+            "N": 3,
+            "hit_rate": 35.91,
+            "recall": 9.89,
+            "precision": 18.53,
+            "map": 16.92
+          },
+          {
+            "N": 5,
+            "hit_rate": 44.33,
+            "recall": 14.43,
+            "precision": 16.54,
+            "map": 14.82
+          },
+          {
+            "N": 8,
+            "hit_rate": 52.75,
+            "recall": 19.86,
+            "precision": 14.14,
+            "map": 13.65
+          },
+          {
+            "N": 16,
+            "hit_rate": 65.43,
+            "recall": 30.83,
+            "precision": 11.53,
+            "map": 14.63
+          },
+          {
+            "N": 24,
+            "hit_rate": 72.87,
+            "recall": 38.45,
+            "precision": 9.68,
+            "map": 15.5
+          },
+          {
+            "N": 40,
+            "hit_rate": 80.89,
+            "recall": 49.37,
+            "precision": 7.58,
+            "map": 16.6
+          }
+        ],
+        "P3": [
+          {
+            "N": 3,
+            "hit_rate": 40.68,
+            "recall": 11.36,
+            "precision": 19.77,
+            "map": 17.71
+          },
+          {
+            "N": 5,
+            "hit_rate": 50.24,
+            "recall": 16.41,
+            "precision": 17.65,
+            "map": 15.61
+          },
+          {
+            "N": 8,
+            "hit_rate": 57.6,
+            "recall": 21.2,
+            "precision": 14.41,
+            "map": 14.2
+          },
+          {
+            "N": 16,
+            "hit_rate": 71.41,
+            "recall": 34.48,
+            "precision": 12.17,
+            "map": 15.73
+          },
+          {
+            "N": 24,
+            "hit_rate": 77.88,
+            "recall": 43.24,
+            "precision": 10.39,
+            "map": 16.89
+          },
+          {
+            "N": 40,
+            "hit_rate": 84.45,
+            "recall": 54.79,
+            "precision": 8.15,
+            "map": 18.19
+          }
+        ]
+      },
+      "negocio": {
+        "B0": {
+          "aciertos_por_cliente": 0.779,
+          "sku_extra_por_compra": 0.225,
+          "importe_por_cliente": 34.2,
+          "aciertos_dormido": 15676,
+          "aciertos_nunca": 3469,
+          "pct_descubrimiento": 18.1
+        },
+        "B1": {
+          "aciertos_por_cliente": 1.035,
+          "sku_extra_por_compra": 0.298,
+          "importe_por_cliente": 46.3,
+          "aciertos_dormido": 15080,
+          "aciertos_nunca": 10357,
+          "pct_descubrimiento": 40.7
+        },
+        "P1": {
+          "aciertos_por_cliente": 1.029,
+          "sku_extra_por_compra": 0.297,
+          "importe_por_cliente": 49.0,
+          "aciertos_dormido": 15080,
+          "aciertos_nunca": 10221,
+          "pct_descubrimiento": 40.4
+        },
+        "P2": {
+          "aciertos_por_cliente": 1.131,
+          "sku_extra_por_compra": 0.326,
+          "importe_por_cliente": 32.4,
+          "aciertos_dormido": 15852,
+          "aciertos_nunca": 11949,
+          "pct_descubrimiento": 43.0
+        },
+        "P3": {
+          "aciertos_por_cliente": 1.152,
+          "sku_extra_por_compra": 0.332,
+          "importe_por_cliente": 51.0,
+          "aciertos_dormido": 17655,
+          "aciertos_nunca": 10671,
+          "pct_descubrimiento": 37.7
+        }
+      },
+      "desglose": {
+        "B0": {
+          "dormido": 15676,
+          "nunca": 3469
+        },
+        "B1": {
+          "dormido": 15080,
+          "nunca": 10357
+        },
+        "P1": {
+          "dormido": 15080,
+          "nunca": 10221
+        },
+        "P2": {
+          "dormido": 15852,
+          "nunca": 11949
+        },
+        "P3": {
+          "dormido": 17655,
+          "nunca": 10671
+        }
+      },
+      "veredicto": {
+        "mejor_propuesta": "P3",
+        "b1": 53.84,
+        "objetivo": 58.84,
+        "logrado": false,
+        "diferencia_pp": 3.76
+      },
+      "escenarios": [
+        {
+          "tasa_conversion": 0.1,
+          "mensual": 125348.0,
+          "anual": 1504174.0
+        },
+        {
+          "tasa_conversion": 0.2,
+          "mensual": 250696.0,
+          "anual": 3008347.0
+        },
+        {
+          "tasa_conversion": 0.3,
+          "mensual": 376043.0,
+          "anual": 4512521.0
+        }
+      ]
+    }
+  },
+  "hit_rate_8_por_antiguedad_de_ruta": {
+    "estables": {
+      "clientes": 22176,
+      "B0": 41.23,
+      "B1": 45.58,
+      "P1": 48.58,
+      "P2": 49.92,
+      "P3": 57.33
+    },
+    "nuevas_jun2026": {
+      "clientes": 2402,
+      "B0": 0.25,
+      "B1": 77.23,
+      "P1": 72.69,
+      "P2": 71.15,
+      "P3": 72.23
+    }
+  }
+}

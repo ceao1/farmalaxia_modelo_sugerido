@@ -1,0 +1,373 @@
+{
+  "corte_elegido": {
+    "corte": 5,
+    "bajo": "B1",
+    "hit_rate_val": 61.527
+  },
+  "hit_rate_val_p3": 61.431,
+  "barrido_validacion": [
+    {
+      "corte": 0,
+      "bajo": "B1",
+      "hit_rate_val": 61.431
+    },
+    {
+      "corte": 0,
+      "bajo": "P1",
+      "hit_rate_val": 61.431
+    },
+    {
+      "corte": 0,
+      "bajo": "P2",
+      "hit_rate_val": 61.431
+    },
+    {
+      "corte": 5,
+      "bajo": "B1",
+      "hit_rate_val": 61.527
+    },
+    {
+      "corte": 5,
+      "bajo": "P1",
+      "hit_rate_val": 61.487
+    },
+    {
+      "corte": 5,
+      "bajo": "P2",
+      "hit_rate_val": 61.47
+    },
+    {
+      "corte": 10,
+      "bajo": "B1",
+      "hit_rate_val": 61.304
+    },
+    {
+      "corte": 10,
+      "bajo": "P1",
+      "hit_rate_val": 61.344
+    },
+    {
+      "corte": 10,
+      "bajo": "P2",
+      "hit_rate_val": 61.3
+    },
+    {
+      "corte": 15,
+      "bajo": "B1",
+      "hit_rate_val": 60.943
+    },
+    {
+      "corte": 15,
+      "bajo": "P1",
+      "hit_rate_val": 61.143
+    },
+    {
+      "corte": 15,
+      "bajo": "P2",
+      "hit_rate_val": 60.964
+    },
+    {
+      "corte": 20,
+      "bajo": "B1",
+      "hit_rate_val": 59.717
+    },
+    {
+      "corte": 20,
+      "bajo": "P1",
+      "hit_rate_val": 60.467
+    },
+    {
+      "corte": 20,
+      "bajo": "P2",
+      "hit_rate_val": 59.927
+    },
+    {
+      "corte": 30,
+      "bajo": "B1",
+      "hit_rate_val": 57.067
+    },
+    {
+      "corte": 30,
+      "bajo": "P1",
+      "hit_rate_val": 59.059
+    },
+    {
+      "corte": 30,
+      "bajo": "P2",
+      "hit_rate_val": 57.956
+    },
+    {
+      "corte": 45,
+      "bajo": "B1",
+      "hit_rate_val": 53.531
+    },
+    {
+      "corte": 45,
+      "bajo": "P1",
+      "hit_rate_val": 56.906
+    },
+    {
+      "corte": 45,
+      "bajo": "P2",
+      "hit_rate_val": 55.009
+    }
+  ],
+  "por_tramo_validacion": [
+    {
+      "tramo": "0-4",
+      "clientes": 325,
+      "B0": 14.15,
+      "B1": 48.92,
+      "P1": 46.15,
+      "P2": 44.92,
+      "P3": 42.15,
+      "mejor": "B1"
+    },
+    {
+      "tramo": "5-9",
+      "clientes": 805,
+      "B0": 18.63,
+      "B1": 40.99,
+      "P1": 43.23,
+      "P2": 42.48,
+      "P3": 47.33,
+      "mejor": "P3"
+    },
+    {
+      "tramo": "10-14",
+      "clientes": 1563,
+      "B0": 21.31,
+      "B1": 42.67,
+      "P1": 45.04,
+      "P2": 43.06,
+      "P3": 47.98,
+      "mejor": "P3"
+    },
+    {
+      "tramo": "15-19",
+      "clientes": 2406,
+      "B0": 22.86,
+      "B1": 42.52,
+      "P1": 47.76,
+      "P2": 44.31,
+      "P3": 54.2,
+      "mejor": "P3"
+    },
+    {
+      "tramo": "20-29",
+      "clientes": 4782,
+      "B0": 29.05,
+      "B1": 43.56,
+      "P1": 49.52,
+      "P2": 46.82,
+      "P3": 56.27,
+      "mejor": "P3"
+    },
+    {
+      "tramo": "30-44",
+      "clientes": 5555,
+      "B0": 36.08,
+      "B1": 47.07,
+      "P1": 52.78,
+      "P2": 49.5,
+      "P3": 61.67,
+      "mejor": "P3"
+    },
+    {
+      "tramo": "45+",
+      "clientes": 7502,
+      "B0": 57.14,
+      "B1": 53.28,
+      "P1": 58.49,
+      "P2": 56.0,
+      "P3": 72.01,
+      "mejor": "P3"
+    }
+  ],
+  "prueba": {
+    "libre": {
+      "B0": {
+        "hit_rate": 37.22,
+        "desglose": {
+          "dormido": 8656,
+          "nunca": 5101
+        },
+        "negocio": {
+          "aciertos_por_cliente": 0.56,
+          "sku_extra_por_compra": 0.161,
+          "importe_por_cliente": 26.4,
+          "aciertos_dormido": 8656,
+          "aciertos_nunca": 5101,
+          "pct_descubrimiento": 37.1
+        }
+      },
+      "B1": {
+        "hit_rate": 48.67,
+        "desglose": {
+          "dormido": 12667,
+          "nunca": 11547
+        },
+        "negocio": {
+          "aciertos_por_cliente": 0.985,
+          "sku_extra_por_compra": 0.284,
+          "importe_por_cliente": 41.2,
+          "aciertos_dormido": 12667,
+          "aciertos_nunca": 11547,
+          "pct_descubrimiento": 47.7
+        }
+      },
+      "P1": {
+        "hit_rate": 50.93,
+        "desglose": {
+          "dormido": 13913,
+          "nunca": 10945
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.011,
+          "sku_extra_por_compra": 0.292,
+          "importe_por_cliente": 46.7,
+          "aciertos_dormido": 13913,
+          "aciertos_nunca": 10945,
+          "pct_descubrimiento": 44.0
+        }
+      },
+      "P2": {
+        "hit_rate": 52.0,
+        "desglose": {
+          "dormido": 16085,
+          "nunca": 12806
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.175,
+          "sku_extra_por_compra": 0.339,
+          "importe_por_cliente": 29.7,
+          "aciertos_dormido": 16085,
+          "aciertos_nunca": 12806,
+          "pct_descubrimiento": 44.3
+        }
+      },
+      "P3": {
+        "hit_rate": 58.64,
+        "desglose": {
+          "dormido": 23332,
+          "nunca": 7054
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.236,
+          "sku_extra_por_compra": 0.357,
+          "importe_por_cliente": 58.1,
+          "aciertos_dormido": 23332,
+          "aciertos_nunca": 7054,
+          "pct_descubrimiento": 23.2
+        }
+      },
+      "P4": {
+        "hit_rate": 58.95,
+        "desglose": {
+          "dormido": 23326,
+          "nunca": 7888
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.27,
+          "sku_extra_por_compra": 0.366,
+          "importe_por_cliente": 55.6,
+          "aciertos_dormido": 23326,
+          "aciertos_nunca": 7888,
+          "pct_descubrimiento": 25.3
+        }
+      }
+    },
+    "mixta": {
+      "B0": {
+        "hit_rate": 47.34,
+        "desglose": {
+          "dormido": 15676,
+          "nunca": 3469
+        },
+        "negocio": {
+          "aciertos_por_cliente": 0.779,
+          "sku_extra_por_compra": 0.225,
+          "importe_por_cliente": 34.2,
+          "aciertos_dormido": 15676,
+          "aciertos_nunca": 3469,
+          "pct_descubrimiento": 18.1
+        }
+      },
+      "B1": {
+        "hit_rate": 53.84,
+        "desglose": {
+          "dormido": 15080,
+          "nunca": 10357
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.035,
+          "sku_extra_por_compra": 0.298,
+          "importe_por_cliente": 46.3,
+          "aciertos_dormido": 15080,
+          "aciertos_nunca": 10357,
+          "pct_descubrimiento": 40.7
+        }
+      },
+      "P1": {
+        "hit_rate": 53.46,
+        "desglose": {
+          "dormido": 15080,
+          "nunca": 10221
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.029,
+          "sku_extra_por_compra": 0.297,
+          "importe_por_cliente": 49.0,
+          "aciertos_dormido": 15080,
+          "aciertos_nunca": 10221,
+          "pct_descubrimiento": 40.4
+        }
+      },
+      "P2": {
+        "hit_rate": 52.75,
+        "desglose": {
+          "dormido": 15852,
+          "nunca": 11949
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.131,
+          "sku_extra_por_compra": 0.326,
+          "importe_por_cliente": 32.4,
+          "aciertos_dormido": 15852,
+          "aciertos_nunca": 11949,
+          "pct_descubrimiento": 43.0
+        }
+      },
+      "P3": {
+        "hit_rate": 57.33,
+        "desglose": {
+          "dormido": 17662,
+          "nunca": 10607
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.15,
+          "sku_extra_por_compra": 0.332,
+          "importe_por_cliente": 52.7,
+          "aciertos_dormido": 17662,
+          "aciertos_nunca": 10607,
+          "pct_descubrimiento": 37.5
+        }
+      },
+      "P4": {
+        "hit_rate": 57.65,
+        "desglose": {
+          "dormido": 17662,
+          "nunca": 11440
+        },
+        "negocio": {
+          "aciertos_por_cliente": 1.184,
+          "sku_extra_por_compra": 0.341,
+          "importe_por_cliente": 50.3,
+          "aciertos_dormido": 17662,
+          "aciertos_nunca": 11440,
+          "pct_descubrimiento": 39.3
+        }
+      }
+    }
+  }
+}

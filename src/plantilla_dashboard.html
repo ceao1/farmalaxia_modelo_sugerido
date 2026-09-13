@@ -1,0 +1,649 @@
+<title>Ritmo de Compra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f4f6f8; --surface:#ffffff; --surface-2:#eef1f5; --line:#d9dfe6; --line-soft:#e7ecf1;
+  --ink:#10161d; --ink-2:#4a5765; --ink-3:#78848f;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --ref:#b3bcc6;
+  --band:rgba(235,104,52,.07); --plain-bg:#f0f7f4; --plain-line:#c5e3d7; --s3-ink:#127a55;
+  --shadow:0 1px 2px rgba(16,22,29,.05), 0 8px 24px -12px rgba(16,22,29,.18);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#101418; --surface:#171c22; --surface-2:#1e242b; --line:#2b333c; --line-soft:#232a31;
+  --ink:#eef2f6; --ink-2:#a7b3bf; --ink-3:#7b8794;
+  --s1:#3987e5; --s2:#e0713f; --s3:#199e70; --ref:#4a5661;
+  --band:rgba(224,113,63,.10); --plain-bg:#15211d; --plain-line:#27423a; --s3-ink:#4fc79b;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --bg:#101418; --surface:#171c22; --surface-2:#1e242b; --line:#2b333c; --line-soft:#232a31;
+  --ink:#eef2f6; --ink-2:#a7b3bf; --ink-3:#7b8794;
+  --s1:#3987e5; --s2:#e0713f; --s3:#199e70; --ref:#4a5661;
+  --band:rgba(224,113,63,.10); --plain-bg:#15211d; --plain-line:#27423a; --s3-ink:#4fc79b;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.62; margin:0; padding-inline:20px; padding-block:0;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px; margin:0 auto; padding-block:56px 72px;}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif; text-wrap:balance; margin:0;}
+h1{font-size:clamp(2.1rem,5.2vw,3.3rem); font-weight:800; letter-spacing:-.026em; line-height:1.05;}
+h2{font-size:clamp(1.35rem,3vw,1.72rem); font-weight:700; letter-spacing:-.018em; line-height:1.2;}
+h3{font-size:1.02rem; font-weight:700; letter-spacing:-.008em;}
+p{margin:0}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;}
+
+/* ---------- encabezado ---------- */
+header{display:flex; flex-direction:column; gap:20px; padding-bottom:30px;
+  border-bottom:2px solid var(--ink); margin-bottom:40px;}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:.7rem; font-weight:500;
+  letter-spacing:.15em; text-transform:uppercase; color:var(--s2);}
+.lede{font-size:1.1rem; color:var(--ink-2); max-width:62ch;}
+.howto{font-size:.92rem; color:var(--ink-2); background:var(--plain-bg);
+  border:1px solid var(--plain-line); border-radius:8px; padding:13px 16px; max-width:70ch;
+  display:flex; align-items:baseline; gap:9px;}
+.howto b{color:var(--ink); font-weight:600;}
+.dot3{width:7px; height:7px; border-radius:50%; background:var(--s3); flex:none;
+  transform:translateY(-1px);}
+.meta{display:flex; flex-wrap:wrap; gap:8px 22px; font-size:.8rem; color:var(--ink-3);
+  font-family:"IBM Plex Mono",monospace;}
+
+/* ---------- banda de cifras ---------- */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-bottom:52px;}
+.stat{background:var(--surface); padding:18px 20px; display:flex; flex-direction:column; gap:3px;}
+.stat .v{font-family:Archivo,sans-serif; font-size:1.85rem; font-weight:700; letter-spacing:-.028em;
+  line-height:1.08; font-variant-numeric:tabular-nums;}
+.stat .k{font-size:.76rem; color:var(--ink-3); line-height:1.35;}
+.stat.hi .v{color:var(--s2);}
+
+/* ---------- secciones ---------- */
+section{margin-bottom:56px;}
+.q{font-family:"IBM Plex Mono",monospace; font-size:.72rem; font-weight:500; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3); margin-bottom:7px;}
+.shead{margin-bottom:18px;}
+.finding{font-size:1.06rem; color:var(--ink-2); max-width:68ch; margin-top:10px;}
+.finding strong{color:var(--ink); font-weight:600;}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:22px 20px 14px; box-shadow:var(--shadow); overflow-x:auto;}
+.chart{display:block; width:100%; height:auto; min-width:560px;}
+.note{font-size:.85rem; color:var(--ink-3); margin-top:14px; max-width:70ch;}
+.note b{color:var(--ink-2); font-weight:600;}
+
+/* ---------- svg ---------- */
+.grid{stroke:var(--line-soft); stroke-width:1;}
+.ytick{fill:var(--ink-3); font-size:11.5px; text-anchor:end; font-family:"IBM Plex Mono",monospace;}
+.xtick{fill:var(--ink-3); font-size:11.5px; text-anchor:middle; font-family:"IBM Plex Mono",monospace;}
+.xtick.str{font-weight:600; fill:var(--ink-2);}
+.axlabel{fill:var(--ink-3); font-size:11.5px; text-anchor:middle;}
+.line{fill:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;}
+.line.s1{stroke:var(--s1);} .line.s2{stroke:var(--s2);}
+.line.ref{stroke:var(--ref); stroke-width:1.6; stroke-dasharray:5 5;}
+.dot{stroke:var(--surface); stroke-width:2; cursor:pointer;}
+.dot.s1{fill:var(--s1);} .dot.s2{fill:var(--s2);}
+.bar{cursor:pointer;} .bar.acc{fill:var(--s2);} .bar.mut{fill:var(--s1); opacity:.42;}
+.bar.s1{fill:var(--s1);} .bar.s3{fill:var(--s3);} .bar.s2o{fill:var(--s2); opacity:.5;}
+.bar:hover,.seg:hover{opacity:.82;}
+.blabel{fill:var(--ink-2); font-size:11px; font-weight:600; text-anchor:middle;
+  font-family:"IBM Plex Mono",monospace;}
+.dlabel{font-size:12px; font-weight:600; font-family:"IBM Plex Sans",sans-serif;}
+.dlabel.c1{fill:var(--s1);} .dlabel.c2{fill:var(--s2);} .dlabel.mutc{fill:var(--ink-3); font-weight:500;}
+.band{fill:var(--band);}
+.annot{fill:var(--s2); font-size:11.5px; font-weight:600; font-family:"IBM Plex Mono",monospace;}
+.seg{cursor:pointer;} .seg.s1{fill:var(--s1);} .seg.s2{fill:var(--s2);} .seg.s3{fill:var(--s3);}
+.seglabel{fill:#fff; font-size:13px; font-weight:600; text-anchor:middle;
+  font-family:"IBM Plex Mono",monospace;}
+.rowlabel{fill:var(--ink-2); font-size:12.5px; font-weight:600;}
+.legend{fill:var(--ink-2); font-size:12px;}
+
+/* ---------- tabla ---------- */
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface);}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:.88rem;}
+th,td{padding:11px 16px; text-align:right; border-bottom:1px solid var(--line-soft);}
+th:first-child,td:first-child{text-align:left;}
+thead th{font-size:.72rem; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3);
+  font-weight:600; background:var(--surface-2);}
+tbody tr:last-child td{border-bottom:none;}
+td.n{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;}
+tr.dim td{color:var(--ink-3);}
+
+/* ---------- caja de regla de segmentación ---------- */
+.rulebox{background:var(--surface-2); border:1px solid var(--line); border-radius:10px;
+  padding:16px 20px; margin-bottom:14px; overflow-x:auto;}
+ol.rule{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:9px;}
+ol.rule li{font-size:.9rem; color:var(--ink-2); line-height:1.5;}
+ol.rule .cond{font-family:"IBM Plex Mono",monospace; font-size:.84rem; color:var(--ink);
+  background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:2px 7px;
+  white-space:nowrap;}
+ol.rule .arrow{color:var(--ink-3); margin:0 4px;}
+ol.rule .res{font-weight:600; color:var(--s1);}
+ol.rule em{color:var(--ink-3); font-size:.84rem; font-style:normal;}
+
+/* ---------- lectura en lenguaje llano ---------- */
+.plain{background:var(--plain-bg); border:1px solid var(--plain-line); border-radius:10px;
+  padding:20px 22px; margin-top:16px; display:flex; flex-direction:column; gap:11px;}
+.plain .tag{display:inline-flex; align-items:center; gap:7px; font-family:"IBM Plex Mono",monospace;
+  font-size:.68rem; font-weight:600; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--s3-ink); align-self:flex-start;}
+.plain .tag::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--s3);}
+.plain p{font-size:.96rem; color:var(--ink-2); max-width:70ch;}
+.plain p strong{color:var(--ink); font-weight:600;}
+.plain ul{margin:0; padding-left:19px; display:flex; flex-direction:column; gap:7px;}
+.plain li{font-size:.93rem; color:var(--ink-2);}
+.plain li b{color:var(--ink); font-weight:600;}
+
+/* ---------- salvedades ---------- */
+.caveats{background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--s2);
+  border-radius:8px; padding:22px 24px;}
+.caveats ol{margin:14px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:11px;}
+.caveats li{color:var(--ink-2); font-size:.92rem;}
+.caveats b{color:var(--ink); font-weight:600;}
+
+/* ---------- cierre ---------- */
+.takeaways{display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:16px; margin-top:20px;}
+.tk{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px;
+  display:flex; flex-direction:column; gap:8px;}
+.tk h3{color:var(--s1);}
+.tk p{font-size:.9rem; color:var(--ink-2);}
+footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--line);
+  font-size:.8rem; color:var(--ink-3); font-family:"IBM Plex Mono",monospace;
+  display:flex; flex-wrap:wrap; gap:6px 18px;}
+
+#tip{position:fixed; z-index:50; pointer-events:none; opacity:0; transition:opacity .1s;
+  background:var(--ink); color:var(--bg); padding:6px 10px; border-radius:6px;
+  font-size:12px; font-family:"IBM Plex Mono",monospace; white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.22);}
+#tip.on{opacity:1;}
+@media (max-width:560px){ .wrap{padding-block:36px 52px;} header{margin-bottom:30px;} section{margin-bottom:42px;} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important;} }
+</style>
+
+<div class="wrap">
+<header>
+  <div>
+    <div class="eyebrow">Análisis exploratorio · dbventas</div>
+    <h1>El ritmo de compra lo fija la ruta, no el cliente</h1>
+  </div>
+  <p class="lede">Doce meses de preventa en dos CEDIS. La pregunta era si un cliente compra
+  más de una vez al mes; la respuesta abre una pregunta mejor para el recomendador.</p>
+  <p class="howto"><span class="dot3"></span>Cada bloque termina con un recuadro
+  <b>«En palabras simples»</b> que explica el hallazgo sin tecnicismos. Si viene del lado comercial,
+  puede leer solo esos recuadros y seguir el hilo completo.</p>
+  <p class="howto" style="border-left:3px solid var(--s2);"><span class="dot3" style="background:var(--s2)"></span>
+  <b>Actualizado.</b> Se identificaron 345 SKUs con prefijo <span class="mono">PP*</span> que son
+  registros de mecánica promocional (importe 0,00), no mercancía. Quedaron excluidos del surtido:
+  el catálogo real es de <b>538 productos</b>, no 883. Las cifras de visitas, compras, frecuencia y
+  peso económico no cambian.</p>
+  <div class="meta">
+    <span>2025-09-01 → 2026-08-27</span><span>5.328.903 líneas</span>
+    <span>{{clientes}} clientes</span><span>{{skus}} SKUs</span>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat"><span class="v mono">{{visitas}}</span><span class="k">visitas (fecha × cliente)</span></div>
+  <div class="stat"><span class="v mono">{{compras}}</span><span class="k">compras efectivas</span></div>
+  <div class="stat"><span class="v mono">{{conv}}%</span><span class="k">de las visitas convierten</span></div>
+  <div class="stat hi"><span class="v mono">{{pctmulti}}%</span><span class="k">compra más de una vez al mes</span></div>
+  <div class="stat hi"><span class="v mono">{{pct7}}%</span><span class="k">de los intervalos son de 7 días</span></div>
+</div>
+
+<div class="plain" style="margin-top:-30px; margin-bottom:52px;">
+  <div class="tag">En palabras simples</div>
+  <p>Durante un año los preventistas tocaron la puerta de un cliente <strong>1.477.791 veces</strong>.
+  En <strong>890.471</strong> de esas visitas el cliente pidió algo. Las otras
+  <strong>{{sinventa}}</strong> —cuatro de cada diez— terminaron sin pedido.
+  Cada visita que sí vende deja en promedio <strong>{{ticket}} pesos</strong>.</p>
+  <p>Ese hueco de {{pct_sinventa}} % es el punto de partida de todo lo que sigue: no se trata de
+  conseguir más clientes, sino de que la visita que ya estamos pagando termine en pedido.</p>
+</div>
+
+<section>
+  <div class="shead">
+    <div class="q">¿Se está perdiendo clientes?</div>
+    <h2>No. La base es plana y la retención va de 90 a 95 %</h2>
+    <p class="finding">Unos 23.500 compradores mensuales durante nueve meses seguidos.
+    El salto de junio <strong>no es estacionalidad</strong>: las rutas de preventa pasaron de
+    71 a 95 y 2.997 de los 3.312 clientes nuevos están en Atizapán. Es apertura comercial.</p>
+  </div>
+  <div class="card">{{mensual}}</div>
+  <p class="note"><b>Noviembre 2025 no tiene registro de visitas sin venta</b> (cero filas,
+  contra ~15 % en el resto de los meses), por eso la serie de visitados se interrumpe ahí.
+  No fue un mes de 100 % de conversión: es un hueco de captura.</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>Cada mes le vendemos a unos <strong>23.500 clientes</strong>, y ese número casi no se mueve en
+    todo el año. De cada 100 clientes que compraron un mes, entre <strong>90 y 95 vuelven a comprar
+    al mes siguiente</strong>. No hay fuga de clientes: la base es sólida.</p>
+    <p>El brinco de junio no es que el mercado creciera. <strong>Se abrieron 24 rutas nuevas de
+    preventa</strong>, casi todas en Atizapán. Hay más clientes porque hay más preventistas saliendo
+    a la calle, no porque los de siempre estén comprando más. Conviene no leerlo como temporada
+    alta.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿Con qué frecuencia compra un cliente?</div>
+    <h2>Ocho de cada diez compran más de una vez al mes</h2>
+    <p class="finding">Media de {{media_compras}} compras mensuales, mediana 3. Pero la forma de
+    esta distribución no la decide el cliente: es el reflejo de <strong>cuántas visitas
+    convirtió</strong>, con {{visitas_mes}} visitas al mes y {{conv_cm}} % de conversión.</p>
+  </div>
+  <div class="card">{{freq}}</div>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>Si tomamos un cliente cualquiera en un mes cualquiera, lo más probable es que haya hecho
+    <strong>2, 3 o 4 pedidos</strong>. Solo 2 de cada 10 compran una sola vez al mes. Visto así,
+    parece un cliente muy fiel.</p>
+    <p>Pero hay que leerlo con cuidado: <strong>al cliente lo visitamos casi 5 veces al mes y le
+    vendemos 3</strong>. Las otras 2 visitas el preventista se fue sin pedido. La frecuencia que
+    vemos no es qué tan seguido quiere comprar el cliente — es qué tan seguido le tocamos la
+    puerta.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿Existe una cadencia propia?</div>
+    <h2>El calendario es semanal, y es de la ruta</h2>
+    <p class="finding">Casi la mitad de los intervalos entre compras son de <strong>exactamente
+    siete días</strong>, y el resto se agolpa en 14, 21, 28 y 35. No hay demanda espontánea entre
+    medias: el campo <span class="mono">diaVisita</span> asigna a cada cliente un día fijo de la
+    semana, y el cliente compra cuando pasa el preventista.</p>
+  </div>
+  <div class="card">{{intervalo}}</div>
+  <p class="note">Los armónicos son inequívocos: <b>7 días concentra 416.394 intervalos</b>;
+  14 baja a 119.908; 21 a 42.484. Los días no múltiplos de siete apenas se ven.
+  <b>Para el modelo esto significa que el «cuándo» ya está resuelto</b> — se conoce la próxima
+  visita programada. Lo que queda por predecir es qué entra en la canasta.</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p><strong>Los clientes no compran cuando se les acaba el producto. Compran el día que les toca
+    visita.</strong></p>
+    <p>La gráfica cuenta cuántos días pasan entre un pedido y el siguiente. Si el cliente comprara
+    por necesidad propia veríamos una nube dispersa: unos a los 5 días, otros a los 9, otros a los
+    12. Lo que vemos son <strong>torres exactas en 7, 14, 21 y 28 días</strong> — o sea «la semana
+    que viene», «en quince días», «en tres semanas». Entre medias casi no pasa nada.</p>
+    <p>Esto significa que <strong>el calendario de compra lo ponemos nosotros con la ruta</strong>.
+    Si un cliente pasó 14 días sin comprar, en general no es que no necesitara mercancía: es que la
+    semana de en medio la visita no terminó en pedido.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿De qué está hecha la canasta de un mes?</div>
+    <h2>Hay un pozo dormido, y es el más rentable</h2>
+    <p class="finding">Separando lo que un cliente compra en un mes: {{pct_habitual2}} % lo viene
+    pidiendo hace poco, {{pct_nunca}} % nunca lo había comprado, y
+    <strong>{{pct_dormido2}} % son productos que conoce pero dejó de pedir</strong>.</p>
+  </div>
+  <div class="card">{{composicion}}</div>
+  <p class="note">Un cliente típico tiene <b>{{dormidos_cli}} productos dormidos</b>: los compró
+  alguna vez y hace dos meses o más que no los pide.
+  <b>Un dormido tiene {{veces}} veces más probabilidad de comprarse que uno nunca comprado</b>
+  ({{tasa_react}} % contra {{tasa_desc}} % en un mes dado).</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>No todo lo que un cliente «no está comprando» es igual. Hay productos que
+    <strong>ya le vendimos antes y dejó de pedir</strong> — se le acabó la rotación, cambió de
+    proveedor, simplemente se le olvidó. Y hay productos que <strong>nunca ha probado</strong>.</p>
+    <p>Recordarle uno dormido es mucho más fácil que venderle uno nuevo: <strong>ya conoce el
+    producto, ya lo vendió una vez, no hay que convencerlo de nada</strong>. Los números lo
+    confirman: se reactiva {{veces}} veces más seguido de lo que se adopta algo nuevo.</p>
+    <p>Y hay dónde buscar: cada cliente arrastra unos {{dormidos_cli}} productos en esa
+    situación. <strong>Ese es probablemente el camino más corto para subir los SKU por
+    visita.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿Cuándo, dentro del mes, prueba algo nuevo?</div>
+    <h2>Durante todo el mes — no al principio</h2>
+    <p class="finding">Repartiendo por visita los productos que un cliente compra por primera vez,
+    <strong>el {{pct_tras_v1}} % de la adopción ocurre después de la primera visita del mes</strong>,
+    y a ritmo parejo: entre 1,0 y 1,3 productos nuevos por visita, sin agotarse.</p>
+  </div>
+  <div class="card">{{adopcion}}</div>
+  <p class="note">Julio de 2026, {{cli_2v}} clientes con dos o más visitas. El cliente
+  <b>no carga su surtido al principio del mes y luego repite</b>: va incorporando durante todo el
+  ciclo. La primera visita solo concentra el {{pct_v1}} %.</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>Uno esperaría que el tendero pruebe cosas nuevas cuando le toca el pedido grande del mes y
+    después solo reponga. <strong>No es así:</strong> sigue probando en cada visita, casi al mismo
+    ritmo, hasta fin de mes.</p>
+    <p>Esto tiene una consecuencia práctica importante: una lista de sugerencias que se arme
+    <strong>una sola vez al mes se pierde tres de cada cuatro oportunidades</strong>. Si el sistema
+    se recalculara en cada visita —sabiendo ya lo que el cliente llevó en las visitas
+    anteriores— podría acompañar ese descubrimiento en vez de adelantarse una sola vez.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿El cliente repite su canasta o explora?</div>
+    <h2>Las dos cosas — y medirlo mal cambia la conclusión</h2>
+    <p class="finding">Comparar contra el mes anterior da {{recady}} % de recompra y sugiere poca
+    lealtad. Es engañoso: contra <strong>toda</strong> la historia previa del cliente el número real
+    es <strong>{{recacum}} %</strong>, y solo {{nuevos_sku}} SKUs al mes son realmente nuevos.
+    El cliente rota dentro de un repertorio propio.</p>
+  </div>
+  <div class="card">{{repertorio}}</div>
+  <p class="note">Ese repertorio <b>no se estabiliza en doce meses</b>: crece de forma casi lineal
+  hasta 44 productos. Y no es por catálogo nuevo — 364 productos ya se vendían el primer mes
+  y después solo debutan entre 4 y 34 por mes. Es exploración genuina. La línea punteada marca dónde
+  estaría la curva si el cliente nunca repitiera nada.</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>Cada cliente arma <strong>su propia lista de productos habituales</strong> y va rotando dentro
+    de ella. No pide todo cada mes, pero tampoco anda cambiando de marca.</p>
+    <p>Si comparamos el pedido de este mes contra el del mes pasado, solo coincide una cuarta parte,
+    y parece que el cliente cambia todo el tiempo. Pero si lo comparamos contra
+    <strong>todo lo que ese cliente ha pedido alguna vez</strong>, la mitad ya lo conocía. La
+    diferencia entre esas dos lecturas es enorme y es fácil equivocarse.</p>
+    <p>Y sí sigue probando: entre <strong>3 y 4 productos nuevos al mes</strong> que nunca había
+    comprado. Después de un año, un cliente típico ha pedido 44 productos distintos y la cuenta
+    sigue subiendo — de un catálogo de 538. <strong>No se ha topado con su techo.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿Dónde está realmente el dinero?</div>
+    <h2>El {{oneoff}} % de las combinaciones ocurre una sola vez y vale un cuarto del importe</h2>
+    <p class="finding">Clasificando cada par cliente-SKU por en cuántos meses distintos se compró,
+    la proporción se invierte: el <strong>{{core}} % que forma el núcleo estable genera el 56,6 %
+    del importe</strong>, con un valor medio casi seis veces mayor por par.</p>
+  </div>
+  <div class="card">{{peso}}</div>
+  <p class="note">Esta es la tensión que define el problema: hay muchísima cola larga de bajo valor
+  y un núcleo pequeño que sostiene el negocio. <b>Un recomendador que solo recuerde el núcleo
+  captura más de la mitad del importe pero ignora dónde ocurre la exploración</b>; uno que solo
+  busque novedad persigue pares de 119 pesos.</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>Hay <strong>dos tipos de venta mezclados</strong> en el mismo reporte, y conviene no
+    confundirlos.</p>
+    <ul>
+      <li><b>Los productos de siempre.</b> Los que un cliente pide en tres o más meses del año.
+      Son pocos —2 de cada 10 combinaciones cliente-producto— pero traen
+      <b>más de la mitad del dinero</b>, con un valor por combinación casi seis veces mayor.</li>
+      <li><b>Las compras de una sola vez.</b> Lo probó y no repitió. Son la mayoría —6 de cada 10—
+      pero apenas un cuarto del importe, y de ticket chico.</li>
+    </ul>
+    <p>Para el equipo esto quiere decir que <strong>cuidar el pedido habitual vale más que empujar
+    novedades</strong>. Pero también que las novedades son la única vía para que ese pedido habitual
+    crezca: todo producto de siempre empezó siendo una compra de una sola vez.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿Se puede construir el recomendador?</div>
+    <h2>La matriz es setenta y cinco veces más densa que un retail típico</h2>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Métrica</th><th>Valor</th><th>Lectura</th></tr></thead>
+    <tbody>
+      <tr><td>Matriz cliente × SKU</td><td class="n">{{clientes}} × {{skus}}</td><td>pequeña y manejable</td></tr>
+      <tr><td>Pares observados</td><td class="n">{{pares}}</td><td>—</td></tr>
+      <tr><td><strong>Densidad</strong></td><td class="n"><strong>{{dens}} %</strong></td><td><strong>muy alta para filtrado colaborativo</strong></td></tr>
+      <tr><td>SKUs por cliente (mediana)</td><td class="n">{{skucli}}</td><td>de {{skus}} posibles</td></tr>
+      <tr><td>SKUs que concentran 80 % del importe</td><td class="n">{{sku80}}</td><td>cola larga moderada</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Un catálogo de retail típico ronda el 0,1 % de densidad. Aquí el problema de
+  <i>sparsity</i> que suele hundir al filtrado colaborativo <b>prácticamente no existe</b>.</p>
+
+  <h3 style="margin-top:34px; margin-bottom:12px;">Segmentos por frecuencia</h3>
+  <p class="note" style="margin-top:0; margin-bottom:14px;">Los segmentos <b>no salen de un
+  algoritmo de clustering</b>: son una regla explícita de tres cortes sobre el promedio de compras
+  mensuales, elegida para que cada grupo corresponda a una cadencia de visita reconocible.
+  Se aplica en este orden y el primero que se cumple manda:</p>
+  <div class="rulebox">
+    <ol class="rule">
+      <li><span class="cond">Compró en 2 meses o menos del año</span>
+        <span class="arrow">→</span> <span class="res">Esporádico / abandonó</span></li>
+      <li><span class="cond">4 o más compras al mes</span>
+        <span class="arrow">→</span> <span class="res">Alta frecuencia (semanal)</span></li>
+      <li><span class="cond">entre 2 y 4 compras al mes</span>
+        <span class="arrow">→</span> <span class="res">Media (quincenal)</span></li>
+      <li><span class="cond">menos de 2 compras al mes</span>
+        <span class="arrow">→</span> <span class="res">Baja (mensual)</span></li>
+      <li><span class="cond">Primera compra en julio o agosto de 2026</span>
+        <span class="arrow">→</span> <span class="res">Sin historia suficiente</span>
+        <em>(se aplica al final y sobrescribe lo anterior)</em></li>
+    </ol>
+  </div>
+  <p class="note">Los umbrales salen de la cadencia de ruta, no de la estadística: un mes tiene
+  ~4,3 semanas, así que <b>4 o más compras mensuales equivale a comprar cada vez que pasa el
+  preventista</b>; 2 a 4 es una de cada dos visitas; menos de 2 es una vez al mes.
+  El promedio se calcula <b>sobre los meses en que el cliente estuvo activo</b>, no sobre los doce
+  — un matiz que no distorsiona el resultado porque el {{alta12}} % de los de alta frecuencia
+  estuvieron activos los doce meses. La regla clasifica a {{cl_regla}} clientes y aparta
+  {{cens_regla}} por falta de historia.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Segmento</th><th>Clientes</th><th>% clientes</th><th>% importe</th><th>Compras/mes</th><th>SKUs/mes</th><th>Importe/año</th></tr></thead>
+    <tbody>
+      <tr><td>Media (quincenal)</td><td class="n">{{n_media}}</td><td class="n">{{p_media}} %</td><td class="n"><b>{{i_media}} %</b></td><td class="n">{{c_media}}</td><td class="n">{{k_media}}</td><td class="n">{{a_media}}</td></tr>
+      <tr><td>Baja (mensual)</td><td class="n">{{n_baja}}</td><td class="n">{{p_baja}} %</td><td class="n"><b>{{i_baja}} %</b></td><td class="n">{{c_baja}}</td><td class="n">{{k_baja}}</td><td class="n">{{a_baja}}</td></tr>
+      <tr><td>Alta frecuencia (semanal)</td><td class="n">{{n_alta}}</td><td class="n">{{p_alta}} %</td><td class="n"><b>{{i_alta}} %</b></td><td class="n">{{c_alta}}</td><td class="n">{{k_alta}}</td><td class="n">{{a_alta}}</td></tr>
+      <tr><td>Esporádico / abandonó</td><td class="n">{{n_esp}}</td><td class="n">{{p_esp}} %</td><td class="n"><b>{{i_esp}} %</b></td><td class="n">{{c_esp}}</td><td class="n">{{k_esp}}</td><td class="n">{{a_esp}}</td></tr>
+      <tr class="dim"><td>Sin historia suficiente</td><td class="n">{{n_cens}}</td><td class="n">{{p_cens}} %</td><td class="n"><b>{{i_cens}} %</b></td><td class="n">{{c_cens}}</td><td class="n">{{k_cens}}</td><td class="n">{{a_cens}}</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Los «sin historia suficiente» llegaron en julio o agosto de 2026 y
+  <b>no pueden</b> tener más de dos meses: es censura del periodo, no abandono.
+  Separarlos evita sobreestimar el churn en cinco puntos.</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>Los segmentos <strong>no los inventó un algoritmo</strong>: los definimos a mano con una regla
+    de tres cortes, y por eso se pueden discutir y mover. La idea fue agrupar a los clientes por
+    <strong>cada cuánto compran comparado con cada cuánto los visitamos</strong>.</p>
+    <ul>
+      <li><b>Alta frecuencia:</b> compra prácticamente cada vez que pasa el preventista.
+      Son {{p_alta}} % de los clientes pero traen <b>{{i_alta}} % del dinero</b> —
+      {{a_alta}} pesos al año cada uno.</li>
+      <li><b>Media:</b> compra una de cada dos visitas. Es el grueso de la base
+      ({{p_media}} %) y aporta {{i_media}} % del importe.</li>
+      <li><b>Baja:</b> compra una vez al mes o menos. {{p_baja}} % de los clientes,
+      solo {{i_baja}} % del importe.</li>
+      <li><b>Esporádico:</b> apareció en dos meses o menos del año. Casi no pesa
+      ({{i_esp}} % del importe).</li>
+    </ul>
+    <p>La lectura comercial es directa: <strong>un cliente de alta frecuencia vale ocho veces más al
+    año que uno de baja</strong> ({{a_alta}} contra {{a_baja}} pesos). Y como el {{fr_mb}} % de los
+    clientes está justo en la frontera entre «media» y «baja», <strong>mover a un cliente de una
+    categoría a la siguiente es cuestión de una visita más al mes que termine en pedido</strong>,
+    no de un cambio de comportamiento.</p>
+    <p>La pregunta de fondo es: <strong>¿tenemos suficiente información para que un sistema sugiera
+    qué ofrecerle a cada cliente?</strong> La respuesta es sí, y con ventaja.</p>
+    <p>El catálogo tiene 538 productos y el cliente típico ha comprado 31. Eso deja
+    <strong>{{nocompra}} productos que ese cliente nunca ha pedido</strong> — ahí está el espacio
+    para recomendar.</p>
+    <p>Lo que hace viable el proyecto es la cantidad de ejemplos: ya ocurrieron
+    <strong>casi 1,4 millones de combinaciones cliente-producto</strong>. En una tienda en línea
+    típica un cliente compra 5 o 10 cosas de un catálogo de miles y al sistema le falta información
+    para acertar. <strong>Aquí pasa lo contrario: conocemos bien a casi todos los clientes.</strong>
+    Es una posición de arranque poco común.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿La zona explica qué compra un cliente?</div>
+    <h2>Sí, y es la ruta — no el almacén</h2>
+    <p class="finding">El modelo actual recomienda lo que compran clientes parecidos de la misma
+    zona. Esa premisa <strong>se sostiene</strong>: la lista de los 50 productos más vendidos en la
+    ruta del cliente cubre el <strong>{{z50_ruta}} %</strong> de lo que ese cliente ha comprado
+    alguna vez, contra {{z50_glob}} % si se usara la lista global.</p>
+  </div>
+  <div class="card">{{zona}}</div>
+  <p class="note">La comparación es <b>leave-one-out</b>: al calcular el top de cada ruta se
+  descuenta al propio cliente, si no la prueba se cumpliría sola. Y mide <b>cobertura del surtido
+  histórico</b>, no aciertos del modelo actual — no tenemos sus predicciones.
+  El dato que decide: <b>el CEDIS no aporta nada</b> ({{z50_ced}} % contra {{z50_glob}} % global).
+  Si el efecto viniera de qué tiene el almacén, el CEDIS explicaría tanto como la ruta. No lo hace.
+  <b>La ruta captura preferencia local real, no disponibilidad.</b> El parecido entre rutas lo
+  confirma: comparten {{jac_mismo}} de su top-30 dentro del mismo CEDIS y {{jac_dist}} entre CEDIS
+  distintos — en ambos casos, poco.</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>La idea detrás del modelo actual —<strong>«ofrécele lo que compran sus vecinos de
+    ruta»</strong>— es correcta, y los números la respaldan. No hay que tirarla.</p>
+    <p>Lo interesante es <em>por qué</em> funciona. Podría ser simplemente que cada almacén surte
+    cosas distintas, en cuyo caso la ruta no diría nada del cliente, solo de la bodega. Lo medimos
+    y <strong>no es eso</strong>: agrupar por almacén no explica nada más que tomar el catálogo
+    entero. <strong>Lo que hace la diferencia es la ruta</strong> — o sea el barrio, el tipo de
+    tienda, la clientela de la zona.</p>
+    <p>Eso también fija la vara: el modelo actual <strong>no es fácil de vencer</strong>. Una lista
+    de 50 productos populares de la ruta ya cubre casi seis de cada diez cosas que el cliente
+    compra. Lo que falta no es geografía, es <strong>distinguir entre los vecinos</strong>: dos
+    tiendas de la misma ruta no venden lo mismo.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿Cuántos productos hay realmente?</div>
+    <h2>538 productos, de los cuales {{prod_recom}} son recomendables</h2>
+    <p class="finding">El catálogo aparenta 883 SKUs, pero <strong>{{prod_promo}} son registros de
+    mecánica promocional</strong> con importe 0,00 — son el {{pct_lineas_promo}} % de las líneas de
+    compra y no mueven un peso. Quitándolos, y quitando exhibidores y productos sin venta reciente,
+    quedan <strong>{{prod_recom}}</strong> que un recomendador podría proponer.</p>
+  </div>
+  <div class="card">{{pareto}}</div>
+  <p class="note">La concentración es marcada pero no extrema: <b>{{sku50}} productos generan la
+  mitad del importe</b> y {{sku80}} el 80 %. Un producto típico llega solo al {{penetr}} % de los
+  clientes, así que hay mucho espacio de surtido sin explotar.
+  Depuración aplicada: {{prod_promo}} packs promocionales, {{prod_exhib}} exhibidores y material de
+  exhibición (no son mercancía), y {{prod_muertos}} productos sin una sola venta en los últimos dos
+  meses — recomendarlos sería un error operativo.</p>
+</section>
+
+<section>
+  <div class="shead">
+    <div class="q">¿Qué productos van juntos?</div>
+    <h2>La afinidad es de línea de sabor, no entre categorías</h2>
+    <p class="finding">Sobre {{canastas_af}} canastas, los pares que más se repiten son variantes
+    del mismo producto. Solo el <strong>{{mismamarca}} %</strong> de los pares frecuentes son de la
+    misma marca, pero los más fuertes lo son casi todos.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Producto</th><th>Va junto con</th><th>Canastas</th><th>Lift</th><th>Confianza</th></tr></thead>
+    <tbody>{{afinidad_tabla}}</tbody>
+  </table></div>
+  <p class="note">Ordenado por <b>frecuencia</b>, no por <i>lift</i>: ordenar por lift saca pares
+  raros de soporte mínimo que parecen señal y no lo son. Se exigió un piso de 100 canastas en común.
+  <b>Confianza</b> = de quienes llevan el primero, qué porcentaje lleva también el segundo.</p>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>Quien lleva un sabor de una línea, <strong>se lleva los demás sabores</strong>. El tendero que
+    pide Whiskas atún pide también salmón y pollo; quien pide ACT II mantequilla pide la
+    extra mantequilla. No aparecen combinaciones sorprendentes entre categorías distintas.</p>
+    <p>Para el recomendador esto es una pista concreta y barata de aprovechar: <strong>si un cliente
+    compra tres de los cinco sabores de una línea, los dos que le faltan son la sugerencia más
+    obvia</strong>. Y es fácil de explicar al preventista, que es la mitad del problema.</p>
+  </div>
+</section>
+
+<section>
+  <div class="q">Antes de modelar</div>
+  <h2 style="margin-bottom:18px;">Cinco salvedades</h2>
+  <div class="caveats"><ol>
+    <li><b>Censura izquierda.</b> Los datos empiezan el 2025-09-01: los 23.827 clientes de ese mes
+    aparecen como nuevos, pero son una cohorte mixta de antigüedad desconocida. Las altas solo son
+    interpretables desde octubre.</li>
+    <li><b>Censura derecha.</b> El último día es jueves 2026-08-27; a agosto le faltan viernes y
+    sábado. Sus totales quedan bajos por construcción — no es una caída.</li>
+    <li><b>Noviembre 2025 no registró visitas sin venta.</b> Excluido de toda métrica basada en
+    visitas; las basadas en compras no se ven afectadas.</li>
+    <li><b>Un solo ciclo anual.</b> Con doce meses exactos, tendencia y estacionalidad están
+    confundidas y no se pueden separar con estos datos.</li>
+    <li><b><span class="mono">PromocionCodigo</span> no discrimina.</b> Está poblado en casi el
+    100 % de las líneas de compra de las tres clases. No marca «hubo promoción»; funciona más como
+    clave de lista de precios.</li>
+  </ol></div>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>Cuatro cosas que hay que tener presentes para no sacar conclusiones equivocadas de estas
+    cifras:</p>
+    <ul>
+      <li><b>El primer y el último mes están incompletos.</b> Septiembre de 2025 es donde empieza el
+      archivo, así que todos los clientes parecen nuevos aunque llevaran años comprando. Y agosto de
+      2026 corta un jueves: le faltan viernes y sábado. <b>Agosto no cayó, está incompleto.</b></li>
+      <li><b>Noviembre de 2025 no registró las visitas sin pedido.</b> Por eso ese mes aparenta
+      100 % de efectividad. No fue un mes excepcional: faltan los datos.</li>
+      <li><b>Solo tenemos un año.</b> No alcanza para distinguir «diciembre siempre es así» de
+      «el negocio va para arriba». Con un segundo año se podría.</li>
+      <li><b>El código de promoción no sirve como está.</b> Viene lleno en prácticamente todas las
+      líneas, así que no permite saber en qué pedidos hubo promoción de verdad.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="q">Hacia el modelo</div>
+  <h2>Qué sugieren estos datos</h2>
+  <div class="takeaways">
+    <div class="tk"><h3>La línea base es fuerte</h3><p>«Volver a comprar lo de siempre» ya captura
+    {{recacum}} % de la canasta y el núcleo explica 56,6 % del importe. Cualquier modelo debe
+    compararse contra ese baseline, no contra popularidad global.</p></div>
+    <div class="tk"><h3>El descubrimiento es real</h3><p>{{nuevos_sku}} SKUs genuinamente nuevos por
+    cliente-mes y un repertorio que sigue creciendo a doce meses. Ahí es donde un modelo
+    colaborativo aporta por encima del baseline.</p></div>
+    <div class="tk"><h3>La densidad es una ventaja</h3><p>Con {{dens}} % y {{pares}} pares
+    observados, tanto factorización matricial como <i>item-item</i> son viables sin trucos de
+    arranque en frío para el grueso de la base.</p></div>
+    <div class="tk"><h3>Faltan dos señales</h3><p>Si hubo <b>quiebre de stock</b> —sin eso un «no
+    compró» se confunde con «no había»— y la <b>jerarquía de categorías</b> de producto, que marca
+    y SKU sueltos no dan.</p></div>
+  </div>
+  <div class="plain">
+    <div class="tag">En palabras simples</div>
+    <p>El sistema <strong>no tiene que adivinar cuándo</strong> va a comprar el cliente — eso ya lo
+    sabemos, es su día de ruta. Lo que tiene que hacer es llegarle al preventista con una lista
+    corta y concreta: <strong>«a este cliente, hoy, ofrécele estos tres productos»</strong>.</p>
+    <p>La prueba de fuego es que le gane a la lista obvia, que es «lo que este cliente ya compró
+    antes». Esa lista sola <strong>ya acierta la mitad de las veces</strong>, así que cualquier
+    sistema tiene que demostrar que aporta por encima de eso — no basta con que parezca
+    inteligente.</p>
+    <p>Y hay dos datos que hoy no tenemos y cambiarían mucho el resultado:
+    <strong>si hubo faltante de producto</strong> (sin eso no podemos distinguir «el cliente no
+    quiso» de «no había en el almacén») y <strong>la categoría de cada producto</strong>, que
+    permitiría recomendar por familia en vez de producto por producto.</p>
+  </div>
+</section>
+
+<footer>
+  <span>dbventas · tblVentas</span><span>eda_clientes.py</span>
+  <span>Visita = fecha × cliente · Compra = visita con piezas &gt; 0</span>
+</footer>
+</div>
+<div id="tip" role="status"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  document.addEventListener('mouseover',function(e){
+    var t=e.target.closest('[data-tip]'); if(!t) return;
+    tip.textContent=t.getAttribute('data-tip'); tip.classList.add('on');
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!tip.classList.contains('on')) return;
+    var x=e.clientX+14, y=e.clientY-34;
+    if(x+tip.offsetWidth>window.innerWidth-10) x=e.clientX-tip.offsetWidth-14;
+    if(y<6) y=e.clientY+22;
+    tip.style.left=x+'px'; tip.style.top=y+'px';
+  });
+  document.addEventListener('mouseout',function(e){
+    if(e.target.closest('[data-tip]')) tip.classList.remove('on');
+  });
+})();
+</script>

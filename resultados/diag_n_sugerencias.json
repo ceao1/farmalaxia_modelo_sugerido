@@ -1,0 +1,39 @@
+{
+  "3": {
+    "hit_rate": 22.3,
+    "aciertos_por_cliente": 0.309,
+    "sku_extra_por_compra": 0.089,
+    "precision": 10.3
+  },
+  "5": {
+    "hit_rate": 29.0,
+    "aciertos_por_cliente": 0.478,
+    "sku_extra_por_compra": 0.138,
+    "precision": 9.57
+  },
+  "8": {
+    "hit_rate": 36.5,
+    "aciertos_por_cliente": 0.696,
+    "sku_extra_por_compra": 0.201,
+    "precision": 8.7
+  },
+  "16": {
+    "hit_rate": 49.8,
+    "aciertos_por_cliente": 1.116,
+    "sku_extra_por_compra": 0.322,
+    "precision": 6.97
+  },
+  "24": {
+    "hit_rate": 59.1,
+    "aciertos_por_cliente": 1.446,
+    "sku_extra_por_compra": 0.417,
+    "precision": 6.02
+  },
+  "40": {
+    "hit_rate": 70.8,
+    "aciertos_por_cliente": 1.953,
+    "sku_extra_por_compra": 0.563,
+    "precision": 4.88
+  },
+  "compras_mes": 3.47
+}

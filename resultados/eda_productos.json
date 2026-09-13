@@ -1,0 +1,595 @@
+{
+  "zona_vs_global": [
+    {
+      "N": 20,
+      "recall_ruta": 36.7,
+      "recall_cedis": 21.5,
+      "recall_global": 21.0,
+      "ganancia_pp": 15.6,
+      "ruta_sobre_cedis_pp": 15.1
+    },
+    {
+      "N": 50,
+      "recall_ruta": 58.0,
+      "recall_cedis": 39.7,
+      "recall_global": 37.8,
+      "ganancia_pp": 20.2,
+      "ruta_sobre_cedis_pp": 18.3
+    },
+    {
+      "N": 100,
+      "recall_ruta": 75.8,
+      "recall_cedis": 58.1,
+      "recall_global": 57.1,
+      "ganancia_pp": 18.7,
+      "ruta_sobre_cedis_pp": 17.8
+    }
+  ],
+  "jaccard_rutas": {
+    "rutas_comparadas": 93,
+    "mismo_cedis": 0.306,
+    "distinto_cedis": 0.148
+  },
+  "afinidad": {
+    "canastas": 890455,
+    "pares_con_soporte_100": 13196,
+    "top": [
+      {
+        "a": "ZUKO NARANJA C/8/8 GR",
+        "b": "ZUKO LIMON C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 124,
+        "lift": 2845.6,
+        "conf": 71.3
+      },
+      {
+        "a": "ZUKO MELON C/8/8 GR",
+        "b": "ZUKO SANDIA C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 182,
+        "lift": 2769.6,
+        "conf": 77.4
+      },
+      {
+        "a": "ZUKO NARANJA C/8/8 GR",
+        "b": "ZUKO HORCHATA C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 122,
+        "lift": 2750.4,
+        "conf": 70.1
+      },
+      {
+        "a": "ZUKO JAMAICA C/8/8 GR",
+        "b": "ZUKO HORCHATA C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 171,
+        "lift": 2704.8,
+        "conf": 69.0
+      },
+      {
+        "a": "ZUKO NARANJA C/8/8 GR",
+        "b": "ZUKO JAMAICA C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 130,
+        "lift": 2682.6,
+        "conf": 74.7
+      },
+      {
+        "a": "ZUKO NARANJA C/8/8 GR",
+        "b": "ZUKO MELON C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 122,
+        "lift": 2656.8,
+        "conf": 70.1
+      },
+      {
+        "a": "SKYY COSMO LATA C/6/355 ML",
+        "b": "SKYY BLUE LATA C/6/355 ML",
+        "marca_a": "CAMPARI",
+        "marca_b": "CAMPARI",
+        "co": 103,
+        "lift": 2653.8,
+        "conf": 57.2
+      },
+      {
+        "a": "ZUKO HORCHATA C/8/8 GR",
+        "b": "ZUKO LIMON C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 150,
+        "lift": 2638.6,
+        "conf": 66.1
+      },
+      {
+        "a": "ZUKO JAMAICA C/8/8 GR",
+        "b": "ZUKO LIMON C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 161,
+        "lift": 2592.3,
+        "conf": 64.9
+      },
+      {
+        "a": "ZUKO LIMON C/8/8 GR",
+        "b": "ZUKO MELON C/8/8 GR",
+        "marca_a": "TRES MONTES",
+        "marca_b": "TRES MONTES",
+        "co": 144,
+        "lift": 2446.8,
+        "conf": 64.6
+      }
+    ],
+    "top_frecuencia": [
+      {
+        "a": "ACT II MANTEQUILLA",
+        "b": "ACT II EXTRA MANTEQUILLA",
+        "marca_a": "CONAGRA",
+        "marca_b": "CONAGRA",
+        "co": 43300,
+        "lift": 10.9,
+        "conf": 89.8
+      },
+      {
+        "a": "PEDIGREE PANC POUCH POLLO 100 GR",
+        "b": "PEDIGREE PANC POUCH RES 100 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 34844,
+        "lift": 13.1,
+        "conf": 80.1
+      },
+      {
+        "a": "WHISKAS POUCH ATUN 85 GR",
+        "b": "WHISKAS POUCH SALMON 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 31894,
+        "lift": 14.6,
+        "conf": 68.8
+      },
+      {
+        "a": "WHISKAS POUCH ATUN 85 GR",
+        "b": "WHISKAS POUCH PARRILLADA MIXTA 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 31722,
+        "lift": 15.0,
+        "conf": 68.4
+      },
+      {
+        "a": "WHISKAS POUCH ATUN 85 GR",
+        "b": "WHISKAS POUCH POLLO 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 31673,
+        "lift": 14.7,
+        "conf": 68.3
+      },
+      {
+        "a": "WHISKAS POUCH PARRILLADA MIXTA 85 GR",
+        "b": "WHISKAS POUCH POLLO 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 30543,
+        "lift": 16.2,
+        "conf": 75.4
+      },
+      {
+        "a": "WHISKAS POUCH PARRILLADA MIXTA 85 GR",
+        "b": "WHISKAS POUCH SALMON 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 29713,
+        "lift": 15.6,
+        "conf": 73.3
+      },
+      {
+        "a": "WHISKAS POUCH RES 85 GR",
+        "b": "WHISKAS POUCH POLLO 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 29517,
+        "lift": 16.6,
+        "conf": 77.2
+      },
+      {
+        "a": "WHISKAS POUCH SALMON 85 GR",
+        "b": "WHISKAS POUCH POLLO 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 29407,
+        "lift": 15.1,
+        "conf": 70.3
+      },
+      {
+        "a": "WHISKAS POUCH ATUN 85 GR",
+        "b": "WHISKAS POUCH RES 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 28836,
+        "lift": 14.5,
+        "conf": 62.2
+      },
+      {
+        "a": "WHISKAS POUCH PARRILLADA MIXTA 85 GR",
+        "b": "WHISKAS POUCH RES 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 28697,
+        "lift": 16.5,
+        "conf": 70.8
+      },
+      {
+        "a": "WHISKAS POUCH SALMON 85 GR",
+        "b": "WHISKAS POUCH RES 85 GR",
+        "marca_a": "EFFEM",
+        "marca_b": "EFFEM",
+        "co": 28665,
+        "lift": 16.0,
+        "conf": 68.6
+      }
+    ],
+    "misma_marca_pct": 32.0
+  },
+  "recompra_sku": {
+    "evaluados": 276,
+    "nota": "solo SKUs con >=200 compradores Y disponibles los 12 meses",
+    "mediana_pct_core": 16.6,
+    "basicos": [
+      {
+        "n": "ACT II EXTRA MANTEQUILLA",
+        "m": "CONAGRA",
+        "cli": 11133,
+        "core": 67.7
+      },
+      {
+        "n": "ACT II MANTEQUILLA",
+        "m": "CONAGRA",
+        "cli": 9633,
+        "core": 58.1
+      },
+      {
+        "n": "IBERIA MARGARINA S/SAL C/4/90 GR",
+        "m": "UPFIELD",
+        "cli": 11283,
+        "core": 51.0
+      },
+      {
+        "n": "FABULOSO LAVANDA 1 LT",
+        "m": "COLGATE",
+        "cli": 7419,
+        "core": 49.7
+      },
+      {
+        "n": "CHIPOTLE SM 100 GR",
+        "m": "EMPACADORA SAN MARCOS",
+        "cli": 11307,
+        "core": 48.8
+      },
+      {
+        "n": "FABULOSO MAR FRESCO 1 LT",
+        "m": "COLGATE",
+        "cli": 6735,
+        "core": 45.6
+      },
+      {
+        "n": "FRIJOLES REF BAYOS 400 GR",
+        "m": "VERDE VALLE",
+        "cli": 8065,
+        "core": 44.4
+      },
+      {
+        "n": "ACT II NATURAL",
+        "m": "CONAGRA",
+        "cli": 8588,
+        "core": 44.4
+      }
+    ],
+    "prueba": [
+      {
+        "n": "MEJORALITO C/30 TABLETAS - 80 MG",
+        "m": "HALEON",
+        "cli": 848,
+        "core": 0.9
+      },
+      {
+        "n": "RAIDOLITOS LAVANDA / ORIGINAL C/50/12 GR",
+        "m": "SC JOHNSON",
+        "cli": 1178,
+        "core": 1.7
+      },
+      {
+        "n": "MEJORAL C/12 TABLETAS - 500 MG",
+        "m": "HALEON",
+        "cli": 371,
+        "core": 2.7
+      },
+      {
+        "n": "CHAMP ADULTO SECO 500 GR",
+        "m": "EFFEM",
+        "cli": 425,
+        "core": 2.8
+      },
+      {
+        "n": "TESALON C/10 CAPSULAS - 100 MG",
+        "m": "HALEON",
+        "cli": 295,
+        "core": 3.1
+      },
+      {
+        "n": "KINDER SORPRESA JOYAS T12",
+        "m": "FERRERO",
+        "cli": 390,
+        "core": 3.3
+      },
+      {
+        "n": "MEJORAL 5.0 FORTE C/12 TABLETAS - 500 MG",
+        "m": "HALEON",
+        "cli": 3889,
+        "core": 3.3
+      },
+      {
+        "n": "LOS PASOS SEPTIMA MALBEC 750 ML",
+        "m": "BEPENSA",
+        "cli": 311,
+        "core": 3.5
+      }
+    ]
+  },
+  "ciclo_vida": {
+    "skus_total": 538,
+    "activos_ult2m": 430,
+    "descontinuados": 108,
+    "nacen_por_mes": {
+      "2025-09": 364,
+      "2025-10": 34,
+      "2025-11": 9,
+      "2025-12": 9,
+      "2026-01": 14,
+      "2026-02": 4,
+      "2026-03": 14,
+      "2026-04": 15,
+      "2026-05": 28,
+      "2026-06": 14,
+      "2026-07": 11,
+      "2026-08": 22
+    },
+    "mueren_por_mes": {
+      "2025-09": 7,
+      "2025-10": 6,
+      "2025-11": 10,
+      "2025-12": 6,
+      "2026-01": 9,
+      "2026-02": 17,
+      "2026-03": 10,
+      "2026-04": 15,
+      "2026-05": 15,
+      "2026-06": 13
+    },
+    "vendidos_12m": 277
+  },
+  "concentracion": {
+    "clientes": 34485,
+    "penetracion_mediana_pct": 4.83,
+    "skus_50pct": 55,
+    "skus_80pct": 156,
+    "skus_95pct": 283,
+    "pareto": [
+      {
+        "n": 10,
+        "pct": 17.5
+      },
+      {
+        "n": 25,
+        "pct": 31.9
+      },
+      {
+        "n": 50,
+        "pct": 47.6
+      },
+      {
+        "n": 100,
+        "pct": 66.7
+      },
+      {
+        "n": 156,
+        "pct": 80.1
+      },
+      {
+        "n": 300,
+        "pct": 96.0
+      },
+      {
+        "n": 500,
+        "pct": 100.0
+      }
+    ],
+    "top_penetracion": [
+      {
+        "n": "COLGATE CD TOTAL ORIGINAL MINT 50 ML",
+        "m": "COLGATE",
+        "pct": 35.1
+      },
+      {
+        "n": "PEDIGREE PANC POUCH RES 100 GR",
+        "m": "EFFEM",
+        "pct": 35.0
+      },
+      {
+        "n": "KNORR SUIZA GRANULADO C/6/88GR + 1 SOBRE",
+        "m": "UNILEVER",
+        "pct": 34.5
+      },
+      {
+        "n": "DOVE JABON BLANCO 90 GR",
+        "m": "UNILEVER",
+        "pct": 33.5
+      },
+      {
+        "n": "WHISKAS POUCH ATUN 85 GR",
+        "m": "EFFEM",
+        "pct": 33.1
+      },
+      {
+        "n": "CHIPOTLE SM 100 GR",
+        "m": "EMPACADORA SAN MARCOS",
+        "pct": 32.8
+      },
+      {
+        "n": "IBERIA MARGARINA S/SAL C/4/90 GR",
+        "m": "UPFIELD",
+        "pct": 32.7
+      },
+      {
+        "n": "ACT II EXTRA MANTEQUILLA",
+        "m": "CONAGRA",
+        "pct": 32.3
+      }
+    ]
+  },
+  "marcas": [
+    {
+      "marca": "EFFEM",
+      "imp_pct": 16.5,
+      "penetracion": 45.1,
+      "skus": 52
+    },
+    {
+      "marca": "CONAGRA",
+      "imp_pct": 16.4,
+      "penetracion": 37.8,
+      "skus": 58
+    },
+    {
+      "marca": "UNILEVER",
+      "imp_pct": 15.2,
+      "penetracion": 53.8,
+      "skus": 92
+    },
+    {
+      "marca": "COLGATE",
+      "imp_pct": 10.7,
+      "penetracion": 50.6,
+      "skus": 63
+    },
+    {
+      "marca": "QUALA",
+      "imp_pct": 7.6,
+      "penetracion": 41.0,
+      "skus": 34
+    },
+    {
+      "marca": "FERRERO",
+      "imp_pct": 6.0,
+      "penetracion": 41.0,
+      "skus": 37
+    },
+    {
+      "marca": "EMPACADORA SAN MARCOS",
+      "imp_pct": 4.0,
+      "penetracion": 38.2,
+      "skus": 11
+    },
+    {
+      "marca": "BEPENSA",
+      "imp_pct": 3.3,
+      "penetracion": 27.3,
+      "skus": 15
+    },
+    {
+      "marca": "CAMPARI",
+      "imp_pct": 2.8,
+      "penetracion": 18.8,
+      "skus": 10
+    },
+    {
+      "marca": "UPFIELD",
+      "imp_pct": 2.4,
+      "penetracion": 37.4,
+      "skus": 7
+    },
+    {
+      "marca": "SC JOHNSON",
+      "imp_pct": 2.3,
+      "penetracion": 31.1,
+      "skus": 33
+    },
+    {
+      "marca": "VERDE VALLE",
+      "imp_pct": 2.3,
+      "penetracion": 25.7,
+      "skus": 4
+    }
+  ],
+  "rechazo": {
+    "piezas_total": 309216,
+    "clientes_afectados": 14445,
+    "skus_afectados": 815,
+    "top10_concentra_pct": 30.3,
+    "top": [
+      {
+        "n": "ACT II EXTRA MANTEQUILLA",
+        "m": "CONAGRA",
+        "piezas": 20073,
+        "tasa": 3.1
+      },
+      {
+        "n": "ACT II MANTEQUILLA",
+        "m": "CONAGRA",
+        "piezas": 12308,
+        "tasa": 2.9
+      },
+      {
+        "n": "PEDIGREE PANC POUCH RES 100 GR",
+        "m": "EFFEM",
+        "piezas": 12109,
+        "tasa": 2.8
+      },
+      {
+        "n": "PEDIGREE PANC POUCH POLLO 100 GR",
+        "m": "EFFEM",
+        "piezas": 8271,
+        "tasa": 2.9
+      },
+      {
+        "n": "WHISKAS POUCH ATUN 85 GR",
+        "m": "EFFEM",
+        "piezas": 7511,
+        "tasa": 2.9
+      },
+      {
+        "n": "ACT II NATURAL",
+        "m": "CONAGRA",
+        "piezas": 7104,
+        "tasa": 2.9
+      },
+      {
+        "n": "FRIJOLES REF BAYOS 400 GR",
+        "m": "VERDE VALLE",
+        "piezas": 7039,
+        "tasa": 2.4
+      },
+      {
+        "n": "CHIPOTLE SM 100 GR",
+        "m": "EMPACADORA SAN MARCOS",
+        "piezas": 6651,
+        "tasa": 1.3
+      }
+    ]
+  },
+  "calidad_dim": {
+    "descripciones_corruptas": 4,
+    "skus_mercancia": 538,
+    "skus_promocion": 345,
+    "lineas_promocion": 905802,
+    "pct_lineas_promocion": 19.8
+  },
+  "recomendables": 428,
+  "exhibidores": 17
+}

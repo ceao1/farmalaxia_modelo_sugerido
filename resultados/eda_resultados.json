@@ -1,0 +1,1258 @@
+{
+  "grano": {
+    "visitas": 1477791,
+    "compras": 890471,
+    "tasa_conversion_visita": 60.3,
+    "clientes_totales": 36120,
+    "clientes_que_compraron": 34485,
+    "skus": 538,
+    "skus_promocion": 345
+  },
+  "mensual": [
+    {
+      "mes": "2025-09",
+      "clientes_visitados": 27102.0,
+      "clientes_compradores": 23827,
+      "visitas": 124199.0,
+      "compras": 71452,
+      "importe": 29540037.61,
+      "dias_habiles": 25,
+      "tasa_conversion": 87.9,
+      "compras_por_cliente": 3.0,
+      "ticket_promedio": 413.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2025-10",
+      "clientes_visitados": 26579.0,
+      "clientes_compradores": 23662,
+      "visitas": 133426.0,
+      "compras": 76614,
+      "importe": 30991082.25,
+      "dias_habiles": 28,
+      "tasa_conversion": 89.0,
+      "compras_por_cliente": 3.24,
+      "ticket_promedio": 405.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2025-11",
+      "clientes_visitados": NaN,
+      "clientes_compradores": 23897,
+      "visitas": NaN,
+      "compras": 73994,
+      "importe": 29085020.07,
+      "dias_habiles": 25,
+      "tasa_conversion": NaN,
+      "compras_por_cliente": 3.1,
+      "ticket_promedio": 393.0,
+      "visitas_confiables": false
+    },
+    {
+      "mes": "2025-12",
+      "clientes_visitados": 27411.0,
+      "clientes_compradores": 24392,
+      "visitas": 113685.0,
+      "compras": 68176,
+      "importe": 28706947.03,
+      "dias_habiles": 23,
+      "tasa_conversion": 89.0,
+      "compras_por_cliente": 2.8,
+      "ticket_promedio": 421.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2026-01",
+      "clientes_visitados": 26844.0,
+      "clientes_compradores": 23886,
+      "visitas": 125578.0,
+      "compras": 72559,
+      "importe": 31360548.69,
+      "dias_habiles": 26,
+      "tasa_conversion": 89.0,
+      "compras_por_cliente": 3.04,
+      "ticket_promedio": 432.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2026-02",
+      "clientes_visitados": 27290.0,
+      "clientes_compradores": 23269,
+      "visitas": 117548.0,
+      "compras": 66326,
+      "importe": 27049771.28,
+      "dias_habiles": 26,
+      "tasa_conversion": 85.3,
+      "compras_por_cliente": 2.85,
+      "ticket_promedio": 408.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2026-03",
+      "clientes_visitados": 26980.0,
+      "clientes_compradores": 23291,
+      "visitas": 126244.0,
+      "compras": 72932,
+      "importe": 29431398.560000002,
+      "dias_habiles": 26,
+      "tasa_conversion": 86.3,
+      "compras_por_cliente": 3.13,
+      "ticket_promedio": 404.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2026-04",
+      "clientes_visitados": 27076.0,
+      "clientes_compradores": 23130,
+      "visitas": 120187.0,
+      "compras": 68220,
+      "importe": 28666001.560000002,
+      "dias_habiles": 26,
+      "tasa_conversion": 85.4,
+      "compras_por_cliente": 2.95,
+      "ticket_promedio": 420.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2026-05",
+      "clientes_visitados": 26815.0,
+      "clientes_compradores": 23437,
+      "visitas": 120897.0,
+      "compras": 72971,
+      "importe": 30242007.490000002,
+      "dias_habiles": 28,
+      "tasa_conversion": 87.4,
+      "compras_por_cliente": 3.11,
+      "ticket_promedio": 414.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2026-06",
+      "clientes_visitados": 31481.0,
+      "clientes_compradores": 26032,
+      "visitas": 137322.0,
+      "compras": 79982,
+      "importe": 35051281.11,
+      "dias_habiles": 29,
+      "tasa_conversion": 82.7,
+      "compras_por_cliente": 3.07,
+      "ticket_promedio": 438.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2026-07",
+      "clientes_visitados": 28513.0,
+      "clientes_compradores": 25859,
+      "visitas": 153755.0,
+      "compras": 89664,
+      "importe": 39318447.20999999,
+      "dias_habiles": 30,
+      "tasa_conversion": 90.7,
+      "compras_por_cliente": 3.47,
+      "ticket_promedio": 439.0,
+      "visitas_confiables": true
+    },
+    {
+      "mes": "2026-08",
+      "clientes_visitados": 28735.0,
+      "clientes_compradores": 25675,
+      "visitas": 130956.0,
+      "compras": 77581,
+      "importe": 32342751.36,
+      "dias_habiles": 25,
+      "tasa_conversion": 89.4,
+      "compras_por_cliente": 3.02,
+      "ticket_promedio": 417.0,
+      "visitas_confiables": true
+    }
+  ],
+  "ciclo_vida": [
+    {
+      "mes": "2025-09",
+      "nuevos": 23827,
+      "recurrentes": 0,
+      "reactivados": 0,
+      "perdidos": 0,
+      "retencion": null
+    },
+    {
+      "mes": "2025-10",
+      "nuevos": 1378,
+      "recurrentes": 22284,
+      "reactivados": 0,
+      "perdidos": 1543,
+      "retencion": 93.5
+    },
+    {
+      "mes": "2025-11",
+      "nuevos": 580,
+      "recurrentes": 22572,
+      "reactivados": 745,
+      "perdidos": 1090,
+      "retencion": 95.4
+    },
+    {
+      "mes": "2025-12",
+      "nuevos": 1068,
+      "recurrentes": 22501,
+      "reactivados": 823,
+      "perdidos": 1396,
+      "retencion": 94.2
+    },
+    {
+      "mes": "2026-01",
+      "nuevos": 542,
+      "recurrentes": 22398,
+      "reactivados": 946,
+      "perdidos": 1994,
+      "retencion": 91.8
+    },
+    {
+      "mes": "2026-02",
+      "nuevos": 651,
+      "recurrentes": 21724,
+      "reactivados": 894,
+      "perdidos": 2162,
+      "retencion": 90.9
+    },
+    {
+      "mes": "2026-03",
+      "nuevos": 388,
+      "recurrentes": 21567,
+      "reactivados": 1336,
+      "perdidos": 1702,
+      "retencion": 92.7
+    },
+    {
+      "mes": "2026-04",
+      "nuevos": 424,
+      "recurrentes": 21593,
+      "reactivados": 1113,
+      "perdidos": 1698,
+      "retencion": 92.7
+    },
+    {
+      "mes": "2026-05",
+      "nuevos": 499,
+      "recurrentes": 21631,
+      "reactivados": 1307,
+      "perdidos": 1499,
+      "retencion": 93.5
+    },
+    {
+      "mes": "2026-06",
+      "nuevos": 3312,
+      "recurrentes": 21420,
+      "reactivados": 1300,
+      "perdidos": 2017,
+      "retencion": 91.4
+    },
+    {
+      "mes": "2026-07",
+      "nuevos": 1281,
+      "recurrentes": 23468,
+      "reactivados": 1110,
+      "perdidos": 2564,
+      "retencion": 90.2
+    },
+    {
+      "mes": "2026-08",
+      "nuevos": 535,
+      "recurrentes": 24114,
+      "reactivados": 1026,
+      "perdidos": 1745,
+      "retencion": 93.3
+    }
+  ],
+  "frecuencia_intramensual": [
+    {
+      "banda": "1",
+      "pct": 19.7,
+      "n": 57189
+    },
+    {
+      "banda": "2",
+      "pct": 22.6,
+      "n": 65687
+    },
+    {
+      "banda": "3",
+      "pct": 22.4,
+      "n": 65109
+    },
+    {
+      "banda": "4",
+      "pct": 19.7,
+      "n": 57183
+    },
+    {
+      "banda": "5-6",
+      "pct": 10.4,
+      "n": 30125
+    },
+    {
+      "banda": "7-9",
+      "pct": 4.9,
+      "n": 14155
+    },
+    {
+      "banda": "10+",
+      "pct": 0.3,
+      "n": 909
+    }
+  ],
+  "frecuencia_resumen": {
+    "pares_cliente_mes": 290357,
+    "media": 3.07,
+    "mediana": 3.0,
+    "p75": 4.0,
+    "p90": 5.0,
+    "pct_mas_de_una": 80.3,
+    "visitas_media": 4.83,
+    "conversion_visita_compra": 64.6,
+    "nota_visitas": "metricas de visita excluyen 2025-11 (sin registro de visitas sin venta)"
+  },
+  "intervalo": {
+    "n": 855986,
+    "mediana": 7.0,
+    "media": 10.1,
+    "p25": 7.0,
+    "p75": 14.0,
+    "hist": [
+      {
+        "dias": 1,
+        "n": 27606
+      },
+      {
+        "dias": 2,
+        "n": 33147
+      },
+      {
+        "dias": 3,
+        "n": 35976
+      },
+      {
+        "dias": 4,
+        "n": 33767
+      },
+      {
+        "dias": 5,
+        "n": 31286
+      },
+      {
+        "dias": 6,
+        "n": 28599
+      },
+      {
+        "dias": 7,
+        "n": 416394
+      },
+      {
+        "dias": 8,
+        "n": 7075
+      },
+      {
+        "dias": 9,
+        "n": 4428
+      },
+      {
+        "dias": 10,
+        "n": 4166
+      },
+      {
+        "dias": 11,
+        "n": 4116
+      },
+      {
+        "dias": 12,
+        "n": 4514
+      },
+      {
+        "dias": 13,
+        "n": 4757
+      },
+      {
+        "dias": 14,
+        "n": 119908
+      },
+      {
+        "dias": 15,
+        "n": 2878
+      },
+      {
+        "dias": 16,
+        "n": 1241
+      },
+      {
+        "dias": 17,
+        "n": 800
+      },
+      {
+        "dias": 18,
+        "n": 797
+      },
+      {
+        "dias": 19,
+        "n": 874
+      },
+      {
+        "dias": 20,
+        "n": 1191
+      },
+      {
+        "dias": 21,
+        "n": 42484
+      },
+      {
+        "dias": 22,
+        "n": 732
+      },
+      {
+        "dias": 23,
+        "n": 384
+      },
+      {
+        "dias": 24,
+        "n": 248
+      },
+      {
+        "dias": 25,
+        "n": 237
+      },
+      {
+        "dias": 26,
+        "n": 336
+      },
+      {
+        "dias": 27,
+        "n": 380
+      },
+      {
+        "dias": 28,
+        "n": 20603
+      },
+      {
+        "dias": 29,
+        "n": 342
+      },
+      {
+        "dias": 30,
+        "n": 135
+      },
+      {
+        "dias": 31,
+        "n": 94
+      },
+      {
+        "dias": 32,
+        "n": 84
+      },
+      {
+        "dias": 33,
+        "n": 117
+      },
+      {
+        "dias": 34,
+        "n": 177
+      },
+      {
+        "dias": 35,
+        "n": 9758
+      },
+      {
+        "dias": 36,
+        "n": 137
+      },
+      {
+        "dias": 37,
+        "n": 49
+      },
+      {
+        "dias": 38,
+        "n": 47
+      },
+      {
+        "dias": 39,
+        "n": 55
+      },
+      {
+        "dias": 40,
+        "n": 59
+      },
+      {
+        "dias": 41,
+        "n": 76
+      },
+      {
+        "dias": 42,
+        "n": 5581
+      },
+      {
+        "dias": 43,
+        "n": 55
+      },
+      {
+        "dias": 44,
+        "n": 32
+      },
+      {
+        "dias": 45,
+        "n": 27
+      },
+      {
+        "dias": 46,
+        "n": 28
+      },
+      {
+        "dias": 47,
+        "n": 28
+      },
+      {
+        "dias": 48,
+        "n": 33
+      },
+      {
+        "dias": 49,
+        "n": 2520
+      },
+      {
+        "dias": 50,
+        "n": 42
+      },
+      {
+        "dias": 51,
+        "n": 18
+      },
+      {
+        "dias": 52,
+        "n": 10
+      },
+      {
+        "dias": 53,
+        "n": 8
+      },
+      {
+        "dias": 54,
+        "n": 30
+      },
+      {
+        "dias": 55,
+        "n": 33
+      },
+      {
+        "dias": 56,
+        "n": 1945
+      },
+      {
+        "dias": 57,
+        "n": 34
+      },
+      {
+        "dias": 58,
+        "n": 18
+      },
+      {
+        "dias": 59,
+        "n": 10
+      },
+      {
+        "dias": 60,
+        "n": 7
+      }
+    ],
+    "pct_7d": 48.6,
+    "pct_menor_7d": 22.2
+  },
+  "canasta": {
+    "skus_por_compra_media": 3.7,
+    "skus_por_compra_mediana": 3.0,
+    "skus_por_compra_p90": 8.0,
+    "importe_por_compra_mediana": 280.0,
+    "skus_por_cliente_mes_media": 9.64,
+    "hist_skus": [
+      {
+        "skus": 0,
+        "n": 16
+      },
+      {
+        "skus": 1,
+        "n": 219628
+      },
+      {
+        "skus": 2,
+        "n": 195896
+      },
+      {
+        "skus": 3,
+        "n": 134958
+      },
+      {
+        "skus": 4,
+        "n": 94845
+      },
+      {
+        "skus": 5,
+        "n": 67446
+      },
+      {
+        "skus": 6,
+        "n": 47597
+      },
+      {
+        "skus": 7,
+        "n": 35210
+      },
+      {
+        "skus": 8,
+        "n": 26157
+      },
+      {
+        "skus": 9,
+        "n": 18406
+      },
+      {
+        "skus": 10,
+        "n": 13200
+      },
+      {
+        "skus": 11,
+        "n": 9290
+      },
+      {
+        "skus": 12,
+        "n": 7204
+      },
+      {
+        "skus": 13,
+        "n": 5099
+      },
+      {
+        "skus": 14,
+        "n": 3879
+      },
+      {
+        "skus": 15,
+        "n": 2929
+      },
+      {
+        "skus": 16,
+        "n": 2225
+      },
+      {
+        "skus": 17,
+        "n": 1756
+      },
+      {
+        "skus": 18,
+        "n": 1167
+      },
+      {
+        "skus": 19,
+        "n": 857
+      },
+      {
+        "skus": 20,
+        "n": 626
+      },
+      {
+        "skus": 21,
+        "n": 501
+      },
+      {
+        "skus": 22,
+        "n": 376
+      },
+      {
+        "skus": 23,
+        "n": 274
+      },
+      {
+        "skus": 24,
+        "n": 193
+      },
+      {
+        "skus": 25,
+        "n": 736
+      }
+    ]
+  },
+  "recompra": [
+    {
+      "mes": "2025-10",
+      "clientes": 22284,
+      "pct_skus_repetidos": 26.1,
+      "skus_nuevos_media": 7.18
+    },
+    {
+      "mes": "2025-11",
+      "clientes": 22572,
+      "pct_skus_repetidos": 26.7,
+      "skus_nuevos_media": 6.96
+    },
+    {
+      "mes": "2025-12",
+      "clientes": 22501,
+      "pct_skus_repetidos": 25.3,
+      "skus_nuevos_media": 6.56
+    },
+    {
+      "mes": "2026-01",
+      "clientes": 22398,
+      "pct_skus_repetidos": 25.2,
+      "skus_nuevos_media": 6.96
+    },
+    {
+      "mes": "2026-02",
+      "clientes": 21724,
+      "pct_skus_repetidos": 26.8,
+      "skus_nuevos_media": 6.43
+    },
+    {
+      "mes": "2026-03",
+      "clientes": 21567,
+      "pct_skus_repetidos": 25.1,
+      "skus_nuevos_media": 7.2
+    },
+    {
+      "mes": "2026-04",
+      "clientes": 21593,
+      "pct_skus_repetidos": 26.7,
+      "skus_nuevos_media": 7.0
+    },
+    {
+      "mes": "2026-05",
+      "clientes": 21631,
+      "pct_skus_repetidos": 25.3,
+      "skus_nuevos_media": 7.38
+    },
+    {
+      "mes": "2026-06",
+      "clientes": 21420,
+      "pct_skus_repetidos": 24.7,
+      "skus_nuevos_media": 7.92
+    },
+    {
+      "mes": "2026-07",
+      "clientes": 23468,
+      "pct_skus_repetidos": 25.8,
+      "skus_nuevos_media": 8.05
+    },
+    {
+      "mes": "2026-08",
+      "clientes": 24114,
+      "pct_skus_repetidos": 28.0,
+      "skus_nuevos_media": 6.82
+    }
+  ],
+  "recompra_acumulada": [
+    {
+      "mes": "2025-10",
+      "clientes": 22284,
+      "pct_ya_comprado": 26.1,
+      "skus_nunca_comprados": 7.18
+    },
+    {
+      "mes": "2025-11",
+      "clientes": 23317,
+      "pct_ya_comprado": 37.4,
+      "skus_nunca_comprados": 5.67
+    },
+    {
+      "mes": "2025-12",
+      "clientes": 23324,
+      "pct_ya_comprado": 43.3,
+      "skus_nunca_comprados": 4.59
+    },
+    {
+      "mes": "2026-01",
+      "clientes": 23344,
+      "pct_ya_comprado": 49.8,
+      "skus_nunca_comprados": 4.18
+    },
+    {
+      "mes": "2026-02",
+      "clientes": 22618,
+      "pct_ya_comprado": 53.6,
+      "skus_nunca_comprados": 3.68
+    },
+    {
+      "mes": "2026-03",
+      "clientes": 22903,
+      "pct_ya_comprado": 54.4,
+      "skus_nunca_comprados": 3.88
+    },
+    {
+      "mes": "2026-04",
+      "clientes": 22706,
+      "pct_ya_comprado": 57.3,
+      "skus_nunca_comprados": 3.58
+    },
+    {
+      "mes": "2026-05",
+      "clientes": 22938,
+      "pct_ya_comprado": 58.2,
+      "skus_nunca_comprados": 3.58
+    },
+    {
+      "mes": "2026-06",
+      "clientes": 22720,
+      "pct_ya_comprado": 56.3,
+      "skus_nunca_comprados": 4.1
+    },
+    {
+      "mes": "2026-07",
+      "clientes": 24578,
+      "pct_ya_comprado": 53.9,
+      "skus_nunca_comprados": 4.35
+    },
+    {
+      "mes": "2026-08",
+      "clientes": 25140,
+      "pct_ya_comprado": 56.8,
+      "skus_nunca_comprados": 3.59
+    }
+  ],
+  "repertorio": [
+    {
+      "mes_antiguedad": 1,
+      "clientes": 23827,
+      "skus_acum_media": 9.1,
+      "skus_acum_mediana": 7.0
+    },
+    {
+      "mes_antiguedad": 2,
+      "clientes": 23827,
+      "skus_acum_media": 15.9,
+      "skus_acum_mediana": 13.0
+    },
+    {
+      "mes_antiguedad": 3,
+      "clientes": 23827,
+      "skus_acum_media": 21.2,
+      "skus_acum_mediana": 17.0
+    },
+    {
+      "mes_antiguedad": 4,
+      "clientes": 23827,
+      "skus_acum_media": 25.5,
+      "skus_acum_mediana": 21.0
+    },
+    {
+      "mes_antiguedad": 5,
+      "clientes": 23827,
+      "skus_acum_media": 29.3,
+      "skus_acum_mediana": 24.0
+    },
+    {
+      "mes_antiguedad": 6,
+      "clientes": 23827,
+      "skus_acum_media": 32.5,
+      "skus_acum_mediana": 26.0
+    },
+    {
+      "mes_antiguedad": 7,
+      "clientes": 23827,
+      "skus_acum_media": 35.8,
+      "skus_acum_mediana": 29.0
+    },
+    {
+      "mes_antiguedad": 8,
+      "clientes": 23827,
+      "skus_acum_media": 38.9,
+      "skus_acum_mediana": 32.0
+    },
+    {
+      "mes_antiguedad": 9,
+      "clientes": 23827,
+      "skus_acum_media": 42.0,
+      "skus_acum_mediana": 35.0
+    },
+    {
+      "mes_antiguedad": 10,
+      "clientes": 23827,
+      "skus_acum_media": 45.5,
+      "skus_acum_mediana": 38.0
+    },
+    {
+      "mes_antiguedad": 11,
+      "clientes": 23827,
+      "skus_acum_media": 49.0,
+      "skus_acum_mediana": 41.0
+    },
+    {
+      "mes_antiguedad": 12,
+      "clientes": 23827,
+      "skus_acum_media": 52.1,
+      "skus_acum_mediana": 44.0
+    }
+  ],
+  "estabilidad_repertorio": {
+    "pct_core_3plus": 22.0,
+    "pct_2_meses": 18.7,
+    "pct_one_off": 59.4
+  },
+  "sparsity": {
+    "clientes": 34485,
+    "skus": 538,
+    "pares_observados": 1391890,
+    "densidad_pct": 7.502,
+    "skus_por_cliente_mediana": 31.0,
+    "skus_por_cliente_media": 40.4,
+    "skus_por_cliente_p90": 88.0,
+    "skus_80pct_importe": 156,
+    "top10_pct_importe": 17.5,
+    "hist_skus_cliente": [
+      {
+        "skus": 1,
+        "n": 704
+      },
+      {
+        "skus": 2,
+        "n": 776
+      },
+      {
+        "skus": 3,
+        "n": 711
+      },
+      {
+        "skus": 4,
+        "n": 644
+      },
+      {
+        "skus": 5,
+        "n": 607
+      },
+      {
+        "skus": 6,
+        "n": 542
+      },
+      {
+        "skus": 7,
+        "n": 570
+      },
+      {
+        "skus": 8,
+        "n": 585
+      },
+      {
+        "skus": 9,
+        "n": 616
+      },
+      {
+        "skus": 10,
+        "n": 586
+      },
+      {
+        "skus": 11,
+        "n": 582
+      },
+      {
+        "skus": 12,
+        "n": 631
+      },
+      {
+        "skus": 13,
+        "n": 606
+      },
+      {
+        "skus": 14,
+        "n": 620
+      },
+      {
+        "skus": 15,
+        "n": 583
+      },
+      {
+        "skus": 16,
+        "n": 622
+      },
+      {
+        "skus": 17,
+        "n": 735
+      },
+      {
+        "skus": 18,
+        "n": 573
+      },
+      {
+        "skus": 19,
+        "n": 591
+      },
+      {
+        "skus": 20,
+        "n": 543
+      },
+      {
+        "skus": 21,
+        "n": 573
+      },
+      {
+        "skus": 22,
+        "n": 477
+      },
+      {
+        "skus": 23,
+        "n": 506
+      },
+      {
+        "skus": 24,
+        "n": 404
+      },
+      {
+        "skus": 25,
+        "n": 454
+      },
+      {
+        "skus": 26,
+        "n": 415
+      },
+      {
+        "skus": 27,
+        "n": 402
+      },
+      {
+        "skus": 28,
+        "n": 397
+      },
+      {
+        "skus": 29,
+        "n": 420
+      },
+      {
+        "skus": 30,
+        "n": 426
+      },
+      {
+        "skus": 31,
+        "n": 364
+      },
+      {
+        "skus": 32,
+        "n": 392
+      },
+      {
+        "skus": 33,
+        "n": 389
+      },
+      {
+        "skus": 34,
+        "n": 397
+      },
+      {
+        "skus": 35,
+        "n": 410
+      },
+      {
+        "skus": 36,
+        "n": 394
+      },
+      {
+        "skus": 37,
+        "n": 403
+      },
+      {
+        "skus": 38,
+        "n": 392
+      },
+      {
+        "skus": 39,
+        "n": 377
+      },
+      {
+        "skus": 40,
+        "n": 359
+      },
+      {
+        "skus": 41,
+        "n": 366
+      },
+      {
+        "skus": 42,
+        "n": 376
+      },
+      {
+        "skus": 43,
+        "n": 378
+      },
+      {
+        "skus": 44,
+        "n": 372
+      },
+      {
+        "skus": 45,
+        "n": 303
+      },
+      {
+        "skus": 46,
+        "n": 358
+      },
+      {
+        "skus": 47,
+        "n": 295
+      },
+      {
+        "skus": 48,
+        "n": 312
+      },
+      {
+        "skus": 49,
+        "n": 316
+      },
+      {
+        "skus": 50,
+        "n": 316
+      },
+      {
+        "skus": 51,
+        "n": 328
+      },
+      {
+        "skus": 52,
+        "n": 272
+      },
+      {
+        "skus": 53,
+        "n": 286
+      },
+      {
+        "skus": 54,
+        "n": 246
+      },
+      {
+        "skus": 55,
+        "n": 279
+      },
+      {
+        "skus": 56,
+        "n": 249
+      },
+      {
+        "skus": 57,
+        "n": 245
+      },
+      {
+        "skus": 58,
+        "n": 270
+      },
+      {
+        "skus": 59,
+        "n": 242
+      },
+      {
+        "skus": 60,
+        "n": 7898
+      }
+    ]
+  },
+  "censurados": 1816,
+  "segmentos": [
+    {
+      "segmento": "Alta frecuencia (semanal)",
+      "clientes": 4800,
+      "compras_mes": 5.33,
+      "skus_mes": 19.16,
+      "importe_mes": 2582.2,
+      "meses": 11.85,
+      "pct": 13.9,
+      "pct_imp": 39.6,
+      "imp_cli": 30673.0,
+      "meses_prom": 11.8
+    },
+    {
+      "segmento": "Baja (mensual)",
+      "clientes": 7610,
+      "compras_mes": 1.49,
+      "skus_mes": 4.28,
+      "importe_mes": 504.18,
+      "meses": 7.3,
+      "pct": 22.1,
+      "pct_imp": 7.3,
+      "imp_cli": 3583.0,
+      "meses_prom": 7.3
+    },
+    {
+      "segmento": "Esporádico / abandonó",
+      "clientes": 3338,
+      "compras_mes": 1.23,
+      "skus_mes": 4.2,
+      "importe_mes": 526.18,
+      "meses": 1.38,
+      "pct": 9.7,
+      "pct_imp": 0.7,
+      "imp_cli": 745.0,
+      "meses_prom": 1.4
+    },
+    {
+      "segmento": "Media (quincenal)",
+      "clientes": 16921,
+      "compras_mes": 2.84,
+      "skus_mes": 8.3,
+      "importe_mes": 1129.28,
+      "meses": 10.08,
+      "pct": 49.1,
+      "pct_imp": 51.9,
+      "imp_cli": 11398.0,
+      "meses_prom": 10.1
+    },
+    {
+      "segmento": "Sin historia suficiente",
+      "clientes": 1816,
+      "compras_mes": 1.5,
+      "skus_mes": 4.85,
+      "importe_mes": 694.71,
+      "meses": 1.47,
+      "pct": 5.3,
+      "pct_imp": 0.5,
+      "imp_cli": 1064.0,
+      "meses_prom": 1.5
+    }
+  ],
+  "segmentacion_regla": {
+    "clasificados": 32669,
+    "censurados": 1816,
+    "frontera_alta_media": 7.2,
+    "frontera_media_baja": 14.8,
+    "pct_12_meses": 47.9,
+    "alta_activos_12m": 96.8
+  },
+  "peso_clases": [
+    {
+      "clase": "core",
+      "pares": 305558,
+      "importe": 210368057.5,
+      "pct_pares": 22.0,
+      "pct_importe": 56.6,
+      "importe_medio": 688.0
+    },
+    {
+      "clase": "dos_meses",
+      "pares": 259662,
+      "importe": 63257241.56,
+      "pct_pares": 18.7,
+      "pct_importe": 17.0,
+      "importe_medio": 244.0
+    },
+    {
+      "clase": "one_off",
+      "pares": 826670,
+      "importe": 98160116.36,
+      "pct_pares": 59.4,
+      "pct_importe": 26.4,
+      "importe_medio": 119.0
+    }
+  ],
+  "skus_nuevos_catalogo": {
+    "2025-09": 364,
+    "2025-10": 34,
+    "2025-11": 9,
+    "2025-12": 9,
+    "2026-01": 14,
+    "2026-02": 4,
+    "2026-03": 14,
+    "2026-04": 15,
+    "2026-05": 28,
+    "2026-06": 14,
+    "2026-07": 11,
+    "2026-08": 22
+  }
+}

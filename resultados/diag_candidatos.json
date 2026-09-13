@@ -1,0 +1,19 @@
+{
+  "ruta100": {
+    "techo_pct": 65.1,
+    "cand_mediana": 100
+  },
+  "ruta300": {
+    "techo_pct": 94.7,
+    "cand_mediana": 300
+  },
+  "mixto": {
+    "techo_pct": 83.3,
+    "cand_mediana": 166
+  },
+  "valor": {
+    "importe_medio_productos_nuevos_por_cliente_mes": 634.0,
+    "importe_mediano": 413.0,
+    "compras_por_cliente_mes": 3.47
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "techo": [
+    {
+      "N": 20,
+      "items_test": 247689,
+      "pct_en_historia": 63.5,
+      "pct_en_top_ruta": 28.6,
+      "pct_en_top_global": 21.2,
+      "pct_solo_ruta_aporta": 5.7,
+      "pct_solo_historia_aporta": 40.7,
+      "pct_union": 69.3,
+      "pct_nadie_captura": 30.7
+    },
+    {
+      "N": 50,
+      "items_test": 247689,
+      "pct_en_historia": 63.5,
+      "pct_en_top_ruta": 47.9,
+      "pct_en_top_global": 38.9,
+      "pct_solo_ruta_aporta": 11.4,
+      "pct_solo_historia_aporta": 27.1,
+      "pct_union": 74.9,
+      "pct_nadie_captura": 25.1
+    },
+    {
+      "N": 100,
+      "items_test": 247689,
+      "pct_en_historia": 63.5,
+      "pct_en_top_ruta": 65.9,
+      "pct_en_top_global": 55.3,
+      "pct_solo_ruta_aporta": 17.8,
+      "pct_solo_historia_aporta": 15.5,
+      "pct_union": 81.4,
+      "pct_nadie_captura": 18.6
+    }
+  ],
+  "concentracion_mensual": [
+    {
+      "mes": "2025-09",
+      "share_top50": 53.2,
+      "gini_sku": 0.623,
+      "skus_vendidos": 364,
+      "skus_por_cliente": 9.13
+    },
+    {
+      "mes": "2025-10",
+      "share_top50": 49.7,
+      "gini_sku": 0.607,
+      "skus_vendidos": 387,
+      "skus_por_cliente": 9.85
+    },
+    {
+      "mes": "2025-11",
+      "share_top50": 51.0,
+      "gini_sku": 0.618,
+      "skus_vendidos": 386,
+      "skus_por_cliente": 9.67
+    },
+    {
+      "mes": "2025-12",
+      "share_top50": 51.8,
+      "gini_sku": 0.621,
+      "skus_vendidos": 380,
+      "skus_por_cliente": 8.94
+    },
+    {
+      "mes": "2026-01",
+      "share_top50": 54.1,
+      "gini_sku": 0.636,
+      "skus_vendidos": 381,
+      "skus_por_cliente": 9.47
+    },
+    {
+      "mes": "2026-02",
+      "share_top50": 52.5,
+      "gini_sku": 0.624,
+      "skus_vendidos": 374,
+      "skus_por_cliente": 8.98
+    },
+    {
+      "mes": "2026-03",
+      "share_top50": 54.0,
+      "gini_sku": 0.639,
+      "skus_vendidos": 377,
+      "skus_por_cliente": 9.62
+    },
+    {
+      "mes": "2026-04",
+      "share_top50": 53.0,
+      "gini_sku": 0.631,
+      "skus_vendidos": 385,
+      "skus_por_cliente": 9.6
+    },
+    {
+      "mes": "2026-05",
+      "share_top50": 51.0,
+      "gini_sku": 0.625,
+      "skus_vendidos": 403,
+      "skus_por_cliente": 9.94
+    },
+    {
+      "mes": "2026-06",
+      "share_top50": 50.8,
+      "gini_sku": 0.627,
+      "skus_vendidos": 404,
+      "skus_por_cliente": 9.84
+    },
+    {
+      "mes": "2026-07",
+      "share_top50": 52.9,
+      "gini_sku": 0.641,
+      "skus_vendidos": 402,
+      "skus_por_cliente": 10.79
+    },
+    {
+      "mes": "2026-08",
+      "share_top50": 52.0,
+      "gini_sku": 0.645,
+      "skus_vendidos": 418,
+      "skus_por_cliente": 9.74
+    }
+  ],
+  "similitud_intra_ruta": [
+    {
+      "mes": "2025-09",
+      "jaccard_intra_ruta": 0.0601,
+      "sd": 0.1101,
+      "jaccard_rutas_estables": 0.0734
+    },
+    {
+      "mes": "2025-10",
+      "jaccard_intra_ruta": 0.0588,
+      "sd": 0.1018,
+      "jaccard_rutas_estables": 0.069
+    },
+    {
+      "mes": "2025-11",
+      "jaccard_intra_ruta": 0.0606,
+      "sd": 0.0959,
+      "jaccard_rutas_estables": 0.0704
+    },
+    {
+      "mes": "2025-12",
+      "jaccard_intra_ruta": 0.0515,
+      "sd": 0.0939,
+      "jaccard_rutas_estables": 0.0605
+    },
+    {
+      "mes": "2026-01",
+      "jaccard_intra_ruta": 0.0685,
+      "sd": 0.1113,
+      "jaccard_rutas_estables": 0.073
+    },
+    {
+      "mes": "2026-02",
+      "jaccard_intra_ruta": 0.058,
+      "sd": 0.0993,
+      "jaccard_rutas_estables": 0.0565
+    },
+    {
+      "mes": "2026-03",
+      "jaccard_intra_ruta": 0.0691,
+      "sd": 0.1043,
+      "jaccard_rutas_estables": 0.0599
+    },
+    {
+      "mes": "2026-04",
+      "jaccard_intra_ruta": 0.0587,
+      "sd": 0.0991,
+      "jaccard_rutas_estables": 0.0546
+    },
+    {
+      "mes": "2026-05",
+      "jaccard_intra_ruta": 0.0625,
+      "sd": 0.1023,
+      "jaccard_rutas_estables": 0.0521
+    },
+    {
+      "mes": "2026-06",
+      "jaccard_intra_ruta": 0.0782,
+      "sd": 0.1296,
+      "jaccard_rutas_estables": 0.0549
+    },
+    {
+      "mes": "2026-07",
+      "jaccard_intra_ruta": 0.0757,
+      "sd": 0.1193,
+      "jaccard_rutas_estables": 0.0597
+    },
+    {
+      "mes": "2026-08",
+      "jaccard_intra_ruta": 0.0932,
+      "sd": 0.1347,
+      "jaccard_rutas_estables": 0.0566
+    }
+  ],
+  "personalizacion": {
+    "mes": "2026-08",
+    "jaccard_intra_ruta_ult": 0.0932,
+    "skus_por_cliente_mes": 9.74,
+    "interpretacion": "Jaccard bajo entre vecinos = hay señal personal que la ruta no captura"
+  },
+  "marca_como_variable": {
+    "pct_compra_en_marcas_conocidas": 83.7,
+    "pct_productos_nuevos_de_marca_conocida": 79.8,
+    "n_productos_nuevos": 1295816
+  },
+  "adopcion_por_visita": {
+    "mes": "2026-07",
+    "clientes_2plus_visitas": 20708,
+    "productos_nuevos": 100333,
+    "pct_tras_primera_visita": 73.0,
+    "detalle": [
+      {
+        "visita": 1,
+        "clientes": 20708,
+        "nuevos": 27134,
+        "pct": 27.0,
+        "nuevos_por_visita": 1.31
+      },
+      {
+        "visita": 2,
+        "clientes": 20708,
+        "nuevos": 26129,
+        "pct": 26.0,
+        "nuevos_por_visita": 1.26
+      },
+      {
+        "visita": 3,
+        "clientes": 15917,
+        "nuevos": 18684,
+        "pct": 18.6,
+        "nuevos_por_visita": 1.17
+      },
+      {
+        "visita": 4,
+        "clientes": 10968,
+        "nuevos": 12613,
+        "pct": 12.6,
+        "nuevos_por_visita": 1.15
+      },
+      {
+        "visita": 5,
+        "clientes": 6273,
+        "nuevos": 6790,
+        "pct": 6.8,
+        "nuevos_por_visita": 1.08
+      }
+    ]
+  },
+  "composicion_canasta": {
+    "mes": "2026-07",
+    "por_ventana": {
+      "1": {
+        "nunca": 39.2,
+        "dormido": 31.7,
+        "habitual": 29.1
+      },
+      "2": {
+        "nunca": 39.2,
+        "dormido": 21.1,
+        "habitual": 39.6
+      },
+      "3": {
+        "nunca": 39.2,
+        "dormido": 15.2,
+        "habitual": 45.6
+      }
+    },
+    "dormidos_por_cliente": 24.2,
+    "tasa_reactivacion_pct": 9.67,
+    "tasa_descubrimiento_pct": 1.12,
+    "veces_mas_probable": 8.6
+  }
+}

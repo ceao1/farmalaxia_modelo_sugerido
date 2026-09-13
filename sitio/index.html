@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recomendador de SKUs · Farmalaxia</title>
+<meta name="description" content="Análisis de doce meses de preventa y prueba de concepto de un recomendador de productos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f4f6f8; --surface:#fff; --surface-2:#eef1f5; --line:#d9dfe6; --line-soft:#e7ecf1;
+  --ink:#10161d; --ink-2:#4a5765; --ink-3:#78848f;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --ref:#b3bcc6;
+  --plain-bg:#f0f7f4; --plain-line:#c5e3d7; --s3-ink:#127a55;
+  --warn-bg:#fdf4ef; --warn-line:#f2d3bf;
+  --shadow:0 1px 2px rgba(16,22,29,.05), 0 8px 24px -12px rgba(16,22,29,.16);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#101418; --surface:#171c22; --surface-2:#1e242b; --line:#2b333c; --line-soft:#232a31;
+  --ink:#eef2f6; --ink-2:#a7b3bf; --ink-3:#7b8794;
+  --s1:#3987e5; --s2:#e0713f; --s3:#199e70; --s4:#c98500; --ref:#4a5661;
+  --plain-bg:#15211d; --plain-line:#27423a; --s3-ink:#4fc79b;
+  --warn-bg:#241a14; --warn-line:#4a3527;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --bg:#101418; --surface:#171c22; --surface-2:#1e242b; --line:#2b333c; --line-soft:#232a31;
+  --ink:#eef2f6; --ink-2:#a7b3bf; --ink-3:#7b8794;
+  --s1:#3987e5; --s2:#e0713f; --s3:#199e70; --s4:#c98500; --ref:#4a5661;
+  --plain-bg:#15211d; --plain-line:#27423a; --s3-ink:#4fc79b;
+  --warn-bg:#241a14; --warn-line:#4a3527;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:96px}
+body{background:var(--bg); color:var(--ink); margin:0;
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15.5px; line-height:1.65; -webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:Archivo,system-ui,sans-serif; text-wrap:balance; margin:0;}
+h1{font-size:clamp(2rem,5vw,3.1rem); font-weight:800; letter-spacing:-.028em; line-height:1.06;}
+h2{font-size:clamp(1.4rem,3.2vw,1.95rem); font-weight:700; letter-spacing:-.02em; line-height:1.18;}
+h3{font-size:1.12rem; font-weight:700; letter-spacing:-.01em;}
+h4{font-size:.95rem; font-weight:600;}
+p{margin:0}
+a{color:var(--s1)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;}
+
+/* ---------- barra superior ---------- */
+.top{position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+.top-in{max-width:1060px; margin:0 auto; padding:11px 20px; display:flex; align-items:center;
+  gap:16px; flex-wrap:wrap;}
+.marca{font-family:Archivo,sans-serif; font-weight:800; letter-spacing:-.02em; font-size:1rem;
+  margin-right:auto;}
+.marca span{color:var(--ink-3); font-weight:600;}
+.navsec{display:flex; gap:3px; flex-wrap:wrap; font-size:.78rem;}
+.navsec a{color:var(--ink-3); text-decoration:none; padding:4px 8px; border-radius:6px;}
+.navsec a:hover{background:var(--surface-2); color:var(--ink);}
+
+/* ---------- estructura ---------- */
+.wrap{max-width:1060px; margin:0 auto; padding-inline:20px; padding-block:0 80px;}
+header.hero{padding-block:56px 34px; border-bottom:2px solid var(--ink); margin-bottom:42px;}
+.hero .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:.7rem; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--s2); margin-bottom:14px;}
+.hero .lede{font-size:1.12rem; color:var(--ink-2); max-width:64ch; margin-top:18px;}
+.hero .meta{display:flex; flex-wrap:wrap; gap:8px 22px; font-size:.78rem; color:var(--ink-3);
+  font-family:"IBM Plex Mono",monospace; margin-top:22px;}
+section{margin-bottom:66px; scroll-margin-top:90px;}
+.snum{font-family:"IBM Plex Mono",monospace; font-size:.72rem; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:8px;}
+.lead{font-size:1.06rem; color:var(--ink-2); max-width:70ch; margin-top:12px;}
+.lead strong{color:var(--ink); font-weight:600;}
+p.t{color:var(--ink-2); max-width:70ch; margin-top:14px;}
+p.t strong{color:var(--ink); font-weight:600;}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  padding:22px 20px 12px; box-shadow:var(--shadow); margin-top:20px; overflow-x:auto;}
+.nota{font-size:.86rem; color:var(--ink-3); margin-top:13px; max-width:72ch;}
+.nota b{color:var(--ink-2); font-weight:600;}
+
+/* ---------- cifras ---------- */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  margin-top:24px;}
+.stat{background:var(--surface); padding:17px 18px; display:flex; flex-direction:column; gap:3px;}
+.stat .v{font-family:Archivo,sans-serif; font-size:1.72rem; font-weight:700; letter-spacing:-.03em;
+  line-height:1.08; font-variant-numeric:tabular-nums;}
+.stat .k{font-size:.75rem; color:var(--ink-3); line-height:1.35;}
+.stat.hi .v{color:var(--s2);}
+
+/* ---------- bloques de voz ---------- */
+.plain{background:var(--plain-bg); border:1px solid var(--plain-line); border-radius:11px;
+  padding:20px 22px; margin-top:20px; display:flex; flex-direction:column; gap:11px;}
+.plain .tag{display:inline-flex; align-items:center; gap:7px; font-family:"IBM Plex Mono",monospace;
+  font-size:.67rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--s3-ink); align-self:flex-start;}
+.plain .tag::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--s3);}
+.plain p{font-size:.98rem; color:var(--ink-2); max-width:72ch;}
+.plain p strong{color:var(--ink); font-weight:600;}
+.plain ul{margin:0; padding-left:19px; display:flex; flex-direction:column; gap:7px;}
+.plain li{font-size:.95rem; color:var(--ink-2);}
+.plain li b{color:var(--ink); font-weight:600;}
+.warn{background:var(--warn-bg); border-color:var(--warn-line);}
+.warn .tag{color:var(--s2);} .warn .tag::before{background:var(--s2);}
+
+/* ---------- tablas ---------- */
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:11px; background:var(--surface);
+  margin-top:20px;}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:.87rem;}
+th,td{padding:11px 15px; text-align:right; border-bottom:1px solid var(--line-soft);}
+th:first-child,td:first-child{text-align:left;}
+thead th{font-size:.7rem; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3);
+  font-weight:600; background:var(--surface-2); position:sticky; top:0;}
+tbody tr:last-child td{border-bottom:none;}
+td.n{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;}
+tr.dest td{background:color-mix(in srgb,var(--s1) 8%,transparent); font-weight:600;}
+tr.dim td{color:var(--ink-3);}
+
+/* ---------- svg ---------- */
+.g-chart{display:block; width:100%; height:auto; min-width:540px;}
+.g-grid{stroke:var(--line-soft); stroke-width:1;}
+.g-yt{fill:var(--ink-3); font-size:11.5px; text-anchor:end; font-family:"IBM Plex Mono",monospace;}
+.g-xt{fill:var(--ink-3); font-size:11.5px; text-anchor:middle; font-family:"IBM Plex Mono",monospace;}
+.g-xt.str{font-weight:600; fill:var(--ink-2);}
+.g-ax{fill:var(--ink-3); font-size:11.5px; text-anchor:middle;}
+.g-lab{fill:var(--ink-2); font-size:11px; font-weight:600; text-anchor:middle;
+  font-family:"IBM Plex Mono",monospace;}
+.g-lab.sm{font-size:9.5px;}
+.g-leg{fill:var(--ink-2); font-size:11.5px;}
+.g-bar{fill:var(--s1);} .g-bar.acc{fill:var(--s2);} .g-bar.c1{fill:var(--s1);}
+.g-bar.c2{fill:var(--s3);} .g-bar.c3{fill:var(--s2); opacity:.55;} .g-bar.c4{fill:var(--s4);}
+.g-bar.mut{fill:var(--s1); opacity:.4;}
+.g-seg.c1{fill:var(--s1);} .g-seg.c2{fill:var(--s3);} .g-seg.c3{fill:var(--s2);}
+.g-seg.c4{fill:var(--s4);} .g-seg.mut{fill:var(--ref);}
+.g-segl{fill:#fff; font-size:12.5px; font-weight:600; text-anchor:middle;
+  font-family:"IBM Plex Mono",monospace;}
+.g-line{fill:none; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round;}
+.g-line.c1{stroke:var(--s1);} .g-line.c2{stroke:var(--s3);} .g-line.c3{stroke:var(--s2);}
+.g-line.ref{stroke:var(--ref); stroke-dasharray:5 5; stroke-width:1.6;}
+.g-dot{stroke:var(--surface); stroke-width:2;}
+.g-dot.c1{fill:var(--s1);} .g-dot.c2{fill:var(--s3);} .g-dot.c3{fill:var(--s2);}
+
+/* ---------- callout a otro documento ---------- */
+.callout{display:flex; gap:20px; align-items:center; flex-wrap:wrap; margin-top:24px;
+  background:linear-gradient(135deg,var(--surface) 0%,var(--surface-2) 100%);
+  border:1px solid var(--line); border-left:4px solid var(--s1); border-radius:12px;
+  padding:22px 24px; box-shadow:var(--shadow);}
+.co-txt{flex:1 1 320px}
+.co-txt h3{margin-bottom:6px}
+.co-txt p{font-size:.93rem; color:var(--ink-2); max-width:62ch}
+.co-btn{flex:none; background:var(--s1); color:#fff; text-decoration:none; font-weight:600;
+  font-size:.9rem; padding:11px 20px; border-radius:9px; white-space:nowrap;}
+.co-btn:hover{filter:brightness(1.08)}
+.co-btn:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+
+/* ---------- fichas de variable ---------- */
+.vars{display:flex; flex-direction:column; gap:0; margin-top:22px;
+  border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface);}
+.var{display:grid; grid-template-columns:minmax(150px,190px) 1fr auto; gap:16px; align-items:baseline;
+  padding:15px 20px; border-bottom:1px solid var(--line-soft);}
+.var:last-child{border-bottom:0}
+.var .vn{font-family:"IBM Plex Mono",monospace; font-size:.83rem; font-weight:600; color:var(--ink);}
+.var .vd{font-size:.92rem; color:var(--ink-2);}
+.var .vp{font-family:"IBM Plex Mono",monospace; font-size:.85rem; font-weight:600;
+  color:var(--s1); text-align:right; white-space:nowrap;}
+.var.baja .vp{color:var(--ink-3)}
+.vfam{background:var(--surface-2); padding:9px 20px; font-family:"IBM Plex Mono",monospace;
+  font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-3); border-bottom:1px solid var(--line-soft);}
+@media (max-width:620px){ .var{grid-template-columns:1fr; gap:4px} .var .vp{text-align:left} }
+
+/* ---------- rejillas ---------- */
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:16px; margin-top:20px;}
+.tk{background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:19px;
+  display:flex; flex-direction:column; gap:8px;}
+.tk h3{color:var(--s1); font-size:1rem;}
+.tk p{font-size:.9rem; color:var(--ink-2);}
+.pasos{counter-reset:p; display:flex; flex-direction:column; gap:14px; margin-top:20px; padding:0; list-style:none;}
+.pasos li{counter-increment:p; position:relative; padding-left:44px; color:var(--ink-2);}
+.pasos li::before{content:counter(p); position:absolute; left:0; top:-1px; width:28px; height:28px;
+  border-radius:8px; background:var(--s1); color:#fff; font-family:Archivo,sans-serif;
+  font-weight:700; font-size:.85rem; display:grid; place-items:center;}
+.pasos li b{color:var(--ink);}
+
+footer{border-top:1px solid var(--line); padding-block:26px 40px; margin-top:20px;
+  font-size:.8rem; color:var(--ink-3); font-family:"IBM Plex Mono",monospace;
+  display:flex; flex-wrap:wrap; gap:6px 20px;}
+
+@media (max-width:620px){
+  .wrap{padding-block:0 50px} header.hero{padding-block:34px 26px; margin-bottom:30px}
+  section{margin-bottom:46px} .navsec{display:none}
+}
+@media print{ .top{position:static} .navsec{display:none} section{break-inside:avoid} }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+</style>
+</head>
+<body>
+<div class="top"><div class="top-in">
+  <div class="marca">Farmalaxia <span>· recomendador de SKUs</span></div>
+  <nav class="navsec">
+    <a href="#contexto">Contexto</a><a href="#datos">Datos</a><a href="#metodo">Método</a>
+    <a href="#variables">Variables</a><a href="#resultados">Resultados</a>
+    <a href="#hallazgos">Hallazgos</a><a href="#validar">Experimento</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Informe final · Farmalaxia</div>
+  <h1>Un recomendador que le gana<br>al que ya existe</h1>
+  <p class="lede">Doce meses de preventa, 34.485 clientes y
+  428 productos recomendables. El sistema actual acierta en
+  49 de cada 100 clientes visitados; el modelo entrenado, en
+  59. Este informe explica cómo se midió, qué lo hace funcionar y
+  qué falta para comprobarlo en la calle.</p>
+  <div class="meta">
+    <span>2025-09-01 → 2026-08-27</span><span>5.328.903 renglones</span>
+    <span>Mes de prueba: julio 2026</span><span>24.578 clientes evaluados</span>
+  </div>
+</header>
+
+<section id="contexto">
+  <div class="snum">01 · Punto de partida</div>
+  <h2>Qué hay en la base de datos</h2>
+  <p class="lead">Un solo archivo de respaldo de SQL Server con <strong>una tabla</strong>,
+  <strong>5.328.903 renglones de venta</strong> y doce meses exactos de preventa
+  —del 1 de septiembre de 2025 al 27 de agosto de 2026— en dos centros de distribución.</p>
+
+  <div class="stats">
+    <div class="stat"><span class="v mono">1.477.791</span><span class="k">visitas de preventista</span></div>
+    <div class="stat"><span class="v mono">890.471</span><span class="k">terminaron en pedido</span></div>
+    <div class="stat hi"><span class="v mono">60,3 %</span><span class="k">de las visitas convierten</span></div>
+    <div class="stat"><span class="v mono">34.485</span><span class="k">clientes</span></div>
+    <div class="stat"><span class="v mono">538</span><span class="k">productos reales</span></div>
+  </div>
+
+  <div class="plain"><div class="tag">Lo que hay que saber de entrada</div>
+    <p>El catálogo <strong>aparenta 883 productos, pero solo 538 son
+    mercancía</strong>. Los otros 345 son registros de mecánica
+    promocional con importe cero: no mueven un peso, pero ocupan el
+    19,8 % de los renglones.</p>
+    <p>Descontando además exhibidores y productos sin venta reciente, quedan
+    <strong>428 productos que tiene sentido recomendar</strong>.
+    Cualquier análisis que no haga esa limpieza cuenta mal.</p></div>
+
+  <div class="plain warn"><div class="tag">Advertencias sobre los datos</div>
+    <ul>
+      <li><b>El primer y el último mes están incompletos.</b> Septiembre de 2025 es donde
+      arranca el archivo; agosto de 2026 corta un jueves y le faltan viernes y sábado.</li>
+      <li><b>Noviembre de 2025 no registró las visitas sin pedido</b>, así que aparenta
+      100 % de efectividad.</li>
+      <li><b>Junio de 2026 no es temporada alta:</b> se abrieron 24 rutas de preventa.</li>
+      <li><b>El código de promoción no discrimina:</b> viene lleno en casi todos los renglones.</li>
+    </ul></div>
+</section>
+
+<section id="datos">
+  <div class="snum">02 · Lo que encontramos en los datos</div>
+  <h2>Cinco cosas que cambian cómo hay que abordar el problema</h2>
+  <p class="lead">El análisis exploratorio completo —comportamiento de clientes, estructura del
+  catálogo, afinidades y calidad de los datos— está en un documento aparte. Aquí va solo lo que
+  condiciona el modelo.</p>
+
+  <div class="grid2">
+    <div class="tk"><h3>El «cuándo» ya está resuelto</h3>
+      <p>El 48,6 % de los intervalos entre compras son de exactamente siete días:
+      el cliente compra el día que le toca visita. <b>No hay que predecir el momento, sino qué
+      ofrecer cuando llegue.</b></p></div>
+
+    <div class="tk"><h3>El catálogo real es la mitad</h3>
+      <p>De los 883 códigos, <b>538 son mercancía</b>; el resto son
+      registros de promoción con importe cero. Descontando exhibidores y productos sin venta
+      reciente quedan <b>428 recomendables</b>.</p></div>
+
+    <div class="tk"><h3>La zona sí importa, y es la ruta</h3>
+      <p>El top-50 de la ruta cubre el 58,0 % de lo que compra un cliente,
+      contra 37,8 % de la lista global. Y <b>no es surtido de almacén:
+      el CEDIS no explica nada</b> (39,7 %).</p></div>
+
+    <div class="tk"><h3>La afinidad es de línea de sabor</h3>
+      <p>Quien lleva un sabor se lleva los demás. Sobre 890.455 canastas, los pares
+      más frecuentes son variantes del mismo producto — una pista fácil de explotar y de explicar
+      al preventista.</p></div>
+
+    <div class="tk"><h3>La oportunidad más cercana ya está en casa</h3>
+      <p>Un cliente ha comprado 31 productos
+      distintos en el año pero pide unos 9,6 al mes.
+      Son <b>24,2 productos que ya conoce y no está pidiendo</b>.</p></div>
+  </div>
+
+  <div class="callout">
+    <div class="co-txt">
+      <h3>Análisis exploratorio completo</h3>
+      <p>Doce meses de preventa en detalle: ritmo de compra, segmentos de cliente, estructura del
+      catálogo, concentración, afinidades, calidad de los datos y sus advertencias. Cada bloque
+      cierra con una lectura en lenguaje llano.</p>
+    </div>
+    <a class="co-btn" href="analisis-exploratorio.html">Abrir el análisis →</a>
+  </div>
+
+  <div class="plain warn"><div class="tag">Las advertencias que hay que tener presentes</div>
+    <ul>
+      <li><b>El primer y el último mes están incompletos</b> — septiembre de 2025 es donde arranca
+      el archivo y agosto de 2026 corta un jueves.</li>
+      <li><b>Junio de 2026 no es temporada alta:</b> se abrieron 24 rutas de preventa.</li>
+      <li><b>El código de promoción no sirve como está:</b> viene lleno en casi todos los renglones.</li>
+      <li><b>Un solo ciclo anual:</b> tendencia y estacionalidad no se pueden separar.</li>
+    </ul></div>
+</section>
+
+<section id="metodo">
+  <div class="snum">04 · Metodología</div>
+  <h2>Cómo se comparó, para que la comparación signifique algo</h2>
+  <p class="lead">Se reconstruyó la lógica del sistema actual como línea base y se midieron
+  cuatro alternativas <strong>sobre el mismo conjunto de candidatos, el mismo mes y la misma
+  población</strong>. Sin eso, cualquier diferencia sería del método y no del modelo.</p>
+
+  <ol class="pasos">
+    <li><b>Qué se recomienda.</b> Solo productos que el cliente <b>no pidió en los últimos dos
+    meses</b>. Lo que ya viene comprando queda fuera: lo iba a pedir igual, y acertarle infla el
+    número sin generar venta.</li>
+    <li><b>Contra qué se compara.</b> B1 reproduce el sistema actual: ordenar por popularidad entre
+    clientes de la misma ruta. <b>Es una reconstrucción</b>, porque la empresa no conserva las
+    recomendaciones que su sistema generó.</li>
+    <li><b>Cómo se evita hacer trampa.</b> Toda variable del mes se calcula solo con meses
+    anteriores. Se entrena con febrero a abril, se valida con mayo y <b>se prueba con julio</b>,
+    que el modelo nunca vio. Junio queda fuera: es el mes de la expansión de rutas.</li>
+    <li><b>Cuándo se considera exitoso.</b> El umbral —superar a B1 por 5 puntos— se fijó
+    <b>antes</b> de ver resultados, para no acomodarlo después.</li>
+    <li><b>Cuántas sugerencias.</b> Ocho por cliente al mes, que es lo que hoy emite el
+    sistema actual, ordenadas por la puntuación de cada modelo.</li>
+  </ol>
+
+  <div>
+    <h3 style="margin-top:40px">Los cinco modelos</h3>
+    <div class="tw"><table><thead><tr><th>Modelo</th><th>Criterio de orden</th></tr></thead><tbody><tr><td>B0 · popularidad global</td><td class="n">el producto más vendido en toda la operación</td></tr><tr><td>B1 · popularidad de ruta</td><td class="n">el más vendido entre clientes de su ruta (sistema actual)</td></tr><tr><td>P1 · ruta + marca</td><td class="n">B1 anteponiendo marcas que el cliente ya compra</td></tr><tr><td>P2 · afinidad</td><td class="n">co-ocurrencia con lo que el cliente ya lleva</td></tr><tr><td>P3 · ranker</td><td class="n">LightGBM LambdaRank sobre quince variables</td></tr></tbody></table></div>
+  </div>
+
+  <div class="plain"><div class="tag">En una frase</div>
+    <p>Se le tapó la respuesta al modelo: aprendió con datos hasta abril y se le pidió adivinar qué
+    compraría cada cliente en julio, <strong>un mes que nunca vio</strong>. Luego se comparó contra
+    lo que realmente compró.</p></div>
+</section>
+
+<section id="variables">
+  <div class="snum">04 · Las variables</div>
+  <h2>Qué mira el modelo para decidir</h2>
+  <p class="lead">Quince señales, agrupadas en cinco familias. El porcentaje de la derecha es
+  <strong>cuánto aporta cada una a las decisiones del modelo</strong>: los que superan el 3 %
+  están en azul.</p>
+
+  <div class="card"><svg viewBox="0 0 960 270" class="g-chart" role="img" aria-label="Importancia de cada variable en el modelo"><line x1="62" y1="192.0" x2="936" y2="192.0" class="g-grid"/><text x="52" y="196.0" class="g-yt">0%</text><line x1="62" y1="149.0" x2="936" y2="149.0" class="g-grid"/><text x="52" y="153.0" class="g-yt">9%</text><line x1="62" y1="106.0" x2="936" y2="106.0" class="g-grid"/><text x="52" y="110.0" class="g-yt">18%</text><line x1="62" y1="63.0" x2="936" y2="63.0" class="g-grid"/><text x="52" y="67.0" class="g-yt">27%</text><line x1="62" y1="20.0" x2="936" y2="20.0" class="g-grid"/><text x="52" y="24.0" class="g-yt">36%</text><rect x="79.5" y="46.2" width="62.2" height="145.8" rx="3" class="g-bar"><title>peso de marca: 30,2%</title></rect><text x="110.6" y="38.2" class="g-lab">30,2%</text><text x="110.6" y="214" class="g-xt">peso de marca</text><rect x="176.6" y="64.6" width="62.2" height="127.4" rx="3" class="g-bar"><title>afinidad máx.: 26,4%</title></rect><text x="207.7" y="56.6" class="g-lab">26,4%</text><text x="207.7" y="214" class="g-xt">afinidad máx.</text><rect x="273.7" y="150.0" width="62.2" height="42.0" rx="3" class="g-bar"><title>ya lo compró: 8,7%</title></rect><text x="304.8" y="142.0" class="g-lab">8,7%</text><text x="304.8" y="214" class="g-xt">ya lo compró</text><rect x="370.8" y="155.8" width="62.2" height="36.2" rx="3" class="g-bar"><title>popularidad global: 7,5%</title></rect><text x="401.9" y="147.8" class="g-lab">7,5%</text><text x="401.9" y="214" class="g-xt">popularidad global</text><rect x="467.9" y="158.2" width="62.2" height="33.8" rx="3" class="g-bar"><title>precio: 7,0%</title></rect><text x="499.0" y="150.2" class="g-lab">7,0%</text><text x="499.0" y="214" class="g-xt">precio</text><rect x="565.0" y="167.4" width="62.2" height="24.6" rx="3" class="g-bar"><title>rango en ruta: 5,1%</title></rect><text x="596.1" y="159.4" class="g-lab">5,1%</text><text x="596.1" y="214" class="g-xt">rango en ruta</text><rect x="662.1" y="173.2" width="62.2" height="18.8" rx="3" class="g-bar"><title>meses disponible: 3,9%</title></rect><text x="693.2" y="165.2" class="g-lab">3,9%</text><text x="693.2" y="214" class="g-xt">meses disponible</text><rect x="759.3" y="173.7" width="62.2" height="18.3" rx="3" class="g-bar"><title>retención del producto: 3,8%</title></rect><text x="790.3" y="165.7" class="g-lab">3,8%</text><text x="790.3" y="214" class="g-xt">retención del producto</text><rect x="856.4" y="183.3" width="62.2" height="8.7" rx="3" class="g-bar"><title>afinidad suma: 1,8%</title></rect><text x="887.4" y="175.3" class="g-lab">1,8%</text><text x="887.4" y="214" class="g-xt">afinidad suma</text></svg></div>
+
+  <div class="vars"><div class="vfam">Lo que compra gente parecida</div><div class="var baja"><div class="vn">popularidad en su ruta</div><div class="vd">Cuántos clientes de la misma ruta de preventa han comprado ese producto. Es la única señal que usa el sistema actual.</div><div class="vp">1,7 %</div></div><div class="var"><div class="vn">posición en su ruta</div><div class="vd">En qué lugar queda el producto dentro del ranking de su ruta: 1 es el más vendido. Dice lo mismo que la anterior pero en escala comparable entre rutas.</div><div class="vp">5,1 %</div></div><div class="var"><div class="vn">popularidad general</div><div class="vd">Cuántos clientes en toda la operación lo compran, sin importar la zona.</div><div class="vp">7,5 %</div></div><div class="vfam">Con qué marcas trabaja el cliente</div><div class="var"><div class="vn">peso de la marca en su canasta</div><div class="vd">Qué fracción de todo lo que compra el cliente es de esa marca. Un tendero que dedica el 30 % de su pedido a una marca es candidato natural para el resto de esa marca.</div><div class="vp">30,2 %</div></div><div class="var baja"><div class="vn">¿ya compra la marca?</div><div class="vd">Sí o no. Del EDA salió que 4 de cada 5 productos nuevos que adopta un cliente son de una marca que ya le vende.</div><div class="vp">0,8 %</div></div><div class="var baja"><div class="vn">cuántos productos de esa marca ya lleva</div><div class="vd">Si ya tiene ocho productos de una marca, el noveno es una venta más fácil que el primero.</div><div class="vp">0,5 %</div></div><div class="vfam">Qué va junto con qué</div><div class="var"><div class="vn">afinidad más alta</div><div class="vd">De todo lo que el cliente ya compra, cuántas veces el producto candidato aparece en la misma canasta que el más afín. Captura el patrón de línea de sabor: quien lleva Whiskas atún lleva salmón.</div><div class="vp">26,4 %</div></div><div class="var baja"><div class="vn">afinidad acumulada</div><div class="vd">Lo mismo pero sumando sobre todos los productos que lleva, no solo el más afín. Distingue al que tiene una sola coincidencia fuerte del que tiene muchas medianas.</div><div class="vp">1,8 %</div></div><div class="vfam">Cómo es el producto</div><div class="var"><div class="vn">precio unitario</div><div class="vd">Importe dividido entre piezas. Un producto de 20 pesos y uno de 900 no se ofrecen igual.</div><div class="vp">7,0 %</div></div><div class="var"><div class="vn">retención del producto</div><div class="vd">Qué fracción de quienes lo compran lo vuelven habitual (lo piden en tres meses o más). Separa los productos que enganchan de los que se prueban una vez.</div><div class="vp">3,8 %</div></div><div class="var"><div class="vn">antigüedad en catálogo</div><div class="vd">En cuántos meses del periodo se ha vendido. Un lanzamiento reciente tiene menos historia y se comporta distinto.</div><div class="vp">3,9 %</div></div><div class="var"><div class="vn">¿ya lo había comprado?</div><div class="vd">Si el cliente compró ese producto antes, aunque haya dejado de pedirlo. Recordarle algo que ya conoce es más fácil que presentarle algo nuevo.</div><div class="vp">8,7 %</div></div><div class="vfam">Cómo es el cliente</div><div class="var baja"><div class="vn">amplitud de su surtido</div><div class="vd">Cuántos productos distintos ha comprado. Un cliente de surtido amplio acepta sugerencias que uno de surtido corto rechazaría.</div><div class="vp">0,7 %</div></div><div class="var baja"><div class="vn">frecuencia de compra</div><div class="vd">Cuántas veces ha comprado en el periodo.</div><div class="vp">1,3 %</div></div><div class="var baja"><div class="vn">tamaño de su pedido</div><div class="vd">Importe medio por compra. Acota qué rango de precio tiene sentido ofrecerle.</div><div class="vp">0,7 %</div></div></div>
+
+  <div class="plain"><div class="tag">La conclusión que deja esta tabla</div>
+    <p><strong>El peso de la marca y la afinidad entre productos concentran el 56,6 %
+    de lo que usa el modelo.</strong> Ninguna de las dos la mira el sistema actual.</p>
+    <p>Y al revés: la popularidad en la ruta —la única señal del sistema de hoy— aporta
+    <strong>1,7 %</strong>. No es que no sirva: es que ya está
+    exprimida, y lo que queda por ganar está en otro lado.</p></div>
+</section>
+
+<section id="resultados">
+  <div class="snum">05 · Resultados</div>
+  <h2>El modelo supera al sistema actual en 10 puntos</h2>
+  <p class="lead">De cada 100 clientes visitados, el sistema actual le atina a algo nuevo en
+  <strong>49</strong>. El modelo entrenado, en
+  <strong>59</strong>.</p>
+
+  <div class="stats">
+    <div class="stat"><span class="v mono">48,7 %</span><span class="k">sistema actual (B1)</span></div>
+    <div class="stat hi"><span class="v mono">58,8 %</span><span class="k">modelo entrenado (P3)</span></div>
+    <div class="stat"><span class="v mono">+10,12</span><span class="k">puntos de mejora</span></div>
+    <div class="stat"><span class="v mono">0,36</span><span class="k">SKU extra por compra</span></div>
+  </div>
+
+  <h3 style="margin-top:38px">Cuántos productos acertó cada modelo</h3>
+  <p class="t">Sobre 24.578 clientes y 8 sugerencias a cada uno.
+  <strong>«SKU acertados» es el total de productos sugeridos que el cliente efectivamente
+  compró</strong> ese mes.</p>
+  <div class="tw"><table><thead><tr><th>Modelo</th><th>SKU acertados</th><th>vs actual</th><th>Clientes con acierto</th><th>vs actual</th></tr></thead><tbody><tr><td>B0 · popularidad global</td><td class="n">13.757</td><td class="n">−10.457</td><td class="n">37,22 %</td><td class="n">−11,45</td></tr><tr class="dest"><td>B1 · popularidad de ruta</td><td class="n">24.214</td><td class="n">—</td><td class="n">48,67 %</td><td class="n">—</td></tr><tr><td>P1 · ruta + marca</td><td class="n">24.858</td><td class="n">+644</td><td class="n">50,93 %</td><td class="n">+2,26</td></tr><tr><td>P2 · afinidad</td><td class="n">28.891</td><td class="n">+4.677</td><td class="n">52,00 %</td><td class="n">+3,33</td></tr><tr><td>P3 · ranker</td><td class="n">30.418</td><td class="n">+6.204</td><td class="n">58,79 %</td><td class="n">+10,12</td></tr><tr><td>P4 · por segmento</td><td class="n">31.214</td><td class="n">+7.000</td><td class="n">58,95 %</td><td class="n">+10,28</td></tr></tbody></table></div>
+
+  <p class="nota"><b>P4</b> es un refinamiento: usa el sistema actual para
+  los clientes de los que casi no se sabe nada —menos de cinco productos comprados— y el modelo
+  entrenado para el resto. Aporta poco al promedio, pero <b>garantiza que ningún cliente reciba
+  algo peor de lo que ya recibe hoy</b>.</p>
+
+  <div>
+    <h3 style="margin-top:38px">P4 — un modelo por segmento</h3>
+    <p class="t">El ranker necesita historia: sus dos variables principales se calculan sobre
+    compras pasadas. Midiendo sobre mayo qué modelo gana en cada tramo, <strong>P3 solo pierde con
+    menos de 5 productos comprados</strong> — el 1,4 % de la base.</p>
+    <div class="tw"><table><thead><tr><th>Historia del cliente</th><th>Clientes</th><th>B1</th><th>P1</th><th>P2</th><th>P3</th><th>Mejor</th></tr></thead><tbody><tr><td>0-4 SKU</td><td class="n">325</td><td class="n">48,9 %</td><td class="n">46,1 %</td><td class="n">44,9 %</td><td class="n">42,1 %</td><td class="n">B1</td></tr><tr><td>5-9 SKU</td><td class="n">805</td><td class="n">41,0 %</td><td class="n">43,2 %</td><td class="n">42,5 %</td><td class="n">47,3 %</td><td class="n">P3</td></tr><tr><td>10-14 SKU</td><td class="n">1.563</td><td class="n">42,7 %</td><td class="n">45,0 %</td><td class="n">43,1 %</td><td class="n">48,0 %</td><td class="n">P3</td></tr><tr><td>15-19 SKU</td><td class="n">2.406</td><td class="n">42,5 %</td><td class="n">47,8 %</td><td class="n">44,3 %</td><td class="n">54,2 %</td><td class="n">P3</td></tr><tr><td>20-29 SKU</td><td class="n">4.782</td><td class="n">43,6 %</td><td class="n">49,5 %</td><td class="n">46,8 %</td><td class="n">56,3 %</td><td class="n">P3</td></tr><tr><td>30-44 SKU</td><td class="n">5.555</td><td class="n">47,1 %</td><td class="n">52,8 %</td><td class="n">49,5 %</td><td class="n">61,7 %</td><td class="n">P3</td></tr><tr><td>45+ SKU</td><td class="n">7.502</td><td class="n">53,3 %</td><td class="n">58,5 %</td><td class="n">56,0 %</td><td class="n">72,0 %</td><td class="n">P3</td></tr></tbody></table></div>
+    <p class="nota">El umbral se eligió <b>sobre mayo</b> y se aplicó a ciegas sobre julio:
+    buscarlo sobre el mes de prueba habría sido ajustar contra la respuesta.
+    Resultado: <b>P4 alcanza 58,95 %</b> contra
+    58,64 % de P3 — apenas +0,31 puntos,
+    porque el tramo donde P3 falla es pequeño. <b>Su valor no es la métrica sino la garantía de que
+    ningún cliente recibe algo peor que el sistema actual.</b></p>
+  </div>
+
+  <h3 style="margin-top:38px">Traducción a pesos</h3>
+  <p class="t">Con 8 sugerencias por cliente al mes, el modelo acierta
+  <strong>1,24 productos por cliente</strong>, equivalentes a
+  <strong>0,36 SKU adicionales en cada visita</strong> y
+  57 pesos por cliente al mes.</p>
+  <div class="tw"><table><thead><tr><th>Si se convierte…</th><th>Impacto mensual</th><th>Impacto anual</th></tr></thead><tbody><tr><td>10 %</td><td class="n">140.586</td><td class="n">1.687.034</td></tr><tr><td>20 %</td><td class="n">281.172</td><td class="n">3.374.068</td></tr><tr><td>30 %</td><td class="n">421.758</td><td class="n">5.061.102</td></tr></tbody></table></div>
+
+  <div class="plain warn"><div class="tag">Por qué no hay una cifra única de impacto</div>
+    <p>Los datos dicen si el modelo <strong>acierta</strong> qué comprará el cliente, no si la
+    sugerencia lo <strong>causó</strong>. Puede que lo hubiera comprado de todos modos.</p>
+    <p>Por eso el impacto se presenta con la perilla a la vista: cada fila supone que una fracción
+    distinta de los aciertos no habría ocurrido sin la sugerencia. <strong>Lo único que mide
+    impacto real es un piloto con grupo de control</strong> — y eso es lo que viene.</p></div>
+</section>
+
+<section id="hallazgos">
+  <div class="snum">06 · Hallazgos</div>
+  <h2>Cinco cosas que este análisis dejó claras</h2>
+
+  <div class="grid2">
+    <div class="tk"><h3>El «cuándo» ya está resuelto</h3>
+      <p>El 48,6 % de los intervalos entre compras son de exactamente siete días.
+      El calendario lo pone la ruta, no el cliente. No hay que predecir el momento — hay que
+      decidir qué ofrecer cuando llegue.</p></div>
+
+    <div class="tk"><h3>La premisa del sistema actual es correcta</h3>
+      <p>La ruta aporta entre 15 y 20 puntos sobre la lista global, y no por surtido de almacén:
+      el CEDIS no explica nada. <strong>No hay que tirar el modelo actual, hay que afinarlo.</strong></p></div>
+
+    <div class="tk"><h3>Marca y afinidad son la señal desaprovechada</h3>
+      <p>Concentran el 56,6 % de lo que usa el modelo. El sistema
+      actual no mira ninguna de las dos. Ahí está el margen.</p></div>
+
+    <div class="tk"><h3>La oportunidad más cercana ya está en casa</h3>
+      <p>Cada cliente tiene unos 24,2 productos que ya compró alguna
+      vez y hoy no está pidiendo. No hay que convencerlo: ya los vendió.</p></div>
+
+    <div class="tk"><h3>El modelo necesita historia</h3>
+      <p>Rinde mejor cuanto más sabe del cliente: de +6 puntos sobre el sistema actual en quienes
+      llevan pocos productos a <strong>+19 puntos</strong> en los de surtido amplio.</p></div>
+  </div>
+
+  <div>
+    <h3 style="margin-top:40px">Dónde funciona y dónde no</h3>
+    <div class="tw"><table><thead><tr><th>Segmento</th><th>Clientes</th><th>B1</th><th>P3</th><th>Diferencia</th></tr></thead><tbody><tr><td>estables</td><td class="n">22.176</td><td class="n">45,6 %</td><td class="n">57,3 %</td><td class="n">+11,8</td></tr><tr><td>nuevas jun2026</td><td class="n">2.402</td><td class="n">77,2 %</td><td class="n">72,2 %</td><td class="n">−5,0</td></tr></tbody></table></div>
+    <p class="nota">El modelo gana con holgura donde el cliente tiene historia y <b>pierde donde no
+    la tiene</b>: sus variables principales se calculan sobre compras pasadas y quedan vacías. De
+    ahí P4, que enruta por historia del cliente.</p>
+  </div>
+
+  <div class="plain"><div class="tag">Lo que conviene empezar a hacer ya</div>
+    <p><strong>Registrar qué recomienda el sistema y qué se compra de eso.</strong> Hoy la base
+    guarda compras, no ofertas: no hay forma de saber qué se sugirió y el cliente no tomó.</p>
+    <p>Ese dato no se puede reconstruir hacia atrás y es lo único que permitiría aprender de los
+    rechazos, medir el sistema que ya opera y evaluar sin depender de reconstrucciones.
+    <strong>No cuesta nada empezar hoy.</strong></p></div>
+</section>
+
+<section id="validar">
+  <div class="snum">07 · Siguiente paso</div>
+  <h2>Cómo comprobar que esto sirve de verdad</h2>
+  <p class="lead">Todo lo anterior mide <strong>capacidad de predicción</strong>, no impacto.
+  Que el modelo acierte qué comprará un cliente no prueba que la sugerencia lo haya causado.
+  <strong>Lo único que lo demuestra es un experimento con grupo de control.</strong></p>
+
+  <ol class="pasos">
+    <li><b>Partir las rutas en dos grupos comparables.</b> Asignar al azar, no por desempeño: si se
+    eligen las mejores rutas para el grupo que recibe el modelo, el resultado está contaminado
+    antes de empezar. Emparejar por CEDIS, tamaño y venta histórica.</li>
+    <li><b>Dejar el grupo de control con el sistema actual.</b> Mismo número de sugerencias, misma
+    operación. La única diferencia debe ser el algoritmo.</li>
+    <li><b>Registrar qué se sugiere y qué se compra de eso.</b> Es el dato que hoy no existe y no
+    se puede reconstruir hacia atrás. Sin él no hay experimento posible.</li>
+    <li><b>Correrlo al menos ocho semanas.</b> El ciclo de compra es semanal y el de surtido
+    mensual; menos tiempo no distingue el efecto del ruido.</li>
+    <li><b>Medir SKU por visita e importe incremental</b>, comparando grupo contra grupo — no
+    contra el mes anterior, que mezcla estacionalidad y cualquier otra cosa que haya cambiado.</li>
+  </ol>
+
+  <div class="plain"><div class="tag">Lo que se puede hacer hoy sin costo</div>
+    <p><strong>Empezar a registrar qué recomienda el sistema actual y qué se compra de eso.</strong>
+    Ese dato no existe hoy y no puede reconstruirse hacia atrás. Es lo único que permitiría después
+    aprender de los rechazos, medir el impacto real del sistema que ya opera, y evaluar sin
+    depender de reconstrucciones.</p>
+    <p><strong>Cada mes que pasa sin registrarlo es un mes de aprendizaje perdido.</strong></p></div>
+
+  <div>
+    <h3 style="margin-top:40px">Limitaciones de este análisis</h3>
+    <ol class="pasos">
+      <li><b>La línea base es una reconstrucción.</b> La empresa no conserva las recomendaciones
+      que su sistema generó, así que se compara contra su lógica descrita, no contra sus
+      resultados. Si la implementación difiere de lo que se entendió, la vara se mueve.</li>
+      <li><b>No hay señal de faltante de stock.</b> Un «no compró» puede ser «no había».</li>
+      <li><b>No hay jerarquía de categorías.</b> La marca es el nivel más fino disponible; con
+      categorías se podría generalizar por familia de producto.</li>
+      <li><b>Un solo ciclo anual.</b> Tendencia y estacionalidad están confundidas y no se pueden
+      separar con doce meses.</li>
+      <li><b>El 11 % de los clientes no adoptó ningún producto nuevo</b> en el mes de prueba.
+      Están incluidos porque el preventista los visita igual, pero ningún recomendador puede
+      acertarles.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <span>Mes de prueba: julio 2026</span>
+  <span>24.578 clientes evaluados</span>
+  <span>Generado con src/13_sitio.py</span>
+</footer>
+</div>
+
+</body>
+</html>
