@@ -14,6 +14,17 @@ from comun import RAIZ, RESULTADOS
 from sitio import graficos as G
 from sitio.graficos import ES
 
+# Base para el enlace al análisis exploratorio.
+#
+# Servido desde storage.cloud.google.com, Google entrega el archivo desde otro
+# host (*.googleusercontent.com) tras autenticar, así que un enlace RELATIVO se
+# resuelve contra ese dominio y falla. Con --base se escribe absoluto.
+#
+#   ./.venv/bin/python src/13_sitio.py --base https://storage.cloud.google.com/mi-bucket
+BASE = ""
+if "--base" in sys.argv:
+    BASE = sys.argv[sys.argv.index("--base") + 1].rstrip("/") + "/"
+
 D = json.load(open(RESULTADOS / "eda_resultados.json"))
 P = json.load(open(RESULTADOS / "eda_productos.json"))
 T = json.load(open(RESULTADOS / "diag_techo.json"))
@@ -145,7 +156,7 @@ s2 = f"""
       catálogo, concentración, afinidades, calidad de los datos y sus advertencias. Cada bloque
       cierra con una lectura en lenguaje llano.</p>
     </div>
-    <a class="co-btn" href="analisis-exploratorio.html">Abrir el análisis →</a>
+    <a class="co-btn" href="{BASE}analisis-exploratorio.html">Abrir el análisis →</a>
   </div>
 
   {plain("Las advertencias que hay que tener presentes", '''
@@ -548,7 +559,8 @@ salida = RAIZ / "sitio" / "index.html"
 salida.parent.mkdir(exist_ok=True)
 salida.write_text(html, encoding="utf-8")
 kb = len(html.encode("utf-8")) / 1024
-print(f"sitio generado: {salida}  ({kb:.0f} KB, un solo archivo)")
+print(f"sitio generado: {salida}  ({kb:.0f} KB)")
+print(f"  enlace al análisis: {'absoluto → ' + BASE if BASE else 'relativo (uso local)'}")
 if "{{" in html:
     import re
     print("OJO, placeholders sin resolver:", set(re.findall(r"\{\{[a-zA-Z_]+\}\}", html)))

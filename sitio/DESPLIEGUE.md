@@ -113,8 +113,18 @@ aws cloudfront create-invalidation --distribution-id TU-ID --paths "/*.html"
 ## Regenerarlo
 
 ```bash
+# para abrir los archivos localmente (enlace relativo entre ellos)
 ./.venv/bin/python src/13_sitio.py
+
+# para servirlos desde un bucket con acceso autenticado
+./.venv/bin/python src/13_sitio.py --base https://storage.cloud.google.com/TU-BUCKET
 ```
 
 Lee de `resultados/*.json` y copia el análisis exploratorio desde `informes/`,
 así que refleja siempre la última ejecución.
+
+> **Por qué `--base`.** En `storage.cloud.google.com`, Google entrega el archivo
+> desde otro host (`*.googleusercontent.com`) después de autenticar. Un enlace
+> relativo se resuelve contra ese dominio y falla con 404. Con `--base` el enlace
+> al análisis exploratorio queda absoluto y funciona. Para uso local, sin la
+> bandera, queda relativo — que es lo correcto ahí.
