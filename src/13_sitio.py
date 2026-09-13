@@ -453,8 +453,18 @@ s7 = f"""
   <div class="snum">07 · Siguiente paso</div>
   <h2>Cómo comprobar que esto sirve de verdad</h2>
   <p class="lead">Todo lo anterior mide <strong>capacidad de predicción</strong>, no impacto.
-  Que el modelo acierte qué comprará un cliente no prueba que la sugerencia lo haya causado.
-  <strong>Lo único que lo demuestra es un experimento con grupo de control.</strong></p>
+  Que el modelo acierte qué comprará un cliente no prueba que la sugerencia lo haya causado:
+  quizá lo iba a pedir de todos modos. <strong>Lo único que lo demuestra es un experimento con
+  grupo de control</strong> — lo que se conoce como una prueba A/B.</p>
+
+  <p class="t">La idea es simple: <strong>un grupo de rutas trabaja con el modelo nuevo y otro
+  sigue con el sistema de siempre, durante el mismo periodo y en las mismas condiciones.</strong>
+  Si al final el primero vende más SKU por visita, la diferencia solo puede venir del cambio —
+  porque todo lo demás fue igual para ambos.</p>
+
+  <p class="t">Sin ese segundo grupo no hay forma de saberlo. Comparar contra el mes anterior no
+  sirve: entremedio cambian la temporada, los precios, las promociones y media docena de cosas
+  más, y cualquiera de ellas puede explicar el resultado.</p>
 
   <ol class="pasos">
     <li><b>Partir las rutas en dos grupos comparables.</b> Asignar al azar, no por desempeño: si se
@@ -466,9 +476,20 @@ s7 = f"""
     se puede reconstruir hacia atrás. Sin él no hay experimento posible.</li>
     <li><b>Correrlo al menos ocho semanas.</b> El ciclo de compra es semanal y el de surtido
     mensual; menos tiempo no distingue el efecto del ruido.</li>
-    <li><b>Medir SKU por visita e importe incremental</b>, comparando grupo contra grupo — no
-    contra el mes anterior, que mezcla estacionalidad y cualquier otra cosa que haya cambiado.</li>
+    <li><b>Comparar grupo contra grupo</b>, no contra el histórico. La pregunta es si las rutas
+    con modelo vendieron más que las rutas sin modelo <b>en el mismo periodo</b>.</li>
   </ol>
+
+  <h3 style="margin-top:34px">Qué mirar al final</h3>
+  {tabla(["Indicador", "Qué responde"], [
+      ["SKU distintos por visita", "la pregunta principal: ¿el cliente se lleva más productos?"],
+      ["Importe por visita", "si esos productos de más son de valor o de relleno"],
+      ["Visitas que terminan en pedido", "si la lista ayuda a cerrar o solo cambia qué se pide"],
+      ["Uso por parte del preventista", "si la herramienta se está usando; sin esto lo demás no se interpreta"],
+  ])}
+  <p class="nota">El último importa más de lo que parece: si el preventista no abre la lista o no
+  confía en ella, el experimento mide adopción y no calidad del modelo. <b>Conviene preguntarle
+  también qué le pareció</b>, no solo contar pedidos.</p>
 
   {plain("Lo que se puede hacer hoy sin costo", '''
     <p><strong>Empezar a registrar qué recomienda el sistema actual y qué se compra de eso.</strong>
