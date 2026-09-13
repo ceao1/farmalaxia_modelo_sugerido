@@ -168,9 +168,10 @@ ETIQ_VAR = {"es_dormido": "ya lo compró", "peso_marca": "peso de marca",
             "meses_disponible": "meses disponible", "n_skus_cliente": "surtido del cliente",
             "n_compras_cliente": "compras del cliente", "ticket_medio": "ticket medio",
             "marca_conocida": "marca conocida", "skus_de_la_marca": "SKU de la marca"}
-g_imp = G.barras([(ETIQ_VAR.get(r["variable"], r["variable"]), r["pct"]) for r in imp[:9]],
-                 "Importancia de cada variable en el modelo", h=270, mb=78,
-                 fmt_y=lambda v: f"{v:.0f}%")
+g_imp = G.barras_h([(ETIQ_VAR.get(r["variable"], r["variable"]), r["pct"]) for r in imp],
+                   "Cuánto aporta cada variable a las decisiones del modelo",
+                   destacar={ETIQ_VAR.get(imp[0]["variable"]), ETIQ_VAR.get(imp[1]["variable"])},
+                   nota_eje="% de la señal que usa el modelo")
 s4 = f"""
 <section id="metodo">
   <div class="snum">04 · Metodología</div>
@@ -324,6 +325,13 @@ CAB = ["Modelo", "SKU acertados", "vs actual", "Clientes con acierto", "vs actua
 filas_l = [fila_mod(LIB, m) for m in MOD] + ([fila_mod(P4L, "P4")] if P4 else [])
 cls_l = ["", "dest", "", "", "", ""][:len(filas_l)]
 neg = LIB["negocio"]["P3"]
+_acert = [(NOM[m].split(" · ")[1].capitalize(), sum(_leer(LIB, m)[1].values())) for m in MOD]
+if P4:
+    _acert.append(("Por segmento", sum(P4L["P4"]["desglose"].values())))
+g_res = G.barras_h(_acert, "Productos acertados por cada modelo", unidad="",
+                   destacar={"Ranker", "Por segmento"},
+                   fmt=lambda v: f"{ES(v)} SKU",
+                   nota_eje=f"sobre {ES(R['clientes_evaluados'])} clientes, 8 sugerencias a cada uno")
 esc = LIB["escenarios"]
 fil_esc = [[f"{ES(e['tasa_conversion']*100,0)} %", ES(e["mensual"]), ES(e["anual"])] for e in esc]
 
@@ -341,6 +349,8 @@ s5 = f"""
     <div class="stat"><span class="v mono">+{ES(LIB['hit_rate_8']['P3']-LIB['hit_rate_8']['B1'],2)}</span><span class="k">puntos de mejora</span></div>
     <div class="stat"><span class="v mono">{ES(neg['sku_extra_por_compra'],2)}</span><span class="k">SKU extra por compra</span></div>
   </div>
+
+  <div class="card">{g_res}</div>
 
   <h3 style="margin-top:38px">Cuántos productos acertó cada modelo</h3>
   <p class="t">Sobre {ES(R['clientes_evaluados'])} clientes y 8 sugerencias a cada uno.

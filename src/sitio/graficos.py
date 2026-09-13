@@ -141,3 +141,31 @@ def lineas(x_labels, series, alt, ymax=None, h=290, mb=48, unidad=""):
         s.append(f'<text x="{lx+17}" y="{h-9}" class="g-leg">{_esc(nom)}</text>')
         lx += 28 + len(nom) * 7.2
     return _svg(h, "".join(s), alt)
+
+
+def barras_h(datos, alt, unidad="%", ancho_etiq=210, alto_barra=30, gap=10,
+             destacar=None, fmt=lambda v: None, nota_eje=""):
+    """Barras horizontales: la forma correcta cuando las etiquetas son largas.
+
+    `datos` = [(etiqueta, valor), ...] en el orden en que se quieren mostrar.
+    Las etiquetas viven en su propia columna, así que no se encabalgan por más
+    largas que sean — el problema que tienen las barras verticales.
+    """
+    n = len(datos)
+    h = 16 + n * (alto_barra + gap) + (30 if nota_eje else 8)
+    x0 = ancho_etiq
+    iw = W - x0 - MR - 72          # sitio para el valor a la derecha
+    vmax = max(v for _, v in datos) or 1
+    s = []
+    for i, (lab, v) in enumerate(datos):
+        y = 12 + i * (alto_barra + gap)
+        bw = max(v / vmax * iw, 2)
+        cls = "g-hbar acc" if (destacar and lab in destacar) else "g-hbar"
+        s.append(f'<text x="{x0-12}" y="{y+alto_barra*0.68:.0f}" class="g-hlab">{_esc(lab)}</text>')
+        s.append(f'<rect x="{x0}" y="{y}" width="{bw:.1f}" height="{alto_barra}" rx="4" '
+                 f'class="{cls}"><title>{_esc(lab)}: {ES(v,1)}{unidad}</title></rect>')
+        txt = fmt(v) or f"{ES(v,1)}{unidad}"
+        s.append(f'<text x="{x0+bw+10:.1f}" y="{y+alto_barra*0.68:.0f}" class="g-hval">{txt}</text>')
+    if nota_eje:
+        s.append(f'<text x="{x0}" y="{h-8}" class="g-ax" text-anchor="start">{_esc(nota_eje)}</text>')
+    return _svg(h, "".join(s), alt)
