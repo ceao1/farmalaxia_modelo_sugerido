@@ -185,7 +185,7 @@ g_imp = G.barras_h([(ETIQ_VAR.get(r["variable"], r["variable"]), r["pct"]) for r
                    nota_eje="% de la señal que usa el modelo")
 s4 = f"""
 <section id="metodo">
-  <div class="snum">04 · Metodología</div>
+  <div class="snum">03 · Metodología</div>
   <h2>Cómo se comparó, para que la comparación signifique algo</h2>
   <p class="lead">Se reconstruyó la lógica del sistema actual como línea base y se midieron
   cuatro alternativas <strong>sobre el mismo conjunto de candidatos, el mismo mes y la misma
@@ -343,8 +343,22 @@ g_res = G.barras_h(_acert, "Productos acertados por cada modelo", unidad="",
                    destacar={"Ranker", "Por segmento"},
                    fmt=lambda v: f"{ES(v)} SKU",
                    nota_eje=f"sobre {ES(R['clientes_evaluados'])} clientes, 8 sugerencias a cada uno")
-esc = LIB["escenarios"]
-fil_esc = [[f"{ES(e['tasa_conversion']*100,0)} %", ES(e["mensual"]), ES(e["anual"])] for e in esc]
+
+# Traducción a pesos: sin el contexto del mes de prueba, los pesos por cliente-mes
+# se leen contra el ticket de UNA visita y el número parece tres veces mayor.
+_MES = next(m for m in D["mensual"] if m["mes"] == R["mes_prueba"])
+TICKET = _MES["ticket_promedio"]
+GASTO_MES = _MES["importe"] / _MES["clientes_compradores"]
+VISITAS = R["compras_por_cliente_mes"]
+IMP_P3 = neg["importe_por_cliente"]
+IMP_B1 = LIB["negocio"]["B1"]["importe_por_cliente"]
+DELTA = IMP_P3 - IMP_B1
+fil_pesos = [["Acierta el sistema actual (B1)", ES(IMP_B1, 1), ES(IMP_B1 / VISITAS, 1),
+              f"{ES(IMP_B1/GASTO_MES*100,1)} %"],
+             ["Acierta el modelo propuesto (P3)", ES(IMP_P3, 1), ES(IMP_P3 / VISITAS, 1),
+              f"{ES(IMP_P3/GASTO_MES*100,1)} %"],
+             ["<b>Diferencia — lo que aporta el cambio</b>", ES(DELTA, 1),
+              ES(DELTA / VISITAS, 1), f"{ES(DELTA/GASTO_MES*100,1)} %"]]
 
 s5 = f"""
 <section id="resultados">
@@ -396,16 +410,25 @@ s5 = f"""
   <p class="t">Con 8 sugerencias por cliente al mes, el modelo acierta
   <strong>{ES(neg['aciertos_por_cliente'],2)} productos por cliente</strong>, equivalentes a
   <strong>{ES(neg['sku_extra_por_compra'],2)} SKU adicionales en cada visita</strong> y
-  {ES(neg['importe_por_cliente'],0)} pesos por cliente al mes.</p>
-  {tabla(["Si se convierte…", "Impacto mensual", "Impacto anual"], fil_esc)}
+  {ES(IMP_P3,0)} pesos por cliente al mes. Esa última cifra hay que leerla con cuidado: son
+  <b>dos números distintos</b>, y el que cuenta para decidir es el segundo — la diferencia
+  contra lo que el sistema actual ya acertaba.</p>
 
-  {plain("Por qué no hay una cifra única de impacto", '''
-    <p>Los datos dicen si el modelo <strong>acierta</strong> qué comprará el cliente, no si la
-    sugerencia lo <strong>causó</strong>. Puede que lo hubiera comprado de todos modos.</p>
-    <p>Por eso el impacto se presenta con la perilla a la vista: cada fila supone que una fracción
-    distinta de los aciertos no habría ocurrido sin la sugerencia. <strong>Lo único que mide
-    impacto real es un piloto con grupo de control</strong> — y eso es lo que viene.</p>''',
-    warn=True)}
+  <h4 style="margin-top:30px">1 · El valor de lo que el modelo acierta — {ES(IMP_P3,0)} pesos</h4>
+  <p class="t">Es la suma de los productos que el modelo sugirió y el cliente efectivamente
+  compró ese mes. <b>Son pesos por cliente y por mes</b>, repartidos entre {ES(VISITAS,2)}
+  visitas: {ES(IMP_P3/VISITAS,1)} pesos en cada visita, sobre un ticket medio de
+  {ES(TICKET,0)}. Es el <b>{ES(IMP_P3/GASTO_MES*100,1)} %</b> de los {ES(GASTO_MES,0)} pesos
+  que ese cliente ya gasta al mes. Compararla contra el ticket de <b>una</b> visita da
+  {ES(IMP_P3/TICKET*100,0)} % y es la lectura equivocada: cruza un mes contra una visita.</p>
+
+  <h4 style="margin-top:30px">2 · La ganancia sobre el sistema actual — {ES(DELTA,0)} pesos</h4>
+  <p class="t">El sistema de hoy ya acierta {ES(IMP_B1,0)} pesos por cliente-mes por su cuenta.
+  Lo que cambia por reemplazarlo es la diferencia — <b>nadie va a facturar dos veces lo que el
+  modelo actual ya acertaba</b>.</p>
+  {tabla(["Concepto", "Pesos/cliente-mes", "Por visita", "% del gasto mensual"],
+         fil_pesos, ["", "", "dest"])}
+
 </section>
 """
 # ══════════════════════════════════════════════════════ 6. HALLAZGOS
@@ -508,6 +531,36 @@ s7 = f"""
     aprender de los rechazos, medir el impacto real del sistema que ya opera, y evaluar sin
     depender de reconstrucciones.</p>
     <p><strong>Cada mes que pasa sin registrarlo es un mes de aprendizaje perdido.</strong></p>''')}
+
+  <h3 style="margin-top:40px">Cómo llegaría esto a la operación</h3>
+  <p class="t">El experimento no necesita producto: basta con generar las listas y entregarlas.
+  A partir de ahí hay <b>cuatro formas de operarlo</b>, con distinto grado de integración. No hay
+  que elegir ahora —la decisión se toma cuando el piloto diga que vale la pena—, pero conviene saber
+  hacia dónde se puede crecer.</p>
+
+  <div class="grid2">
+    <div class="tk"><h3>1 · Sala limpia de datos</h3>
+      <p>La empresa deposita sus ventas en un entorno aislado al que solo ella y el proceso
+      tienen acceso. Ahí dentro corre el modelo y las recomendaciones salen a la tablet del
+      preventista. <b>La base de datos nunca se mueve de su sitio</b> y no hay información
+      circulando fuera.</p></div>
+
+    <div class="tk"><h3>2 · Carga de archivos</h3>
+      <p>Una herramienta web donde suben el archivo de ventas del periodo y descargan el archivo
+      de recomendaciones, listo para entrar al sistema de preventa. <b>Es lo más rápido de
+      montar</b> y no toca nada de su infraestructura, a cambio de un paso manual cada vez.</p></div>
+
+    <div class="tk"><h3>3 · API sobre la base de ventas</h3>
+      <p>El modelo se conecta a la base de ventas y devuelve las recomendaciones por API, para que
+      aparezcan <b>dentro del tablero o de la pantalla que el preventista ya usa</b>. Sin archivos
+      de por medio y con la lista al día, pero requiere trabajo de su lado para consumirla.</p></div>
+
+    <div class="tk"><h3>4 · Producto completo</h3>
+      <p>Una aplicación propia: cada mañana el preventista abre su ruta y ve, cliente por cliente,
+      el <b>pedido sugerido</b>, con el motivo de cada producto y la opción de aceptarlo o
+      descartarlo. Es la única que cierra el ciclo: lo que acepta y lo que rechaza vuelve como dato
+      para mejorar el modelo.</p></div>
+  </div>
 
   <div>
     <h3 style="margin-top:40px">Limitaciones de este análisis</h3>
