@@ -83,20 +83,90 @@ Con **P3** y 8 sugerencias por cliente-mes:
 |---|---:|
 | Aciertos por cliente-mes | 1,238 |
 | **SKU adicionales por compra** | **0,357** |
-| Importe de los aciertos, por cliente | 57,2 |
+| Importe de los aciertos, por cliente-mes | 57,2 |
 | De los aciertos, cuántos son descubrimiento | 23,1 % |
 
-Escenarios de impacto anual sobre 24.578 clientes:
+### Qué significa «57,2 pesos por cliente», y qué no
 
-| Conversión incremental supuesta | Mensual | Anual |
+Es la cifra más fácil de malinterpretar, así que conviene desarmarla. Son **tres
+números distintos**, cada uno más pequeño que el anterior, y solo el tercero es venta nueva.
+
+**1 · El valor de lo que el modelo acierta — 57,2 pesos.** Es la suma de los
+productos que P3 sugirió y el cliente efectivamente compró ese mes. Ojo con la unidad:
+son pesos **por cliente y por mes**, repartidos entre 3,47 visitas. Por visita son
+16,5 pesos sobre un ticket medio de 439 — es decir, el
+**3,8 %** de lo que ese cliente ya gasta al mes
+(1.520 pesos). Compararla contra el ticket de **una** visita da
+13 % y es la lectura equivocada: cruza un mes contra una visita.
+
+**2 · La ganancia sobre el sistema actual — 16,0 pesos.** El modelo de hoy (B1) ya
+acierta 41,2 pesos por cliente-mes por su cuenta. Lo que cambia por reemplazarlo
+es la diferencia: 16,0 pesos al mes, 4,6 por visita, el
+**1,1 %** del gasto mensual del cliente. Nadie va a facturar dos
+veces lo que B1 ya acertaba.
+
+| Concepto | Pesos/cliente-mes | Por visita | % del gasto mensual |
+|---|---:|---:|---:|
+| Acierta el sistema actual (B1) | 41,2 | 11,9 | 2,7 % |
+| Acierta el modelo propuesto (P3) | 57,2 | 16,5 | 3,8 % |
+| **Diferencia — lo que aporta el cambio** | 16,0 | 4,6 | 1,1 % |
+
+**3 · Cuánto de eso lo causó la sugerencia — no se sabe, y por eso son escenarios.** Este es
+el punto clave: **el POC mide aciertos, no ventas incrementales.** El mes evaluado ya ocurrió y ningún
+vendedor vio estas recomendaciones; lo que se midió es que el modelo predijo bien qué iba a
+comprar el cliente. Un acierto puede significar dos cosas muy distintas — que la sugerencia
+provocó la compra, o que el cliente lo iba a pedir igual y el modelo simplemente lo adivinó.
+**Los datos no distinguen una de la otra.**
+
+Hay una razón concreta para no ser optimista: el 76,9 % de los
+aciertos son productos **dormidos**, que el cliente ya compró antes y conoce de sobra. Son
+precisamente los que tenía más probabilidad de volver a pedir sin ayuda de nadie.
+
+Por eso la «tasa de conversión» de la tabla siguiente responde a una pregunta muy concreta:
+**de cada 10 productos que el modelo acierta, ¿cuántos el cliente no habría pedido si el
+vendedor no se los menciona?** Es un supuesto de negocio, no un resultado del análisis.
+
+### Escenarios de impacto sobre 24.578 clientes
+
+Sobre la ganancia del cambio (16,0 pesos por cliente-mes) — **esta es la tabla que
+hay que mirar para decidir si vale la pena reemplazar el modelo actual**:
+
+| Si se convierte… | Mensual | Anual |
+|---:|---:|---:|
+| 10 % | 39.325 | 471.898 |
+| 20 % | 78.650 | 943.795 |
+| 30 % | 117.974 | 1.415.693 |
+
+La banda de trabajo razonable es **20–30 %**: entre 943.795 y
+1.415.693 pesos al año. Un 10 % es el piso prudente; por encima del 30 % habría
+que sostener que una de cada tres sugerencias acertadas cambia de verdad la decisión del
+cliente, cosa que ningún dato de este análisis respalda.
+
+Para referencia, la tabla equivalente sobre el importe **total** de los aciertos de P3
+(57,2 pesos), que es la que sale directa del cálculo del POC:
+
+| Si se convierte… | Mensual | Anual |
 |---:|---:|---:|
 | 10 % | 140.586 | 1.687.034 |
 | 20 % | 281.172 | 3.374.068 |
 | 30 % | 421.758 | 5.061.102 |
 
-⚠️ **La tasa de conversión es un supuesto, no un dato.** Los datos dicen si el modelo acierta
-qué comprará el cliente, no si la sugerencia lo causó. Por eso no hay una cifra única de
-impacto. Solo un piloto con grupo de control lo mide.
+Esta segunda tabla **no mide la ganancia del cambio** — incluye lo que B1 ya acertaba hoy.
+Sirve para dimensionar el canal completo de recomendación, no para justificar el proyecto.
+
+### Dos precisiones de método
+
+- **El importe cuenta una pieza por SKU acertado**, valorada al precio unitario medio de ese
+  producto. Una línea de pedido real promedia más de una pieza, así que por este lado la cifra
+  es conservadora.
+- **El juego está acotado por diseño.** El modelo solo puede recomendar productos que el
+  cliente **no pidió en los últimos dos meses**. Lo habitual, que es el grueso de la factura,
+  queda fuera a propósito: el cliente lo iba a pedir de todos modos.
+
+⚠️ **Nada de esto es un uplift medido.** Solo un piloto con grupo de control —mismas rutas,
+unos vendedores con las sugerencias nuevas y otros con las de hoy— convierte estos escenarios
+en una cifra. Ese es el siguiente paso, y hasta entonces la conversión es una perilla que el
+negocio gira, no un dato del análisis.
 
 
 ## 7. Desglose por antigüedad de ruta

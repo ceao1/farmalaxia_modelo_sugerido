@@ -13,6 +13,14 @@ from comun import INFORMES, RESULTADOS
 RUTA_JSON = Path(sys.argv[1]) if len(sys.argv) > 1 else RESULTADOS / "poc.json"
 RUTA_MD = Path(sys.argv[2]) if len(sys.argv) > 2 else INFORMES / "04-resultados-poc.md"
 D = json.load(open(RUTA_JSON))
+
+# Contexto del mes de prueba: sin él, los pesos por cliente no se pueden comparar
+# contra nada y se leen como un porcentaje del ticket que no son.
+_EDA = json.load(open(RESULTADOS / "eda_resultados.json"))
+_MES = next(m for m in _EDA["mensual"] if m["mes"] == D["mes_prueba"])
+TICKET = _MES["ticket_promedio"]                                  # pesos por visita
+GASTO_MES = _MES["importe"] / _MES["clientes_compradores"]         # pesos por cliente-mes
+
 NOMBRES = {"B0": "B0 · popularidad global",
            "B1": "**B1 · popularidad de ruta** *(modelo actual)*",
            "P1": "P1 · ruta + marca conocida",
@@ -69,27 +77,110 @@ def negocio_bloque(pol: str) -> str:
     b = D["politicas"][pol]
     mejor = b["veredicto"]["mejor_propuesta"]
     n = b["negocio"][mejor]
+    base = b["negocio"]["B1"]
+    N = D["clientes_evaluados"]
+    visitas = D["compras_por_cliente_mes"]
+
+    imp_mejor = n["importe_por_cliente"]
+    imp_base = base["importe_por_cliente"]
+    delta = imp_mejor - imp_base
+
+    def fila(nombre, v):
+        return (f"| {nombre} | {ES(v,1)} | {ES(v/visitas,1)} | "
+                f"{ES(v/GASTO_MES*100,1)} % |")
+
     esc = "\n".join(
         f"| {ES(e['tasa_conversion']*100,0)} % | {ES(e['mensual'])} | {ES(e['anual'])} |"
         for e in b["escenarios"])
+    esc_inc = "\n".join(
+        f"| {ES(t*100,0)} % | {ES(delta*N*t)} | {ES(delta*N*t*12)} |"
+        for t in (0.10, 0.20, 0.30))
     return f"""Con **{mejor}** y 8 sugerencias por cliente-mes:
 
 | Métrica | Valor |
 |---|---:|
 | Aciertos por cliente-mes | {ES(n['aciertos_por_cliente'],3)} |
 | **SKU adicionales por compra** | **{ES(n['sku_extra_por_compra'],3)}** |
-| Importe de los aciertos, por cliente | {ES(n['importe_por_cliente'],1)} |
+| Importe de los aciertos, por cliente-mes | {ES(imp_mejor,1)} |
 | De los aciertos, cuántos son descubrimiento | {ES(n['pct_descubrimiento'],1)} % |
 
-Escenarios de impacto anual sobre {ES(D['clientes_evaluados'])} clientes:
+### Qué significa «{ES(imp_mejor,1)} pesos por cliente», y qué no
 
-| Conversión incremental supuesta | Mensual | Anual |
+Es la cifra más fácil de malinterpretar, así que conviene desarmarla. Son **tres
+números distintos**, cada uno más pequeño que el anterior, y solo el tercero es venta nueva.
+
+**1 · El valor de lo que el modelo acierta — {ES(imp_mejor,1)} pesos.** Es la suma de los
+productos que {mejor} sugirió y el cliente efectivamente compró ese mes. Ojo con la unidad:
+son pesos **por cliente y por mes**, repartidos entre {ES(visitas,2)} visitas. Por visita son
+{ES(imp_mejor/visitas,1)} pesos sobre un ticket medio de {ES(TICKET,0)} — es decir, el
+**{ES(imp_mejor/GASTO_MES*100,1)} %** de lo que ese cliente ya gasta al mes
+({ES(GASTO_MES,0)} pesos). Compararla contra el ticket de **una** visita da
+{ES(imp_mejor/TICKET*100,0)} % y es la lectura equivocada: cruza un mes contra una visita.
+
+**2 · La ganancia sobre el sistema actual — {ES(delta,1)} pesos.** El modelo de hoy (B1) ya
+acierta {ES(imp_base,1)} pesos por cliente-mes por su cuenta. Lo que cambia por reemplazarlo
+es la diferencia: {ES(delta,1)} pesos al mes, {ES(delta/visitas,1)} por visita, el
+**{ES(delta/GASTO_MES*100,1)} %** del gasto mensual del cliente. Nadie va a facturar dos
+veces lo que B1 ya acertaba.
+
+| Concepto | Pesos/cliente-mes | Por visita | % del gasto mensual |
+|---|---:|---:|---:|
+{fila('Acierta el sistema actual (B1)', imp_base)}
+{fila(f'Acierta el modelo propuesto ({mejor})', imp_mejor)}
+{fila('**Diferencia — lo que aporta el cambio**', delta)}
+
+**3 · Cuánto de eso lo causó la sugerencia — no se sabe, y por eso son escenarios.** Este es
+el punto clave: **el POC mide aciertos, no ventas incrementales.** El mes evaluado ya ocurrió y ningún
+vendedor vio estas recomendaciones; lo que se midió es que el modelo predijo bien qué iba a
+comprar el cliente. Un acierto puede significar dos cosas muy distintas — que la sugerencia
+provocó la compra, o que el cliente lo iba a pedir igual y el modelo simplemente lo adivinó.
+**Los datos no distinguen una de la otra.**
+
+Hay una razón concreta para no ser optimista: el {ES(100-n['pct_descubrimiento'],1)} % de los
+aciertos son productos **dormidos**, que el cliente ya compró antes y conoce de sobra. Son
+precisamente los que tenía más probabilidad de volver a pedir sin ayuda de nadie.
+
+Por eso la «tasa de conversión» de la tabla siguiente responde a una pregunta muy concreta:
+**de cada 10 productos que el modelo acierta, ¿cuántos el cliente no habría pedido si el
+vendedor no se los menciona?** Es un supuesto de negocio, no un resultado del análisis.
+
+### Escenarios de impacto sobre {ES(N)} clientes
+
+Sobre la ganancia del cambio ({ES(delta,1)} pesos por cliente-mes) — **esta es la tabla que
+hay que mirar para decidir si vale la pena reemplazar el modelo actual**:
+
+| Si se convierte… | Mensual | Anual |
+|---:|---:|---:|
+{esc_inc}
+
+La banda de trabajo razonable es **20–30 %**: entre {ES(delta*N*0.20*12)} y
+{ES(delta*N*0.30*12)} pesos al año. Un 10 % es el piso prudente; por encima del 30 % habría
+que sostener que una de cada tres sugerencias acertadas cambia de verdad la decisión del
+cliente, cosa que ningún dato de este análisis respalda.
+
+Para referencia, la tabla equivalente sobre el importe **total** de los aciertos de {mejor}
+({ES(imp_mejor,1)} pesos), que es la que sale directa del cálculo del POC:
+
+| Si se convierte… | Mensual | Anual |
 |---:|---:|---:|
 {esc}
 
-⚠️ **La tasa de conversión es un supuesto, no un dato.** Los datos dicen si el modelo acierta
-qué comprará el cliente, no si la sugerencia lo causó. Por eso no hay una cifra única de
-impacto. Solo un piloto con grupo de control lo mide.
+Esta segunda tabla **no mide la ganancia del cambio** — incluye lo que B1 ya acertaba hoy.
+Sirve para dimensionar el canal completo de recomendación, no para justificar el proyecto.
+
+### Dos precisiones de método
+
+- **El importe cuenta una pieza por SKU acertado**, valorada al precio unitario medio de ese
+  producto. Una línea de pedido real promedia más de una pieza, así que por este lado la cifra
+  es conservadora.
+- **El juego está acotado por diseño.** El modelo solo puede recomendar productos que el
+  cliente **no pidió en los últimos dos meses**. Lo habitual, que es el grueso de la factura,
+  queda fuera a propósito: el cliente lo iba a pedir de todos modos.
+
+⚠️ **Nada de esto es un uplift medido.** Solo un piloto con grupo de control —mismas rutas,
+unos vendedores con las sugerencias nuevas y otros con las de hoy— convierte estos escenarios
+en una cifra. Ese es el siguiente paso, y hasta entonces la conversión es una perilla que el
+negocio gira, no un dato del análisis.
 """
 
 
