@@ -3,3 +3,4 @@ pyarrow>=25.0
 matplotlib>=3.11
 lightgbm>=4.7
 pytest>=9.1
+python-docx>=1.2
